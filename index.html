@@ -1,0 +1,2353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#FFFFFF">
+<title>Year Strong</title>
+
+<!-- PWA · installable web app -->
+<link rel="manifest" href="manifest.json">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Year Strong">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+
+:root {
+  /* legacy token aliases — old warm-cookbook names mapped onto the Superpower palette
+     so inline styles / JS-generated markup that reference them keep working */
+  --paper: #FFFFFF;
+  --paper-warm: #F5F5F3;
+  --card-warm: #F5F5F3;
+  --rule: #ECEBE8;
+  --rule-warm: #E2E1DD;
+  --terra: #EE5A24;
+  --terra-dark: #D8420F;
+  --terra-soft: #F2A98C;
+  --sage: #2FAE72;
+  --sage-dark: #1F8A5B;
+  --ochre: #C98A2E;
+  --shadow-soft: 0 1px 2px rgba(20,18,24,0.05);
+  --shadow-med: 0 1px 2px rgba(20,18,24,0.04), 0 4px 16px rgba(20,18,24,0.04);
+
+  /* Superpower palette — clinical white, one warm orange, functional data colors */
+  --bg:        #ECEAE6;   /* page backdrop behind the app column */
+  --app:       #FFFFFF;   /* the app surface */
+  --sub:       #F5F5F3;   /* grouped fills / inputs / inset strips */
+  --sub-2:     #F0EFEC;
+  --card:      #FFFFFF;
+  --ink:       #17161A;   /* near-black text */
+  --ink-2:     #6C6B70;   /* secondary */
+  --ink-3:     #9B9A9F;   /* tertiary / placeholder */
+  --ink-4:     #BFBEC2;
+  --line:      #ECEBE8;   /* hairline */
+  --line-2:    #E2E1DD;
+  --black:     #161519;   /* primary buttons / active */
+  --accent:    #EE5A24;   /* Superpower orange */
+  --accent-2:  #D8420F;
+  --accent-soft:#FCEDE5;
+  --green:     #2FAE72;
+  --green-soft:#E7F5EE;
+  --yellow:    #E2B43A;
+  --pink:      #EC4899;
+  --amber:     #C98A2E;
+  --amber-soft:#FBF1E2;
+  --radius:    18px;
+  --radius-md: 14px;
+  --radius-sm: 11px;
+  --shadow:    0 1px 2px rgba(20,18,24,0.04), 0 4px 16px rgba(20,18,24,0.04);
+  --shadow-sm: 0 1px 2px rgba(20,18,24,0.05);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+html { background: var(--bg); }
+body {
+  background: var(--app);
+  color: var(--ink);
+  font-family: 'Hanken Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 16px; line-height: 1.5; letter-spacing: -0.006em;
+  -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+  max-width: 430px; margin: 0 auto; min-height: 100vh;
+  border-left: 1px solid var(--line-2); border-right: 1px solid var(--line-2);
+  padding-bottom: 64px; overflow-x: hidden;
+}
+
+/* ── Header · title block ─────────────────────────────── */
+header { padding: 38px 22px 22px; }
+.eyebrow { font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-3); font-weight: 600; margin-bottom: 18px; white-space: nowrap; }
+.eyebrow .ornament { color: var(--ink-4); font-weight: 400; margin: 0 5px; display: inline; height: auto; background: none; text-indent: 0; }
+h1.title { font-weight: 700; font-size: 42px; line-height: 1.02; letter-spacing: -0.035em; color: var(--ink); margin-bottom: 14px; }
+h1.title em { font-style: normal; color: var(--accent); }
+.subtitle { font-size: 16px; color: var(--ink-2); font-weight: 400; max-width: 340px; line-height: 1.5; }
+
+/* ── Starting line · 3-col stat row ───────────────────── */
+.starting-line { margin: 20px 22px 6px; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px 20px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; box-shadow: var(--shadow-sm); }
+.starting-line .label { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); font-weight: 600; margin-bottom: 6px; }
+.starting-line .value { font-size: 16px; color: var(--ink); line-height: 1.3; font-weight: 500; }
+.starting-line .value strong { color: var(--ink); font-weight: 700; }
+
+/* ── Intro stats · 2x2 grid ───────────────────────────── */
+.intro-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 0 22px; margin: 18px 0 6px; }
+.intro-stat { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius-md); padding: 15px 16px; box-shadow: var(--shadow-sm); }
+.intro-stat .k { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); font-weight: 600; margin-bottom: 6px; }
+.intro-stat .v { font-size: 16px; color: var(--ink); line-height: 1.3; font-weight: 600; }
+.intro-stat .v em { font-style: normal; color: var(--ink); }
+
+/* divider (was decorative ✦ row) */
+.ornament { height: 1px; background: var(--line); margin: 26px 22px; text-indent: -9999px; overflow: hidden; }
+
+/* ── Phase nav · scrollable pill row ──────────────────── */
+.phase-nav { display: flex; gap: 8px; padding: 0 22px; margin: 24px 0 22px; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+.phase-nav::-webkit-scrollbar { display: none; }
+.phase-pill { flex: 0 0 auto; padding: 9px 17px; border-radius: 999px; font-size: 14px; font-weight: 600; letter-spacing: -0.01em; background: var(--app); color: var(--ink-2); border: 1px solid var(--line-2); cursor: pointer; transition: all 0.18s ease; white-space: nowrap; }
+.phase-pill:hover { border-color: var(--ink-4); color: var(--ink); }
+.phase-pill.active { background: var(--black); color: #fff; border-color: var(--black); }
+
+section { padding: 0 22px; margin-bottom: 36px; }
+
+/* ── Section label ────────────────────────────────────── */
+.section-label { font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-3); font-weight: 600; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+.section-label::before { content: ""; width: 7px; height: 7px; border-radius: 999px; background: var(--accent); flex: 0 0 auto; }
+
+/* ── Phase card · primary section header ──────────────── */
+.phase-card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 26px 24px; box-shadow: var(--shadow); }
+.phase-card .month-range { font-size: 12px; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 12px; font-weight: 700; }
+.phase-card h2 { font-weight: 700; font-size: 27px; line-height: 1.12; letter-spacing: -0.025em; margin-bottom: 14px; color: var(--ink); }
+.phase-card h2 em { font-style: normal; color: var(--accent); }
+.phase-card p.lede { color: var(--ink-2); font-size: 16px; line-height: 1.6; margin-bottom: 22px; }
+.phase-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; padding-top: 20px; border-top: 1px solid var(--line); }
+.phase-stat .label { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); font-weight: 600; margin-bottom: 5px; }
+.phase-stat .value { font-size: 17px; color: var(--ink); line-height: 1.3; font-weight: 600; }
+
+/* ── Trajectory · bar rows ────────────────────────────── */
+.trajectory { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 22px 22px 14px; margin-bottom: 16px; box-shadow: var(--shadow-sm); }
+.trajectory-row { display: grid; grid-template-columns: 60px 1fr 64px; gap: 14px; padding: 11px 0; border-bottom: 1px solid var(--line); align-items: center; }
+.trajectory-row:last-child { border-bottom: none; }
+.trajectory-row .month { font-size: 12px; color: var(--ink-3); letter-spacing: 0.02em; font-weight: 600; }
+.trajectory-row .bar-track { background: var(--sub); height: 8px; border-radius: 999px; overflow: hidden; }
+.trajectory-row .bar-fill { height: 100%; background: var(--accent); border-radius: 999px; }
+.trajectory-row .weight { font-size: 14px; color: var(--ink); text-align: right; font-weight: 600; }
+.trajectory-row .weight em { color: var(--accent); font-style: normal; }
+
+/* ── Callout boxes ────────────────────────────────────── */
+.med-box, .note-box { border-radius: var(--radius-md); padding: 17px 18px; margin: 18px 0; border: 1px solid; }
+.med-box { background: var(--accent-soft); border-color: rgba(238,90,36,0.18); }
+.note-box { background: var(--green-soft); border-color: rgba(47,174,114,0.2); }
+.med-box .note-label, .note-box .note-label { font-size: 11px; letter-spacing: 0.09em; text-transform: uppercase; font-weight: 700; margin-bottom: 8px; display: flex; align-items: center; gap: 7px; }
+.med-box .note-label { color: var(--accent-2); }
+.note-box .note-label { color: var(--green); }
+.med-box .note-label::before, .note-box .note-label::before { content: ""; width: 6px; height: 6px; border-radius: 999px; background: currentColor; }
+.med-box .note-text, .note-box .note-text { font-size: 15px; color: var(--ink-2); font-style: normal; line-height: 1.55; }
+
+/* ── Weekly cadence · 7-day grid ──────────────────────── */
+.week { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; scroll-snap-type: x proximity; margin: 0 -22px 8px; padding: 2px 22px 6px; }
+.week::-webkit-scrollbar { display: none; }
+.day { flex: 0 0 76px; min-height: 96px; background: var(--card); border-radius: var(--radius-sm); padding: 12px 8px; display: flex; flex-direction: column; align-items: center; justify-content: space-between; border: 1px solid var(--line); scroll-snap-align: start; }
+.day.rest { background: transparent; border-style: dashed; border-color: var(--line-2); }
+.day.play-day { background: var(--green-soft); border-color: rgba(47,174,114,0.22); }
+.day.play-day .dow { color: var(--green); }
+.day.play-day .icon { color: var(--green); }
+.day.play-day .icon em { color: var(--green); opacity: 0.8; }
+.day.active-day { background: var(--sub); border-color: var(--line-2); }
+.day.active-day .dow { color: var(--accent); }
+.day .dow { font-size: 11px; color: var(--ink-3); letter-spacing: 0.04em; font-weight: 700; }
+.day .icon { font-size: 14px; color: var(--ink); text-align: center; line-height: 1.15; font-weight: 600; }
+.day .icon em { display: block; font-size: 10px; font-style: normal; color: var(--ink-3); font-weight: 500; margin-top: 4px; }
+.day.rest .icon, .day.rest .dow { color: var(--ink-4); }
+
+/* ── Workout card ─────────────────────────────────────── */
+.workout { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); margin-bottom: 12px; overflow: hidden; box-shadow: var(--shadow-sm); }
+.workout-header { padding: 18px 20px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; user-select: none; }
+.workout-header:active { background: var(--sub); }
+.workout-day { font-size: 11px; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; font-weight: 700; }
+.workout-name { font-size: 21px; font-weight: 700; margin-top: 4px; color: var(--ink); letter-spacing: -0.02em; }
+.workout-name em { font-style: normal; color: var(--ink-3); font-weight: 500; }
+.workout-toggle { width: 34px; height: 34px; border-radius: 50%; background: var(--app); display: flex; align-items: center; justify-content: center; border: 1px solid var(--line-2); font-size: 20px; color: var(--ink-2); transition: transform 0.3s ease, background 0.2s, color 0.2s; font-weight: 400; line-height: 1; }
+.workout.open .workout-toggle { transform: rotate(45deg); background: var(--black); color: #fff; border-color: var(--black); }
+.workout-body { max-height: 0; overflow: hidden; transition: max-height 0.5s ease; }
+.workout.open .workout-body { max-height: 8000px; }
+.workout-body-inner { padding: 0 20px 20px; border-top: 1px solid var(--line); padding-top: 18px; }
+
+.workout-why { font-size: 14px; line-height: 1.55; color: var(--ink-2); padding: 2px 0 16px; border-bottom: 1px solid var(--line); margin-bottom: 14px; font-style: normal; }
+.workout-why::before { content: "Why you'll feel good after this — "; color: var(--accent); font-weight: 700; }
+
+/* ── Exercise rows ────────────────────────────────────── */
+.exercise { padding: 16px 0; border-bottom: 1px solid var(--line); }
+.exercise:last-child { border-bottom: none; }
+.exercise-top { display: grid; grid-template-columns: 1fr auto; gap: 10px; align-items: start; }
+.ex-name { font-size: 16px; font-weight: 600; line-height: 1.3; color: var(--ink); }
+.ex-cue { font-size: 14px; color: var(--ink-2); font-style: normal; margin-top: 4px; line-height: 1.5; }
+.ex-prescription { font-size: 13px; color: var(--accent); text-align: right; white-space: nowrap; padding-top: 3px; font-weight: 700; }
+.exercise.priority { background: var(--accent-soft); margin: 0 -20px; padding: 16px 20px; border-radius: var(--radius-md); border-bottom: none; }
+.exercise.priority + .exercise { border-top: 1px solid var(--line); }
+.exercise.priority .ex-name::before { content: "● "; color: var(--accent); font-size: 9px; vertical-align: 2px; }
+
+.ex-log { margin-top: 13px; padding-top: 13px; border-top: 1px solid var(--line); display: grid; grid-template-columns: 1fr auto; gap: 12px; align-items: center; }
+.ex-log-last { font-size: 12px; color: var(--ink-3); font-style: normal; }
+.ex-log-last span { color: var(--ink); font-weight: 700; }
+.ex-log-last.empty { color: var(--ink-3); }
+.ex-log-inputs { display: flex; gap: 6px; align-items: center; }
+.ex-log-inputs input { width: 58px; padding: 8px; background: var(--sub); border: 1px solid var(--line-2); border-radius: 10px; color: var(--ink); font-family: inherit; font-size: 14px; text-align: center; font-weight: 600; }
+.ex-log-inputs input::placeholder { color: var(--ink-4); font-style: normal; font-weight: 400; }
+.ex-log-inputs input:focus { outline: none; border-color: var(--accent); background: var(--app); }
+.ex-log-inputs button { padding: 9px 16px; background: var(--black); border: none; border-radius: 10px; color: #fff; font-family: inherit; font-style: normal; font-size: 14px; font-weight: 600; cursor: pointer; transition: background 0.2s; }
+.ex-log-inputs button:active, .ex-log-inputs button:hover { background: #000; }
+.ex-log-inputs button.saved { background: var(--green); }
+.ex-log-inputs .sep { color: var(--ink-3); font-size: 13px; }
+
+/* ── Principle · numbered rule ────────────────────────── */
+.principle { display: grid; grid-template-columns: 42px 1fr; gap: 16px; padding: 18px 0; border-bottom: 1px solid var(--line); align-items: start; }
+.principle:last-child { border-bottom: none; }
+.principle-num { font-size: 30px; color: var(--accent); line-height: 1; font-weight: 700; letter-spacing: -0.04em; font-style: normal; }
+.principle-body h4 { font-size: 16px; font-weight: 700; margin-bottom: 6px; color: var(--ink); letter-spacing: -0.01em; }
+.principle-body p { font-size: 15px; color: var(--ink-2); line-height: 1.55; }
+
+/* ── Macro / grocery rows ─────────────────────────────── */
+.macro-row { display: grid; grid-template-columns: 1fr auto; padding: 14px 0; border-bottom: 1px solid var(--line); align-items: center; }
+.macro-row:last-child { border-bottom: none; }
+.macro-name { font-size: 15px; color: var(--ink); font-weight: 500; }
+.macro-name em { display: block; font-size: 12px; color: var(--ink-3); font-style: normal; margin-top: 3px; }
+.macro-value { font-size: 14px; color: var(--ink); font-weight: 700; }
+
+/* ── Quote block ──────────────────────────────────────── */
+.quote { padding: 30px 4px 34px; position: relative; }
+.quote::before { content: ""; display: block; width: 32px; height: 3px; border-radius: 999px; background: var(--accent); margin-bottom: 18px; }
+.quote p { font-style: normal; font-weight: 600; font-size: 25px; line-height: 1.3; color: var(--ink); letter-spacing: -0.025em; }
+
+/* ── Meal block ───────────────────────────────────────── */
+.meal { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; margin-bottom: 12px; box-shadow: var(--shadow-sm); }
+.meal-time { font-size: 11px; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px; font-weight: 700; }
+.meal-title { font-size: 19px; font-weight: 700; margin-bottom: 5px; color: var(--ink); line-height: 1.22; letter-spacing: -0.02em; }
+.meal-title em { font-style: normal; color: var(--ink-3); font-weight: 500; }
+.meal-protein { font-size: 12px; color: var(--ink-2); margin-bottom: 13px; font-weight: 600; }
+.meal-options { font-size: 14px; color: var(--ink-2); line-height: 1.7; font-style: normal; }
+.meal-options strong { color: var(--ink); font-style: normal; font-weight: 700; }
+
+/* ── Recipe cards ─────────────────────────────────────── */
+.recipe-card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 0; margin-bottom: 16px; overflow: hidden; box-shadow: var(--shadow); }
+.recipe-head { padding: 22px 22px 16px; }
+.recipe-tag { display: inline-block; font-size: 11px; letter-spacing: 0.04em; text-transform: uppercase; padding: 5px 11px; border-radius: 999px; margin-bottom: 12px; font-weight: 700; }
+.recipe-tag.fish { color: var(--amber); background: var(--amber-soft); }
+.recipe-tag.meat { color: var(--accent-2); background: var(--accent-soft); }
+.recipe-tag.plant { color: var(--green); background: var(--green-soft); }
+.recipe-name { font-size: 23px; font-weight: 700; line-height: 1.14; margin-bottom: 7px; letter-spacing: -0.03em; color: var(--ink); }
+.recipe-meal { font-size: 12px; color: var(--ink-3); letter-spacing: 0.04em; text-transform: uppercase; font-weight: 600; }
+.recipe-why { font-size: 14px; color: var(--ink-2); line-height: 1.55; padding: 0 22px 18px; font-style: normal; }
+.recipe-macros { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; padding: 15px 22px; background: var(--sub); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.recipe-macro { text-align: center; }
+.recipe-macro .k { font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 4px; font-weight: 600; }
+.recipe-macro .v { font-size: 18px; font-weight: 700; color: var(--ink); letter-spacing: -0.02em; }
+.recipe-macro.protein .v { color: var(--accent); font-style: normal; }
+.recipe-section { padding: 18px 22px; border-bottom: 1px solid var(--line); }
+.recipe-section:last-child { border-bottom: none; }
+.recipe-section-label { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 13px; font-weight: 700; }
+.recipe-ingredients { list-style: none; padding: 0; margin: 0; }
+.recipe-ingredients li { font-size: 15px; line-height: 1.6; color: var(--ink); padding: 4px 0 4px 18px; position: relative; }
+.recipe-ingredients li::before { content: ""; position: absolute; left: 2px; top: 13px; width: 5px; height: 5px; border-radius: 999px; background: var(--accent); }
+.recipe-ingredients li em { color: var(--ink-3); font-style: normal; font-size: 13px; }
+.recipe-steps { list-style: none; padding: 0; margin: 0; counter-reset: step; }
+.recipe-steps li { font-size: 15px; line-height: 1.6; color: var(--ink-2); padding: 8px 0 8px 38px; position: relative; counter-increment: step; }
+.recipe-steps li::before { content: counter(step); position: absolute; left: 0; top: 7px; width: 26px; height: 26px; background: var(--app); border: 1px solid var(--line-2); border-radius: 50%; font-size: 12px; color: var(--ink); display: flex; align-items: center; justify-content: center; font-weight: 700; }
+.recipe-steps li em { color: var(--ink-3); font-style: normal; }
+.recipe-note { background: var(--sub); padding: 16px 22px; font-size: 13px; color: var(--ink-2); font-style: normal; line-height: 1.55; }
+.recipe-note strong { color: var(--ink); font-style: normal; font-weight: 700; }
+.recipe-filter { display: flex; gap: 8px; padding: 0 22px 16px; overflow-x: auto; scrollbar-width: none; }
+.recipe-filter::-webkit-scrollbar { display: none; }
+.recipe-filter-pill { flex: 0 0 auto; padding: 7px 15px; border-radius: 999px; font-size: 13px; background: var(--app); color: var(--ink-2); border: 1px solid var(--line-2); cursor: pointer; white-space: nowrap; font-weight: 600; transition: all 0.18s; }
+.recipe-filter-pill:hover { border-color: var(--ink-4); color: var(--ink); }
+.recipe-filter-pill.active { background: var(--black); color: #fff; border-color: var(--black); }
+.recipe-card.hidden { display: none; }
+.recipe-group-label { font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-3); margin: 28px 0 16px; display: flex; align-items: center; gap: 12px; font-weight: 600; }
+.recipe-group-label::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+
+/* ── Log summary ──────────────────────────────────────── */
+.log-summary { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px 22px; margin-bottom: 14px; box-shadow: var(--shadow-sm); }
+.log-summary h3 { font-size: 18px; font-weight: 700; margin-bottom: 12px; color: var(--ink); letter-spacing: -0.02em; }
+.log-summary .clear-btn { font-size: 13px; color: var(--ink-2); border: 1px solid var(--line-2); background: transparent; padding: 8px 14px; border-radius: 10px; cursor: pointer; font-weight: 600; }
+.log-summary .clear-btn:hover { color: var(--accent); border-color: var(--accent); }
+
+/* ── Sheets setup card ────────────────────────────────── */
+.setup-card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 22px; margin-bottom: 16px; box-shadow: var(--shadow-sm); }
+.setup-lede { font-size: 15px; color: var(--ink-2); line-height: 1.55; margin-bottom: 18px; }
+.sync-status-row { display: flex; align-items: center; gap: 10px; padding: 13px 16px; background: var(--sub); border-radius: var(--radius-sm); margin-bottom: 18px; font-size: 14px; color: var(--ink); font-weight: 500; }
+.sync-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--ink-4); flex-shrink: 0; }
+.sync-dot.synced { background: var(--green); }
+.sync-dot.syncing { background: var(--yellow); animation: pulse-dot 1.4s infinite; }
+.sync-dot.error { background: var(--accent); }
+@keyframes pulse-dot { 0%,100% { opacity: 1; } 50% { opacity: 0.35; } }
+.setup-steps { margin-bottom: 18px; }
+.setup-steps summary { font-size: 14px; color: var(--accent); cursor: pointer; padding: 8px 0; font-weight: 600; }
+.setup-steps summary em { color: var(--ink-3); font-style: normal; font-weight: 400; font-size: 13px; }
+.setup-steps summary:hover { color: var(--accent-2); }
+.setup-steps ol { margin: 12px 0 4px 20px; padding: 0; }
+.setup-steps ol li { font-size: 14px; line-height: 1.6; color: var(--ink-2); padding: 4px 0; }
+.setup-steps ol li code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; background: var(--sub); padding: 1px 6px; border-radius: 5px; font-size: 12px; color: var(--accent-2); border: 1px solid var(--line-2); }
+.setup-steps ol li strong { color: var(--ink); font-weight: 700; }
+.setup-steps ol li a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
+.setup-form { display: flex; gap: 8px; flex-wrap: wrap; }
+.setup-form input { flex: 1; min-width: 200px; padding: 11px 13px; background: var(--sub); border: 1px solid var(--line-2); border-radius: var(--radius-sm); color: var(--ink); font-family: inherit; font-size: 13px; }
+.setup-form input::placeholder { color: var(--ink-4); }
+.setup-form input:focus { outline: none; border-color: var(--accent); background: var(--app); }
+.setup-form button { padding: 11px 20px; background: var(--black); border: none; border-radius: var(--radius-sm); color: #fff; font-family: inherit; font-size: 14px; font-weight: 600; cursor: pointer; transition: background 0.2s; }
+.setup-form button:hover, .setup-form button:active { background: #000; }
+.setup-form button#disconnectSheets { background: transparent; color: var(--ink-2); border: 1px solid var(--line-2); }
+.setup-form button#disconnectSheets:hover { color: var(--accent); border-color: var(--accent); }
+.setup-message { margin-top: 14px; font-size: 13px; color: var(--ink-3); min-height: 1.5em; font-weight: 500; }
+.setup-message.success { color: var(--green); }
+.setup-message.error { color: var(--accent-2); }
+
+/* ── Footer ───────────────────────────────────────────── */
+footer { padding: 36px 22px 28px; font-size: 13px; color: var(--ink-3); }
+footer .signoff { font-size: 16px; color: var(--ink-2); margin-bottom: 18px; line-height: 1.5; max-width: 320px; }
+footer .ornament-sm { height: 1px; background: var(--line); margin: 14px 0; text-indent: -9999px; overflow: hidden; }
+
+
+/* ── Phase panels (tab switching) ─────────────────────── */
+.phase-panel { display: none; }
+.phase-panel.active { display: block; animation: fadeIn 0.4s ease; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+</style>
+</head>
+<body>
+
+<header>
+  <div class="eyebrow">A field guide <span class="ornament">·</span> Version three <span class="ornament">·</span> June 2026</div>
+  <h1 class="title">The year I get<br><em>strong.</em></h1>
+  <p class="subtitle">Twelve months of fresh food, patient lifts, and learning with the doing.</p>
+</header>
+
+<div class="starting-line">
+  <div><div class="label">Start</div><div class="value">5'4" · <strong>160 lb</strong></div></div>
+  <div><div class="label">Target</div><div class="value"><strong>~125 lb</strong> lean</div></div>
+  <div><div class="label">Window</div><div class="value">12 mo · <strong>~0.7 lb/wk</strong></div></div>
+</div>
+
+<div class="intro-stats">
+  <div class="intro-stat"><div class="k">Goal A</div><div class="v">Strong <em>hips & core</em></div></div>
+  <div class="intro-stat"><div class="k">Goal B</div><div class="v">5 strict <em>pull-ups</em></div></div>
+  <div class="intro-stat"><div class="k">Goal C</div><div class="v">20 full <em>push-ups</em></div></div>
+  <div class="intro-stat"><div class="k">Goal D</div><div class="v">Visible <em>waist & balance</em></div></div>
+</div>
+
+<div class="ornament">✦  ·  ✦  ·  ✦</div>
+
+<nav class="phase-nav">
+  <button class="phase-pill active" data-phase="1">P1 · Cut Begins</button>
+  <button class="phase-pill" data-phase="2">P2 · Push the Cut</button>
+  <button class="phase-pill" data-phase="3">P3 · Diet Break</button>
+  <button class="phase-pill" data-phase="4">P4 · Final Reveal</button>
+  <button class="phase-pill" data-phase="5">Nutrition</button>
+  <button class="phase-pill" data-phase="7">Recipes</button>
+  <button class="phase-pill" data-phase="8">Log</button>
+  <button class="phase-pill" data-phase="6">Principles</button>
+</nav>
+
+<!-- ============ PHASE 1 ============ -->
+<div class="phase-panel active" data-phase="1">
+
+  <section>
+    <div class="phase-card">
+      <div class="month-range">MONTHS 1 — 3 · 12 WEEKS</div>
+      <h2>Show up five times a week. <em>Build the patterns.</em></h2>
+      <p class="lede">Five strength days, Mon–Fri. Weekends are tennis, golf, hiking — already moving. The deficit is mostly handled by the medication; your job is to lift consistently, hit protein, and log every set. By week 12: ~10 lb down, stronger across the board, building actual hip and core control.</p>
+      <div class="phase-stats">
+        <div class="phase-stat"><div class="label">Protein</div><div class="value">120–130 g/day</div></div>
+        <div class="phase-stat"><div class="label">Calories</div><div class="value">soft target</div></div>
+        <div class="phase-stat"><div class="label">Lift Days</div><div class="value">5×/week M–F</div></div>
+        <div class="phase-stat"><div class="label">Weekends</div><div class="value">Tennis · golf · hike</div></div>
+        <div class="phase-stat"><div class="label">Loss Target</div><div class="value">~0.7 lb/week</div></div>
+        <div class="phase-stat"><div class="label">Hydration</div><div class="value">2.5+ L/day</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-label">12-Month Trajectory</div>
+    <div class="trajectory">
+      <div class="trajectory-row"><div class="month">Now</div><div class="bar-track"><div class="bar-fill" style="width: 100%"></div></div><div class="weight">160</div></div>
+      <div class="trajectory-row"><div class="month">Mo 3</div><div class="bar-track"><div class="bar-fill" style="width: 80%"></div></div><div class="weight">~150</div></div>
+      <div class="trajectory-row"><div class="month">Mo 6</div><div class="bar-track"><div class="bar-fill" style="width: 62%"></div></div><div class="weight">~140</div></div>
+      <div class="trajectory-row"><div class="month">Mo 9</div><div class="bar-track"><div class="bar-fill" style="width: 52%"></div></div><div class="weight">~135</div></div>
+      <div class="trajectory-row"><div class="month">Mo 12</div><div class="bar-track"><div class="bar-fill" style="width: 32%"></div></div><div class="weight"><em>~125</em></div></div>
+    </div>
+    <div class="med-box">
+      <div class="note-label">On the medication</div>
+      <div class="note-text">Tirzepatide will do most of the calorie work for you — appetite drops, weight follows. What it won't do: protect your muscle. That's the lifting and the protein. First 1–2 weeks of any dose escalation, lifts may feel harder than they should. Don't push PRs — log what you can, come back next week.</div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-label">Weekly Cadence</div>
+    <div class="week">
+      <div class="day active-day"><div class="dow">MON</div><div class="icon">A<em>lower · sq</em></div></div>
+      <div class="day active-day"><div class="dow">TUE</div><div class="icon">B<em>upper · pull</em></div></div>
+      <div class="day active-day"><div class="dow">WED</div><div class="icon">C<em>single-leg</em></div></div>
+      <div class="day active-day"><div class="dow">THU</div><div class="icon">D<em>lower · hi</em></div></div>
+      <div class="day active-day"><div class="dow">FRI</div><div class="icon">E<em>upper · push</em></div></div>
+      <div class="day play-day"><div class="dow">SAT</div><div class="icon">play<em>tennis/golf</em></div></div>
+      <div class="day play-day"><div class="dow">SUN</div><div class="icon">play<em>hike/golf</em></div></div>
+    </div>
+    <p style="font-size:13px; color:var(--ink-3); font-style:italic; margin-top:14px; line-height:1.55;">Monday morning lifts preserve ArtHaus Monday 6:30 PM. Wednesday is single-leg + heavy core — your hip/balance day, full effort, not a recovery day. Weekends stay sacred for play.</p>
+  </section>
+
+  <section>
+    <div class="section-label">The workouts</div>
+
+    <!-- MONDAY -->
+    <div class="workout open">
+      <div class="workout-header">
+        <div><div class="workout-day">DAY A · MONDAY</div><div class="workout-name">Lower <em>· squat & quad</em></div></div>
+        <div class="workout-toggle">+</div>
+      </div>
+      <div class="workout-body"><div class="workout-body-inner">
+        <div class="workout-why">squats and lunges build the hip and glute strength that holds you up — they make stairs feel easy and your low back stop complaining. The leg pump is one of the more satisfying feelings in a body.</div>
+        <div class="exercise priority" data-ex-id="goblet-squat">
+          <div class="exercise-top">
+            <div><div class="ex-name">Goblet squat</div><div class="ex-cue">Knees track toes. Sit between heels. Pause 1s at bottom.</div></div>
+            <div class="ex-prescription">4 × 8</div>
+          </div>
+          <div class="ex-log">
+            <div class="ex-log-last" data-last-for="goblet-squat"></div>
+            <div class="ex-log-inputs">
+              <input type="number" placeholder="lb" data-weight-for="goblet-squat">
+              <span class="sep">×</span>
+              <input type="number" placeholder="reps" data-reps-for="goblet-squat">
+              <button data-log-for="goblet-squat">Log</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="exercise priority" data-ex-id="front-foot-elev-lunge">
+          <div class="exercise-top">
+            <div><div class="ex-name">Front-foot elevated reverse lunge — DB</div><div class="ex-cue">Front foot on a 2" plate. Step back, drop straight down. Glute & quad.</div></div>
+            <div class="ex-prescription">3 × 10/leg</div>
+          </div>
+          <div class="ex-log">
+            <div class="ex-log-last" data-last-for="front-foot-elev-lunge"></div>
+            <div class="ex-log-inputs">
+              <input type="number" placeholder="lb" data-weight-for="front-foot-elev-lunge">
+              <span class="sep">×</span>
+              <input type="number" placeholder="reps" data-reps-for="front-foot-elev-lunge">
+              <button data-log-for="front-foot-elev-lunge">Log</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="exercise priority" data-ex-id="hip-thrust-mon">
+          <div class="exercise-top">
+            <div><div class="ex-name">Hip thrust — barbell or DB</div><div class="ex-cue">Ribs down. Squeeze top for 2s. Don't hyperextend lumbar.</div></div>
+            <div class="ex-prescription">3 × 10</div>
+          </div>
+          <div class="ex-log">
+            <div class="ex-log-last" data-last-for="hip-thrust-mon"></div>
+            <div class="ex-log-inputs">
+              <input type="number" placeholder="lb" data-weight-for="hip-thrust-mon">
+              <span class="sep">×</span>
+              <input type="number" placeholder="reps" data-reps-for="hip-thrust-mon">
+              <button data-log-for="hip-thrust-mon">Log</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="exercise" data-ex-id="leg-extension">
+          <div class="exercise-top">
+            <div><div class="ex-name">Leg extension</div><div class="ex-cue">Quad isolation. Top hold 1s. Don't bang against the stop.</div></div>
+            <div class="ex-prescription">3 × 12</div>
+          </div>
+          <div class="ex-log">
+            <div class="ex-log-last" data-last-for="leg-extension"></div>
+            <div class="ex-log-inputs">
+              <input type="number" placeholder="lb" data-weight-for="leg-extension">
+              <span class="sep">×</span>
+              <input type="number" placeholder="reps" data-reps-for="leg-extension">
+              <button data-log-for="leg-extension">Log</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="exercise" data-ex-id="standing-calf">
+          <div class="exercise-top">
+            <div><div class="ex-name">Standing calf raise</div><div class="ex-cue">Full range. Pause at top stretch. Slow lower.</div></div>
+            <div class="ex-prescription">3 × 15</div>
+          </div>
+          <div class="ex-log">
+            <div class="ex-log-last" data-last-for="standing-calf"></div>
+            <div class="ex-log-inputs">
+              <input type="number" placeholder="lb" data-weight-for="standing-calf">
+              <span class="sep">×</span>
+              <input type="number" placeholder="reps" data-reps-for="standing-calf">
+              <button data-log-for="standing-calf">Log</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="exercise" data-ex-id="dead-bug-mon">
+          <div class="exercise-top">
+            <div><div class="ex-name">Dead bug — slow</div><div class="ex-cue">Anti-extension. Lower back glued to floor. 3s lower.</div></div>
+            <div class="ex-prescription">3 × 8/side</div>
+          </div>
+          <div class="ex-log">
+            <div class="ex-log-last" data-last-for="dead-bug-mon"></div>
+            <div class="ex-log-inputs">
+              <input type="number" placeholder="lb/BW" data-weight-for="dead-bug-mon">
+              <span class="sep">×</span>
+              <input type="number" placeholder="reps" data-reps-for="dead-bug-mon">
+              <button data-log-for="dead-bug-mon">Log</button>
+            </div>
+          </div>
+        </div>
+      </div></div>
+    </div>
+
+    <!-- TUESDAY -->
+    <div class="workout">
+      <div class="workout-header">
+        <div><div class="workout-day">DAY B · TUESDAY</div><div class="workout-name">Upper <em>· pull bias</em></div></div>
+        <div class="workout-toggle">+</div>
+      </div>
+      <div class="workout-body"><div class="workout-body-inner">
+        <div class="workout-why">pulling work builds the back muscles that hold your shoulders open and your posture tall. The pull-up progress you'll see by month three is what makes this day worth it.</div>
+        <div class="exercise priority" data-ex-id="lat-pulldown">
+          <div class="exercise-top">
+            <div><div class="ex-name">Lat pulldown — neutral grip</div><div class="ex-cue">Pull elbows to ribs. Stop at collarbone. Squeeze.</div></div>
+            <div class="ex-prescription">4 × 8–10</div>
+          </div>
+          <div class="ex-log">
+            <div class="ex-log-last" data-last-for="lat-pulldown"></div>
+            <div class="ex-log-inputs">
+              <input type="number" placeholder="lb" data-weight-for="lat-pulldown">
+              <span class="sep">×</span>
+              <input type="number" placeholder="reps" data-reps-for="lat-pulldown">
+              <button data-log-for="lat-pulldown">Log</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="exercise priority" data-ex-id="pullup-negative">
+          <div class="exercise-top">
+            <div><div class="ex-name">Pull-up negative</div><div class="ex-cue">Jump up, lower for 5 seconds. Chin over bar at top. Pull goal.</div></div>
+            <div class="ex-prescription">5 × 3</div>
+          </div>
+          <div class="ex-log">
+            <div class="ex-log-last" data-last-for="pullup-negative"></div>
+            <div class="ex-log-inputs">
+              <input type="number" placeholder="sets" data-weight-for="pullup-negative">
+              <span class="sep">×</span>
+              <input type="number" placeholder="reps" data-reps-for="pullup-negative">
+              <button data-log-for="pullup-negative">Log</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="exercise priority" data-ex-id="chest-supported-row">
+          <div class="exercise-top">
+            <div><div class="ex-name">Chest-supported row</div><div class="ex-cue">Pull to lower ribs. Pause 1s at the squeeze. No body sway.</div></div>
+            <div class="ex-prescription">4 × 10–12</div>
+          </div>
+          <div class="ex-log">
+            <div class="ex-log-last" data-last-for="chest-supported-row"></div>
+            <div class="ex-log-inputs">
+              <input type="number" placeholder="lb" data-weight-for="chest-supported-row">
+              <span class="sep">×</span>
+              <input type="number" placeholder="reps" data-reps-for="chest-supported-row">
+              <button data-log-for="chest-supported-row">Log</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="exercise" data-ex-id="single-arm-row">
+          <div class="exercise-top">
+            <div><div class="ex-name">Single-arm DB row</div><div class="ex-cue">Pull to hip, not chest. Long lat stretch at the bottom.</div></div>
+            <div class="ex-prescription">3 × 10/side</div>
+          </div>
+          <div class="ex-log">
+            <div class="ex-log-last" data-last-for="single-arm-row"></div>
+            <div class="ex-log-inputs">
+              <input type="number" placeholder="lb" data-weight-for="single-arm-row">
+              <span class="sep">×</span>
+              <input type="number" placeholder="reps" data-reps-for="single-arm-row">
+              <button data-log-for="single-arm-row">Log</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="exercise priority" data-ex-id="lateral-raise-tue">
+          <div class="exercise-top">
+            <div><div class="ex-name">Lateral raise — DB</div><div class="ex-cue">Light. Slow up, slow down. Builds the shoulder cap — narrows the waist visually.</div></div>
+            <div class="ex-prescription">3 × 12–15</div>
+          </div>
+          <div class="ex-log">
+            <div class="ex-log-last" data-last-for="lateral-raise-tue"></div>
+            <div class="ex-log-inputs">
+              <input type="number" placeholder="lb" data-weight-for="lateral-raise-tue">
+              <span class="sep">×</span>
+              <input type="number" placeholder="reps" data-reps-for="lateral-raise-tue">
+              <button data-log-for="lateral-raise-tue">Log</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="exercise" data-ex-id="face-pull-tue">
+          <div class="exercise-top">
+            <div><div class="ex-name">Face pull — high cable</div><div class="ex-cue">Posture insurance. Externally rotate. Don't ego load.</div></div>
+            <div class="ex-prescription">3 × 15</div>
+          </div>
+          <div class="ex-log">
+            <div class="ex-log-last" data-last-for="face-pull-tue"></div>
+            <div class="ex-log-inputs">
+              <input type="number" placeholder="lb" data-weight-for="face-pull-tue">
+              <span class="sep">×</span>
+              <input type="number" placeholder="reps" data-reps-for="face-pull-tue">
+              <button data-log-for="face-pull-tue">Log</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="exercise" data-ex-id="dead-hang">
+          <div class="exercise-top">
+            <div><div class="ex-name">Dead hang</div><div class="ex-cue">Active shoulders. Build grip & lat endurance. Time the hang.</div></div>
+            <div class="ex-prescription">3 × max sec</div>
+          </div>
+          <div class="ex-log">
+            <div class="ex-log-last" data-last-for="dead-hang"></div>
+            <div class="ex-log-inputs">
+              <input type="number" placeholder="sec" data-weight-for="dead-hang">
+              <span class="sep">×</span>
+              <input type="number" placeholder="sets" data-reps-for="dead-hang">
+              <button data-log-for="dead-hang">Log</button>
+            </div>
+          </div>
+        </div>
+      </div></div>
+    </div>
+
+    <!-- WEDNESDAY -->
+    <div class="workout">
+      <div class="workout-header">
+        <div><div class="workout-day">DAY C · WEDNESDAY</div><div class="workout-name">Single-leg <em>· hip + heavy core</em></div></div>
+        <div class="workout-toggle">+</div>
+      </div>
+      <div class="workout-body"><div class="workout-body-inner">
+        <div class="workout-why">this is the workout you specifically asked for — the hips you want stronger, the core you want tighter, the balance you want to trust. Single-leg work fixes asymmetries your two-legged life hides. Copenhagen and Pallof presses build the deep core that flat work can't reach.</div>
+        <div class="exercise priority" data-ex-id="bulgarian-split">
+          <div class="exercise-top">
+            <div><div class="ex-name">Bulgarian split squat — DB</div><div class="ex-cue">Front shin near vertical. Drop straight down. Glute does the work.</div></div>
+            <div class="ex-prescription">4 × 8/leg</div>
+          </div>
+          <div class="ex-log">
+            <div class="ex-log-last" data-last-for="bulgarian-split"></div>
+            <div class="ex-log-inputs">
+              <input type="number" placeholder="lb" data-weight-for="bulgarian-split">
+              <span class="sep">×</span>
+              <input type="number" placeholder="reps" data-reps-for="bulgarian-split">
+              <button data-log-for="bulgarian-split">Log</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="exercise priority" data-ex-id="single-leg-rdl">
+          <div class="exercise-top">
+            <div><div class="ex-name">Single-leg RDL — DB</div><div class="ex-cue">Hinge from hip, back leg straight back. Floating knee. Hamstring + balance.</div></div>
+            <div class="ex-prescription">3 × 8/leg</div>
+          </div>
+          <div class="ex-log">
+            <div class="ex-log-last" data-last-for="single-leg-rdl"></div>
+            <div class="ex-log-inputs">
+              <input type="number" placeholder="lb" data-weight-for="single-leg-rdl">
+              <span class="sep">×</span>
+              <input type="number" placeholder="reps" data-reps-for="single-leg-rdl">
+              <button data-log-for="single-leg-rdl">Log</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="exercise priority" data-ex-id="step-up">
+          <div class="exercise-top">
+            <div><div class="ex-name">Step-up onto box — DB</div><div class="ex-cue">14–18" box. Drive through the heel. Don't push off back foot.</div></div>
+            <div class="ex-prescription">3 × 8/leg</div>
+          </div>
+          <div class="ex-log">
+            <div class="ex-log-last" data-last-for="step-up"></div>
+            <div class="ex-log-inputs">
+              <input type="number" placeholder="lb" data-weight-for="step-up">
+              <span class="sep">×</span>
+              <input type="number" placeholder="reps" data-reps-for="step-up">
+              <button data-log-for="step-up">Log</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="exercise priority" data-ex-id="single-leg-ht">
+          <div class="exercise-top">
+            <div><div class="ex-name">Single-leg hip thrust</div><div class="ex-cue">Glute-only. Don't push with planted foot's quad. 2s pause at top.</div></div>
+            <div class="ex-prescription">3 × 10/side</div>
+          </div>
+          <div class="ex-log">
+            <div class="ex-log-last" data-last-for="single-leg-ht"></div>
+            <div class="ex-log-inputs">
+              <input type="number" placeholder="lb" data-weight-for="single-leg-ht">
+              <span class="sep">×</span>
+              <input type="number" placeholder="reps" data-reps-for="single-leg-ht">
+              <button data-log-for="single-leg-ht">Log</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="exercise priority" data-ex-id="copenhagen">
+          <div class="exercise-top">
+            <div><div class="ex-name">Copenhagen plank — side</div><div class="ex-cue">Top leg on bench. Deep core + adductors. Build from 10s/side.</div></div>
+            <div class="ex-prescription">3 × 20s/side</div>
+          </div>
+          <div class="ex-log">
+            <div class="ex-log-last" data-last-for="copenhagen"></div>
+            <div class="ex-log-inputs">
+              <input type="number" placeholder="sec" data-weight-for="copenhagen">
+              <span class="sep">×</span>
+              <input type="number" placeholder="sets" data-reps-for="copenhagen">
+              <button data-log-for="copenhagen">Log</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="exercise priority" data-ex-id="pallof-wed">
+          <div class="exercise-top">
+            <div><div class="ex-name">Pallof press — cable, heavy</div><div class="ex-cue">Anti-rotation. Resist the pull. 2s pause at full extension.</div></div>
+            <div class="ex-prescription">3 × 12/side</div>
+          </div>
+          <div class="ex-log">
+            <div class="ex-log-last" data-last-for="pallof-wed"></div>
+            <div class="ex-log-inputs">
+              <input type="number" placeholder="lb" data-weight-for="pallof-wed">
+              <span class="sep">×</span>
+              <input type="number" placeholder="reps" data-reps-for="pallof-wed">
+              <button data-log-for="pallof-wed">Log</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="exercise" data-ex-id="weighted-dead-bug">
+          <div class="exercise-top">
+            <div><div class="ex-name">Weighted dead bug</div><div class="ex-cue">Light DB or plate in hands extended overhead. Low back pinned.</div></div>
+            <div class="ex-prescription">3 × 8/side</div>
+          </div>
+          <div class="ex-log">
+            <div class="ex-log-last" data-last-for="weighted-dead-bug"></div>
+            <div class="ex-log-inputs">
+              <input type="number" placeholder="lb" data-weight-for="weighted-dead-bug">
+              <span class="sep">×</span>
+              <input type="number" placeholder="reps" data-reps-for="weighted-dead-bug">
+              <button data-log-for="weighted-dead-bug">Log</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="exercise" data-ex-id="side-plank-dip">
+          <div class="exercise-top">
+            <div><div class="ex-name">Side plank with hip dip</div><div class="ex-cue">Anti-lateral flexion. Dip to hover, lift to stack. Slow.</div></div>
+            <div class="ex-prescription">3 × 10/side</div>
+          </div>
+          <div class="ex-log">
+            <div class="ex-log-last" data-last-for="side-plank-dip"></div>
+            <div class="ex-log-inputs">
+              <input type="number" placeholder="BW" data-weight-for="side-plank-dip">
+              <span class="sep">×</span>
+              <input type="number" placeholder="reps" data-reps-for="side-plank-dip">
+              <button data-log-for="side-plank-dip">Log</button>
+            </div>
+          </div>
+        </div>
+      </div></div>
+    </div>
+
+    <!-- THURSDAY -->
+    <div class="workout">
+      <div class="workout-header">
+        <div><div class="workout-day">DAY D · THURSDAY</div><div class="workout-name">Lower <em>· hinge & glute</em></div></div>
+        <div class="workout-toggle">+</div>
+      </div>
+      <div class="workout-body"><div class="workout-body-inner">
+        <div class="workout-why">hinging from the hip — what deadlifts and RDLs teach — is how you pick up a kid, a grocery bag, a heavy box without your back complaining for three days. This is the day you build the chain that holds you upright at seventy.</div>
+        <div class="exercise priority" data-ex-id="trap-bar-dl">
+          <div class="exercise-top">
+            <div><div class="ex-name">Trap bar deadlift (or DB)</div><div class="ex-cue">Push the floor away. Lock out tall. Eyes on horizon.</div></div>
+            <div class="ex-prescription">4 × 6</div>
+          </div>
+          <div class="ex-log">
+            <div class="ex-log-last" data-last-for="trap-bar-dl"></div>
+            <div class="ex-log-inputs">
+              <input type="number" placeholder="lb" data-weight-for="trap-bar-dl">
+              <span class="sep">×</span>
+              <input type="number" placeholder="reps" data-reps-for="trap-bar-dl">
+              <button data-log-for="trap-bar-dl">Log</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="exercise priority" data-ex-id="rdl">
+          <div class="exercise-top">
+            <div><div class="ex-name">Romanian deadlift — DB</div><div class="ex-cue">Hinge from hips. DBs skim the leg. Soft knees. Stretch the hamstring.</div></div>
+            <div class="ex-prescription">3 × 10</div>
+          </div>
+          <div class="ex-log">
+            <div class="ex-log-last" data-last-for="rdl"></div>
+            <div class="ex-log-inputs">
+              <input type="number" placeholder="lb" data-weight-for="rdl">
+              <span class="sep">×</span>
+              <input type="number" placeholder="reps" data-reps-for="rdl">
+              <button data-log-for="rdl">Log</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="exercise priority" data-ex-id="hip-thrust-thu">
+          <div class="exercise-top">
+            <div><div class="ex-name">Barbell hip thrust — heavy</div><div class="ex-cue">Heaviest set of the week. 3s pause at the top of each rep.</div></div>
+            <div class="ex-prescription">4 × 8</div>
+          </div>
+          <div class="ex-log">
+            <div class="ex-log-last" data-last-for="hip-thrust-thu"></div>
+            <div class="ex-log-inputs">
+              <input type="number" placeholder="lb" data-weight-for="hip-thrust-thu">
+              <span class="sep">×</span>
+              <input type="number" placeholder="reps" data-reps-for="hip-thrust-thu">
+              <button data-log-for="hip-thrust-thu">Log</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="exercise" data-ex-id="cable-kickback">
+          <div class="exercise-top">
+            <div><div class="ex-name">Cable kickback (or banded)</div><div class="ex-cue">Slow, controlled. Squeeze the glute at the top. Don't arch back.</div></div>
+            <div class="ex-prescription">3 × 12/side</div>
+          </div>
+          <div class="ex-log">
+            <div class="ex-log-last" data-last-for="cable-kickback"></div>
+            <div class="ex-log-inputs">
+              <input type="number" placeholder="lb" data-weight-for="cable-kickback">
+              <span class="sep">×</span>
+              <input type="number" placeholder="reps" data-reps-for="cable-kickback">
+              <button data-log-for="cable-kickback">Log</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="exercise" data-ex-id="walking-lunge">
+          <div class="exercise-top">
+            <div><div class="ex-name">Walking lunge — DB</div><div class="ex-cue">Long stride. Knee just kisses the floor. Light weights, focus on form.</div></div>
+            <div class="ex-prescription">3 × 20 steps</div>
+          </div>
+          <div class="ex-log">
+            <div class="ex-log-last" data-last-for="walking-lunge"></div>
+            <div class="ex-log-inputs">
+              <input type="number" placeholder="lb" data-weight-for="walking-lunge">
+              <span class="sep">×</span>
+              <input type="number" placeholder="steps" data-reps-for="walking-lunge">
+              <button data-log-for="walking-lunge">Log</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="exercise" data-ex-id="pallof-thu">
+          <div class="exercise-top">
+            <div><div class="ex-name">Pallof press</div><div class="ex-cue">Anti-rotation. Twice a week is the standard for this one.</div></div>
+            <div class="ex-prescription">3 × 10/side</div>
+          </div>
+          <div class="ex-log">
+            <div class="ex-log-last" data-last-for="pallof-thu"></div>
+            <div class="ex-log-inputs">
+              <input type="number" placeholder="lb" data-weight-for="pallof-thu">
+              <span class="sep">×</span>
+              <input type="number" placeholder="reps" data-reps-for="pallof-thu">
+              <button data-log-for="pallof-thu">Log</button>
+            </div>
+          </div>
+        </div>
+      </div></div>
+    </div>
+
+    <!-- FRIDAY -->
+    <div class="workout">
+      <div class="workout-header">
+        <div><div class="workout-day">DAY E · FRIDAY</div><div class="workout-name">Upper <em>· push bias</em></div></div>
+        <div class="workout-toggle">+</div>
+      </div>
+      <div class="workout-body"><div class="workout-body-inner">
+        <div class="workout-why">push days build the chest, shoulders, and tricep strength that translates to push-ups, tennis serves, and the visual cap that narrows the waist. End the week feeling strong — the weekend earned.</div>
+        <div class="exercise priority" data-ex-id="db-bench">
+          <div class="exercise-top">
+            <div><div class="ex-name">DB bench press — flat</div><div class="ex-cue">Wrists stacked over elbows. Squeeze pecs at top. Control the descent.</div></div>
+            <div class="ex-prescription">4 × 8–10</div>
+          </div>
+          <div class="ex-log">
+            <div class="ex-log-last" data-last-for="db-bench"></div>
+            <div class="ex-log-inputs">
+              <input type="number" placeholder="lb" data-weight-for="db-bench">
+              <span class="sep">×</span>
+              <input type="number" placeholder="reps" data-reps-for="db-bench">
+              <button data-log-for="db-bench">Log</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="exercise priority" data-ex-id="pushup">
+          <div class="exercise-top">
+            <div><div class="ex-name">Push-up — knee or incline</div><div class="ex-cue">Pick variation where 8 reps is hard. Earn the next step.</div></div>
+            <div class="ex-prescription">4 × 6–8</div>
+          </div>
+          <div class="ex-log">
+            <div class="ex-log-last" data-last-for="pushup"></div>
+            <div class="ex-log-inputs">
+              <input type="number" placeholder="incl in" data-weight-for="pushup">
+              <span class="sep">×</span>
+              <input type="number" placeholder="reps" data-reps-for="pushup">
+              <button data-log-for="pushup">Log</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="exercise priority" data-ex-id="ohp">
+          <div class="exercise-top">
+            <div><div class="ex-name">Overhead press — DB seated</div><div class="ex-cue">Back supported. Press straight up. Don't flare elbows wide.</div></div>
+            <div class="ex-prescription">3 × 8–10</div>
+          </div>
+          <div class="ex-log">
+            <div class="ex-log-last" data-last-for="ohp"></div>
+            <div class="ex-log-inputs">
+              <input type="number" placeholder="lb" data-weight-for="ohp">
+              <span class="sep">×</span>
+              <input type="number" placeholder="reps" data-reps-for="ohp">
+              <button data-log-for="ohp">Log</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="exercise" data-ex-id="cable-row-fri">
+          <div class="exercise-top">
+            <div><div class="ex-name">Cable row (yes, on push day)</div><div class="ex-cue">Push days get pulling too. Postural balance.</div></div>
+            <div class="ex-prescription">3 × 10</div>
+          </div>
+          <div class="ex-log">
+            <div class="ex-log-last" data-last-for="cable-row-fri"></div>
+            <div class="ex-log-inputs">
+              <input type="number" placeholder="lb" data-weight-for="cable-row-fri">
+              <span class="sep">×</span>
+              <input type="number" placeholder="reps" data-reps-for="cable-row-fri">
+              <button data-log-for="cable-row-fri">Log</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="exercise priority" data-ex-id="lateral-raise-fri">
+          <div class="exercise-top">
+            <div><div class="ex-name">Lateral raise — DB</div><div class="ex-cue">Second cap session of the week. Light, slow, perfect form.</div></div>
+            <div class="ex-prescription">3 × 12–15</div>
+          </div>
+          <div class="ex-log">
+            <div class="ex-log-last" data-last-for="lateral-raise-fri"></div>
+            <div class="ex-log-inputs">
+              <input type="number" placeholder="lb" data-weight-for="lateral-raise-fri">
+              <span class="sep">×</span>
+              <input type="number" placeholder="reps" data-reps-for="lateral-raise-fri">
+              <button data-log-for="lateral-raise-fri">Log</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="exercise" data-ex-id="tricep-pushdown">
+          <div class="exercise-top">
+            <div><div class="ex-name">Triceps pushdown — rope</div><div class="ex-cue">Elbows pinned to ribs. Spread the rope at the bottom.</div></div>
+            <div class="ex-prescription">3 × 12</div>
+          </div>
+          <div class="ex-log">
+            <div class="ex-log-last" data-last-for="tricep-pushdown"></div>
+            <div class="ex-log-inputs">
+              <input type="number" placeholder="lb" data-weight-for="tricep-pushdown">
+              <span class="sep">×</span>
+              <input type="number" placeholder="reps" data-reps-for="tricep-pushdown">
+              <button data-log-for="tricep-pushdown">Log</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="exercise" data-ex-id="rear-delt-fly">
+          <div class="exercise-top">
+            <div><div class="ex-name">Chest-supported rear delt fly</div><div class="ex-cue">Tiny weight. Squeeze the shoulder blades, not the arms.</div></div>
+            <div class="ex-prescription">3 × 12–15</div>
+          </div>
+          <div class="ex-log">
+            <div class="ex-log-last" data-last-for="rear-delt-fly"></div>
+            <div class="ex-log-inputs">
+              <input type="number" placeholder="lb" data-weight-for="rear-delt-fly">
+              <span class="sep">×</span>
+              <input type="number" placeholder="reps" data-reps-for="rear-delt-fly">
+              <button data-log-for="rear-delt-fly">Log</button>
+            </div>
+          </div>
+        </div>
+      </div></div>
+    </div>
+  </section>
+
+</div>
+
+<!-- ============ PHASE 2 ============ -->
+<div class="phase-panel" data-phase="2">
+  <section>
+    <div class="phase-card">
+      <div class="month-range">MONTHS 4 — 6 · 12 WEEKS</div>
+      <h2>Push the cut. <em>Strength climbs.</em></h2>
+      <p class="lede">You weigh ~150, the split is automatic, and lifts have climbed 20–30% since Phase 1. Tirzepatide dose may have escalated. Time to add real progressive overload and a HIIT session on weekends if energy allows. By week 24: ~140 lb, 1 strict pull-up.</p>
+      <div class="phase-stats">
+        <div class="phase-stat"><div class="label">Protein</div><div class="value">120–130 g/day</div></div>
+        <div class="phase-stat"><div class="label">Lift Days</div><div class="value">5×/week</div></div>
+        <div class="phase-stat"><div class="label">Weekend cardio</div><div class="value">+1 HIIT</div></div>
+        <div class="phase-stat"><div class="label">Pull-up</div><div class="value">band-assisted</div></div>
+        <div class="phase-stat"><div class="label">Push-up</div><div class="value">graduate to floor</div></div>
+        <div class="phase-stat"><div class="label">Hip thrust</div><div class="value">heavy barbell</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-label">What Changes</div>
+    <div class="principle"><div class="principle-num">i.</div><div class="principle-body"><h4>Push-up graduates to floor</h4><p>When 8 incline push-ups feel solid, drop the bench height. Eventually full floor push-ups for sets of 5, then 8. Earn the rep.</p></div></div>
+    <div class="principle"><div class="principle-num">ii.</div><div class="principle-body"><h4>Pull-up negatives → band-assisted concentric</h4><p>Loop a light band over the bar. Real reps up, not just lowering. 4 × 5 with the lightest band that gets you exactly 5.</p></div></div>
+    <div class="principle"><div class="principle-num">iii.</div><div class="principle-body"><h4>Bulgarian split squats get loaded</h4><p>From 25 lb DBs to 35–40 lb. The Wednesday hip work is where your butt and balance start showing real change.</p></div></div>
+    <div class="principle"><div class="principle-num">iv.</div><div class="principle-body"><h4>Hip thrust gets heavy</h4><p>Move to barbell if you haven't. 4 × 8 climbing each week. Glute strength is the engine of midsection definition.</p></div></div>
+    <div class="principle"><div class="principle-num">v.</div><div class="principle-body"><h4>Saturday adds HIIT</h4><p>If a weekend day has no tennis/golf/hike planned, run 8 × 250m on the rower hard with 90s rest. ~25 min total. Skip if the body says no.</p></div></div>
+  </section>
+</div>
+
+<!-- ============ PHASE 3 ============ -->
+<div class="phase-panel" data-phase="3">
+  <section>
+    <div class="phase-card">
+      <div class="month-range">MONTHS 7 — 9 · 12 WEEKS</div>
+      <h2>Diet break &amp; recomp. <em>Hold the line.</em></h2>
+      <p class="lede">Six months on the medication is enough to need a hormonal reset. You eat at maintenance for 12 weeks while strength climbs hard. The scale stays around 140 — but shape continues to change. Talk to your doctor about whether a dose hold or step-down makes sense for this block.</p>
+      <div class="phase-stats">
+        <div class="phase-stat"><div class="label">Protein</div><div class="value">125 g/day</div></div>
+        <div class="phase-stat"><div class="label">Eating</div><div class="value">maintenance</div></div>
+        <div class="phase-stat"><div class="label">Lift Days</div><div class="value">5×/week</div></div>
+        <div class="phase-stat"><div class="label">Add</div><div class="value">Pilates 1×/wk</div></div>
+        <div class="phase-stat"><div class="label">Pull-up</div><div class="value">3 strict reps</div></div>
+        <div class="phase-stat"><div class="label">Photos</div><div class="value">every 4 weeks</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-label">Why The Diet Break Matters</div>
+    <div class="quote" style="padding: 0 0 24px;"><p>Six months of cutting suppresses hormones, slows metabolism, burns through willpower. The break is structural, not a reward. Skip it and the final cut won't work.</p></div>
+  </section>
+
+  <section>
+    <div class="section-label">Phase 3 Adjustments</div>
+    <div class="principle"><div class="principle-num">i.</div><div class="principle-body"><h4>Eat the food</h4><p>Appetite may return as dose adjusts. Lean into it. Hormones recover. Strength jumps. This is the part of the year where you'll PR most lifts.</p></div></div>
+    <div class="principle"><div class="principle-num">ii.</div><div class="principle-body"><h4>Add Reformer Pilates — 1×/week</h4><p>Lifetime has classes. Time-under-tension + flexibility, both gaps. Wednesday early evening is open (before ArtHaus).</p></div></div>
+    <div class="principle"><div class="principle-num">iii.</div><div class="principle-body"><h4>Pull-ups become daily greasing-the-groove</h4><p>3–5 mini sets across the day, 1–2 reps each, never to failure. By week 36, your first set hits 3 strict.</p></div></div>
+    <div class="principle"><div class="principle-num">iv.</div><div class="principle-body"><h4>Photos every 4 weeks</h4><p>The scale lies during recomp. Photos and waist-tape measurements tell the truth. Same morning, same light, same swimsuit.</p></div></div>
+  </section>
+</div>
+
+<!-- ============ PHASE 4 ============ -->
+<div class="phase-panel" data-phase="4">
+  <section>
+    <div class="phase-card">
+      <div class="month-range">MONTHS 10 — 12 · 12 WEEKS</div>
+      <h2>Final reveal. <em>Earn the photo.</em></h2>
+      <p class="lede">You weigh ~140, stronger than you've ever been, with one more cut in you. Twelve weeks of focused work peels off the final 10–15 lb — and reveals a body recomposed. The med may step down here, depending on doctor guidance.</p>
+      <div class="phase-stats">
+        <div class="phase-stat"><div class="label">Protein</div><div class="value">130 g/day</div></div>
+        <div class="phase-stat"><div class="label">Cardio</div><div class="value">2 Z2 + 1 HIIT</div></div>
+        <div class="phase-stat"><div class="label">Lift Days</div><div class="value">5×/week</div></div>
+        <div class="phase-stat"><div class="label">End Goal</div><div class="value">~125 lb</div></div>
+        <div class="phase-stat"><div class="label">Pull-up</div><div class="value">5 strict reps</div></div>
+        <div class="phase-stat"><div class="label">Push-up</div><div class="value">20 full reps</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-label">The Final Cut</div>
+    <div class="principle"><div class="principle-num">i.</div><div class="principle-body"><h4>Protein climbs to 1.0 g/lb of goal weight</h4><p>130 g daily, non-negotiable. Tirzepatide may suppress appetite — drink the Truvani shake even when you don't want it.</p></div></div>
+    <div class="principle"><div class="principle-num">ii.</div><div class="principle-body"><h4>Lift heavy on priority moves only</h4><p>Bulgarian splits, hip thrust, trap bar, bench, pull-up, OHP stay heavy. Accessories drop weight, climb reps.</p></div></div>
+    <div class="principle"><div class="principle-num">iii.</div><div class="principle-body"><h4>Cardio is a deficit lever</h4><p>Two Z2 sessions (hike, run, walk) + one HIIT. Don't replace lifting with cardio — add it on weekend days.</p></div></div>
+    <div class="principle"><div class="principle-num">iv.</div><div class="principle-body"><h4>Mid-cut maintenance week — week 6</h4><p>One full week at maintenance. Hormones recover, motivation refills. Then back to the cut for the final six.</p></div></div>
+    <div class="principle"><div class="principle-num">v.</div><div class="principle-body"><h4>Test week — month 12</h4><p>Max strict pull-ups · max push-ups · waist tape · photos. Numbers tell the story. Mirror confirms it.</p></div></div>
+  </section>
+</div>
+
+<!-- ============ NUTRITION ============ -->
+<div class="phase-panel" data-phase="5">
+  <section>
+    <div class="phase-card" style="--accent: var(--sage);">
+      <div class="month-range" style="color: var(--sage-dark);">DAILY NUTRITION · HISTAMINE-FRIENDLY</div>
+      <h2>Eat for healing. <em>Protein is the rule.</em></h2>
+      <p class="lede">Built around your tolerated foods: fresh salmon, shrimp, turkey, lean beef, white fish, white rice, potatoes, sweet potatoes, oats, and Truvani protein. No eggs, no cow whey, no tomatoes, no fermented foods, no wheat, no tree nuts, no legumes. Per your medical consultant: 120–130 g protein daily.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="med-box">
+      <div class="note-label">Tirzepatide + protein</div>
+      <div class="note-text">The medication will lower appetite below your calorie need on some days. Don't chase calories — chase the 120–130g protein floor and let calories land. On low-appetite days: lean on the Truvani shake, small frequent salmon or shrimp portions, and oat-based smoothies. Hydration: 2.5 L minimum. Sodium adequate (the meds dehydrate).</div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-label">The 4-Meal Day · 120–130g protein</div>
+
+    <div class="meal">
+      <div class="meal-time">07:30 · BREAKFAST</div>
+      <div class="meal-title">Greek yogurt bowl <em>· salmon hash · turkey bowl · or warm oats</em></div>
+      <div class="meal-protein">32–41 g protein</div>
+      <div class="meal-options"><strong>Option A:</strong> Greek lactose-free yogurt + pumpkin seeds + berries + turkey sausage<br><strong>Option B:</strong> Salmon + sweet potato hash with spinach (savory breakfast)<br><strong>Option C:</strong> Ground turkey + rice + zucchini breakfast bowl<br><strong>Option D:</strong> Truvani protein oats + blueberries (for cold mornings, smaller portion)<br><em style="display:block; margin-top:6px; color:var(--ink-3); font-size:11px;">Full recipes in Recipes tab →</em></div>
+    </div>
+
+    <div class="meal">
+      <div class="meal-time">12:30 · LUNCH</div>
+      <div class="meal-title">Lemon-dill salmon <em>· shrimp · turkey · tofu · or wraps · or shake-only</em></div>
+      <div class="meal-protein">36–60+ g protein</div>
+      <div class="meal-options"><strong>Option A:</strong> Lemon-dill salmon, smashed potatoes, sautéed spinach<br><strong>Option B:</strong> Garlic shrimp with rice + bell peppers + zucchini<br><strong>Option C:</strong> Turkey patty + cucumber salad + sweet potato<br><strong>Option D:</strong> Turkey, cucumber &amp; dill wrap on cassava (office-friendly)<br><strong>Option E:</strong> Lemon-dill salmon &amp; avocado wrap (built from last night's salmon)<br><strong>Option F:</strong> Garlic-ginger tofu fajita wrap (the plant day)<br><strong>Option G:</strong> Double-shake lunch — Truvani + Equip Beef, spaced 30 min (for low-appetite days, ~64g protein liquid)<br><em style="display:block; margin-top:6px; color:var(--ink-3); font-size:11px;">Full recipes in Recipes tab →</em></div>
+    </div>
+
+    <div class="meal">
+      <div class="meal-time">16:00 · SNACK</div>
+      <div class="meal-title">Truvani shake <em>or beef protein</em></div>
+      <div class="meal-protein">22–34 g protein</div>
+      <div class="meal-options"><strong>Option A:</strong> Truvani + Fairlife lactose-free + ½ frozen banana + cinnamon<br><strong>Option B:</strong> Equip Beef Protein shake + Fairlife lactose-free milk<br><strong>Option C:</strong> Apple + sunflower seed butter + collagen water<br><em style="display:block; margin-top:6px; color:var(--ink-3); font-size:11px;">Fairlife or Kirkland lactose-free milk for the protein and calcium without the lactose.</em></div>
+    </div>
+
+    <div class="meal">
+      <div class="meal-time">19:30 · DINNER</div>
+      <div class="meal-title">Pan-seared steak <em>· ginger shrimp · or turkey meatballs</em></div>
+      <div class="meal-protein">38–42 g protein</div>
+      <div class="meal-options"><strong>Option A:</strong> Sirloin steak + roasted baby potatoes + garlicky greens<br><strong>Option B:</strong> Ginger shrimp stir-fry with rice + bell peppers + carrots<br><strong>Option C:</strong> Turkey meatballs over rice with sautéed spinach<br><em style="display:block; margin-top:6px; color:var(--ink-3); font-size:11px;">Full recipes in Recipes tab →</em></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-label">The Rules</div>
+    <div class="principle"><div class="principle-num">01.</div><div class="principle-body"><h4>Fresh-cooked over leftovers</h4><p>Histamines build in stored food. Cook portion-size, eat fresh. If you must save: freeze immediately, never refrigerate &gt;24h.</p></div></div>
+    <div class="principle"><div class="principle-num">02.</div><div class="principle-body"><h4>Protein at every meal — 30g floor</h4><p>30+ g × 4 meals = 120g daily. Tirzepatide doesn't care if you lose fat or muscle. Protein + lifting decides which.</p></div></div>
+    <div class="principle"><div class="principle-num">03.</div><div class="principle-body"><h4>Hydration is non-negotiable</h4><p>2.5 L water minimum. The medication suppresses thirst. Set phone alarms if you have to. Electrolytes on lift days.</p></div></div>
+    <div class="principle"><div class="principle-num">04.</div><div class="principle-body"><h4>Avoid the panel reactives</h4><p>Eggs, cow whey, tree nuts, kidney beans, peanuts, yeast, wheat, tomatoes, hemp, pea. No vinegars (fermented). Distilled white vinegar OK. Coconut aminos for soy sauce sub.</p></div></div>
+    <div class="principle"><div class="principle-num">05.</div><div class="principle-body"><h4>Veg volume saves the cut</h4><p>2 cups minimum at lunch and dinner — spinach, zucchini, bell peppers, cucumbers, carrots. Fiber + bulk = full on fewer calories.</p></div></div>
+    <div class="principle"><div class="principle-num">06.</div><div class="principle-body"><h4>The Truvani shake is insurance</h4><p>Low-appetite days: this is how you hit protein without forcing food. Drink it cold, drink it slow.</p></div></div>
+    <div class="principle"><div class="principle-num">07.</div><div class="principle-body"><h4>Coffee fine until 2 PM</h4><p>Sleep is non-negotiable for fat loss and recovery. Late caffeine destroys deep sleep. ADHD meds aren't a reason to push it.</p></div></div>
+  </section>
+
+  <section>
+    <div class="section-label">Weekly Grocery List</div>
+    <div style="background: var(--card); border: 1px solid var(--rule); border-radius: 8px; padding: 6px 18px;">
+      <div class="macro-row"><div class="macro-name">Fresh salmon fillets</div><div class="macro-value">1.5–2 lb</div></div>
+      <div class="macro-row"><div class="macro-name">Fresh shrimp <em>peeled</em></div><div class="macro-value">1 lb</div></div>
+      <div class="macro-row"><div class="macro-name">Ground turkey 93%</div><div class="macro-value">1.5 lb</div></div>
+      <div class="macro-row"><div class="macro-name">Sirloin or flank steak</div><div class="macro-value">1 lb</div></div>
+      <div class="macro-row"><div class="macro-name">Applegate turkey breakfast sausage <em>uncured</em></div><div class="macro-value">1 pack</div></div>
+      <div class="macro-row"><div class="macro-name">Green Valley or Lactaid plain Greek yogurt</div><div class="macro-value">1 tub</div></div>
+      <div class="macro-row"><div class="macro-name">Raw pumpkin seeds <em>pepitas, unsalted</em></div><div class="macro-value">1 bag</div></div>
+      <div class="macro-row"><div class="macro-name">Extra-firm tofu <em>for fajita wrap</em></div><div class="macro-value">1 block</div></div>
+      <div class="macro-row"><div class="macro-name">Hummus <em>or sunflower seed butter if avoiding legumes</em></div><div class="macro-value">1 tub</div></div>
+      <div class="macro-row"><div class="macro-name">Truvani plant protein</div><div class="macro-value">1 tub/mo</div></div>
+      <div class="macro-row"><div class="macro-name">Equip Beef Protein</div><div class="macro-value">backup tub</div></div>
+      <div class="macro-row"><div class="macro-name">Collagen peptides</div><div class="macro-value">1 tub/mo</div></div>
+      <div class="macro-row"><div class="macro-name">Spinach (baby)</div><div class="macro-value">2 bags</div></div>
+      <div class="macro-row"><div class="macro-name">Zucchini, bell peppers, cucumber, carrots</div><div class="macro-value">5–6 lb</div></div>
+      <div class="macro-row"><div class="macro-name">Blueberries, apples, pears</div><div class="macro-value">3 lb</div></div>
+      <div class="macro-row"><div class="macro-name">Baby potatoes, sweet potatoes</div><div class="macro-value">3 lb</div></div>
+      <div class="macro-row"><div class="macro-name">White rice, rolled oats</div><div class="macro-value">staples</div></div>
+      <div class="macro-row"><div class="macro-name">Fairlife or Kirkland lactose-free milk</div><div class="macro-value">2 cartons</div></div>
+      <div class="macro-row"><div class="macro-name">Sunflower seed butter</div><div class="macro-value">1 jar</div></div>
+      <div class="macro-row"><div class="macro-name">Siete cassava tortillas <em>burrito size, for wraps</em></div><div class="macro-value">1 pack</div></div>
+      <div class="macro-row"><div class="macro-name">Olive oil, avocado, coconut aminos</div><div class="macro-value">pantry</div></div>
+      <div class="macro-row"><div class="macro-name">Garlic, ginger, lemon, lime, fresh herbs <em>+ cilantro for fajitas</em></div><div class="macro-value">weekly</div></div>
+      <div class="macro-row"><div class="macro-name">Red onion, ground cumin <em>for fajita veggies</em></div><div class="macro-value">pantry</div></div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ RECIPES ============ -->
+<div class="phase-panel" data-phase="7">
+  <section>
+    <div class="phase-card" style="--accent: var(--ochre);">
+      <div class="month-range" style="color: var(--ochre);">THE RECIPES · HISTAMINE-FRIENDLY</div>
+      <h2>Cook the year. <em>Twelve fresh dinners that belong to you.</em></h2>
+      <p class="lede">Every meal in your template, with full ingredients, the method, and a little of the why woven through. Free of dairy, eggs, fermented foods, wheat, tree nuts, kidney beans, peas, and tomatoes — built around what your body has told you it tolerates. Fresh-cooked, simple, satisfying.</p>
+    </div>
+  </section>
+
+  <div class="recipe-filter">
+    <button class="recipe-filter-pill active" data-filter="all">All</button>
+    <button class="recipe-filter-pill" data-filter="breakfast">Breakfast</button>
+    <button class="recipe-filter-pill" data-filter="lunch">Lunch</button>
+    <button class="recipe-filter-pill" data-filter="snack">Snack</button>
+    <button class="recipe-filter-pill" data-filter="dinner">Dinner</button>
+  </div>
+
+  <section>
+
+    <!-- BREAKFAST -->
+    <div class="recipe-group-label" data-group="breakfast">Breakfast · 32–41g protein</div>
+
+    <div class="recipe-card" data-meal="breakfast">
+      <div class="recipe-head">
+        <span class="recipe-tag meat">A · Bowl</span>
+        <div class="recipe-name">Greek yogurt bowl with pumpkin seeds, berries &amp; turkey sausage</div>
+        <div class="recipe-meal">07:30 · 6 min · serves 1</div>
+      </div>
+      <div class="recipe-why">this is the breakfast you actually want to eat. Greek yogurt hits the satisfaction spot oatmeal can't — sweet without being heavy, dense protein in a small volume that works with appetite suppression. Pumpkin seeds bring the crunch plus zinc and magnesium that support recovery from the lifting. The turkey sausage on the side is protein insurance for the rest of the morning.</div>
+      <div class="recipe-macros">
+        <div class="recipe-macro protein"><div class="k">Protein</div><div class="v">34 g</div></div>
+        <div class="recipe-macro"><div class="k">Cal</div><div class="v">390</div></div>
+        <div class="recipe-macro"><div class="k">Carbs</div><div class="v">22 g</div></div>
+        <div class="recipe-macro"><div class="k">Fat</div><div class="v">18 g</div></div>
+      </div>
+      <div class="recipe-section">
+        <div class="recipe-section-label">Ingredients</div>
+        <ul class="recipe-ingredients">
+          <li>1 cup Green Valley or Lactaid plain Greek lactose-free yogurt</li>
+          <li>2 tbsp raw pumpkin seeds <em>pepitas, unsalted</em></li>
+          <li>½ cup mixed berries <em>blueberries, raspberries</em></li>
+          <li>2 Applegate Naturals turkey breakfast sausage links <em>uncured, no nitrates</em></li>
+          <li>Pinch cinnamon</li>
+          <li>1 tsp honey or maple, optional</li>
+        </ul>
+      </div>
+      <div class="recipe-section">
+        <div class="recipe-section-label">Method</div>
+        <ol class="recipe-steps">
+          <li>Heat sausages in a dry skillet over medium, 4–5 minutes, turning, until browned through. (Applegate links are pre-cooked, so you're just heating and crisping the outside.)</li>
+          <li>Scoop yogurt into a bowl. Top with berries and pumpkin seeds.</li>
+          <li>Cinnamon over the top. Honey drizzle if you want sweetness.</li>
+          <li>Eat the sausages alongside — or slice and stir into the yogurt for protein-dense bites.</li>
+        </ol>
+      </div>
+      <div class="recipe-note"><strong>Brand note:</strong> Applegate Naturals turkey breakfast sausage is the cleanest grocery-store option — uncured, no nitrates or preservatives, no added sugar. Wellshire and Niman Ranch also clean if Applegate is out. Avoid Jimmy Dean / Johnsonville / most store-brand — those have nitrates and fillers.</div>
+    </div>
+
+    <div class="recipe-card" data-meal="breakfast">
+      <div class="recipe-head">
+        <span class="recipe-tag fish">B · Savory</span>
+        <div class="recipe-name">Salmon &amp; sweet potato hash with spinach</div>
+        <div class="recipe-meal">07:30 · 18 min · serves 1</div>
+      </div>
+      <div class="recipe-why">fresh salmon is gentle on digestion in a way smoked or aged fish isn't, the sweet potato gives steady energy that holds through a morning of meetings, and the spinach brings the iron and the green that makes a plate feel complete.</div>
+      <div class="recipe-macros">
+        <div class="recipe-macro protein"><div class="k">Protein</div><div class="v">35 g</div></div>
+        <div class="recipe-macro"><div class="k">Cal</div><div class="v">450</div></div>
+        <div class="recipe-macro"><div class="k">Carbs</div><div class="v">32 g</div></div>
+        <div class="recipe-macro"><div class="k">Fat</div><div class="v">18 g</div></div>
+      </div>
+      <div class="recipe-section">
+        <div class="recipe-section-label">Ingredients</div>
+        <ul class="recipe-ingredients">
+          <li>4 oz fresh salmon, skin off, cubed ½"</li>
+          <li>1 small sweet potato, peeled, diced ½"</li>
+          <li>2 cups baby spinach</li>
+          <li>2 garlic cloves, minced</li>
+          <li>1 tbsp olive oil</li>
+          <li>Salt, black pepper, smoked paprika</li>
+          <li>Lemon wedge</li>
+        </ul>
+      </div>
+      <div class="recipe-section">
+        <div class="recipe-section-label">Method</div>
+        <ol class="recipe-steps">
+          <li>Heat ½ tbsp olive oil in nonstick over medium-high. Add sweet potato + salt. Cook 8 min, stirring, until tender and edges caramelized.</li>
+          <li>Push potatoes to one side. Add remaining oil + salmon cubes + paprika. Cook 3 min undisturbed, then toss 1 min — just cooked through.</li>
+          <li>Add garlic + spinach. Toss until spinach wilts, ~1 min.</li>
+          <li>Squeeze lemon over the top. Black pepper. Plate.</li>
+        </ol>
+      </div>
+      <div class="recipe-note"><strong>Best savory breakfast you'll have:</strong> high protein, anti-inflammatory, no fermented anything. Caramelized sweet potato is the move.</div>
+    </div>
+
+    <div class="recipe-card" data-meal="breakfast">
+      <div class="recipe-head">
+        <span class="recipe-tag meat">C · Savory</span>
+        <div class="recipe-name">Ground turkey &amp; rice breakfast bowl</div>
+        <div class="recipe-meal">07:30 · 15 min · serves 1</div>
+      </div>
+      <div class="recipe-why">Asian breakfasts have this figured out — rice for sustained energy, lean protein for satiety, fresh ginger for digestion, and zucchini for volume without weight. Nothing fermented, nothing aged, nothing that asks your body to work hard before noon.</div>
+      <div class="recipe-macros">
+        <div class="recipe-macro protein"><div class="k">Protein</div><div class="v">32 g</div></div>
+        <div class="recipe-macro"><div class="k">Cal</div><div class="v">420</div></div>
+        <div class="recipe-macro"><div class="k">Carbs</div><div class="v">38 g</div></div>
+        <div class="recipe-macro"><div class="k">Fat</div><div class="v">14 g</div></div>
+      </div>
+      <div class="recipe-section">
+        <div class="recipe-section-label">Ingredients</div>
+        <ul class="recipe-ingredients">
+          <li>4 oz ground turkey 93%</li>
+          <li>½ cup cooked white rice <em>made fresh or from morning batch</em></li>
+          <li>1 cup zucchini, sliced</li>
+          <li>1 tsp grated ginger</li>
+          <li>1 garlic clove, minced</li>
+          <li>1 tsp olive oil</li>
+          <li>1 tsp coconut aminos</li>
+          <li>Sliced cucumber, salt</li>
+        </ul>
+      </div>
+      <div class="recipe-section">
+        <div class="recipe-section-label">Method</div>
+        <ol class="recipe-steps">
+          <li>Heat olive oil in nonstick over medium-high. Add turkey, break apart, salt. Brown 4 min.</li>
+          <li>Add zucchini, ginger, garlic. Cook 3 min until zucchini softens.</li>
+          <li>Off heat, stir in coconut aminos.</li>
+          <li>Plate over warm rice. Top with sliced cucumber.</li>
+        </ol>
+      </div>
+      <div class="recipe-note"><strong>Asian breakfast logic:</strong> the Korean/Japanese model of savory breakfasts (rice + protein + veg) is exactly your panel-friendly profile. Coconut aminos replaces soy sauce.</div>
+    </div>
+
+    <div class="recipe-card" data-meal="breakfast">
+      <div class="recipe-head">
+        <span class="recipe-tag plant">D · For cold mornings</span>
+        <div class="recipe-name">Truvani protein oats with blueberries</div>
+        <div class="recipe-meal">07:30 · 8 min · serves 1 · when you want something hot &amp; slow</div>
+      </div>
+      <div class="recipe-why">if a winter morning calls for something warm and bowl-shaped instead of cold yogurt. Oats land soft, Truvani protein keeps it on target, sunflower seed butter gives the satisfying fat. Use a smaller portion than the standard recipe — ¼ cup oats instead of ½ — if the bigger version felt like too much food before.</div>
+      <div class="recipe-macros">
+        <div class="recipe-macro protein"><div class="k">Protein</div><div class="v">41 g</div></div>
+        <div class="recipe-macro"><div class="k">Cal</div><div class="v">430</div></div>
+        <div class="recipe-macro"><div class="k">Carbs</div><div class="v">42 g</div></div>
+        <div class="recipe-macro"><div class="k">Fat</div><div class="v">10 g</div></div>
+      </div>
+      <div class="recipe-section">
+        <div class="recipe-section-label">Ingredients</div>
+        <ul class="recipe-ingredients">
+          <li>¼–½ cup rolled oats <em>start with ¼ if appetite is suppressed</em></li>
+          <li>1 cup Fairlife or Kirkland lactose-free milk (or ½ cup milk + ½ cup water)</li>
+          <li>1 scoop Truvani plant protein</li>
+          <li>1 scoop collagen peptides</li>
+          <li>½ cup fresh blueberries</li>
+          <li>1 tbsp sunflower seed butter</li>
+          <li>Cinnamon, pinch of salt</li>
+        </ul>
+      </div>
+      <div class="recipe-section">
+        <div class="recipe-section-label">Method</div>
+        <ol class="recipe-steps">
+          <li>Cook oats in lactose-free milk + pinch of salt, low heat, 5 min until creamy.</li>
+          <li>Pull off heat. Let cool 1 min — adding protein to boiling oats clumps it.</li>
+          <li>Stir in Truvani and collagen. A splash more milk if too thick.</li>
+          <li>Top with blueberries, sunflower seed butter, cinnamon.</li>
+        </ol>
+      </div>
+      <div class="recipe-note"><strong>Honest read:</strong> the original full version felt like a lot. The ¼-cup oat version still hits 36g protein with about ⅔ the volume — easier to finish when appetite is down.</div>
+    </div>
+
+    <!-- LUNCH -->
+    <div class="recipe-group-label" data-group="lunch">Lunch · 36–42g protein</div>
+
+    <div class="recipe-card" data-meal="lunch">
+      <div class="recipe-head">
+        <span class="recipe-tag fish">A · Salmon</span>
+        <div class="recipe-name">Lemon-dill salmon, smashed potatoes, spinach</div>
+        <div class="recipe-meal">12:30 · 35 min · serves 1</div>
+      </div>
+      <div class="recipe-why">fresh salmon is gentle on digestion in a way smoked or aged fish isn't, the potatoes give you steady satisfying energy that answers end-of-day tiredness, and the big pile of spinach brings the fiber and the green that makes a plate feel complete.</div>
+      <div class="recipe-macros">
+        <div class="recipe-macro protein"><div class="k">Protein</div><div class="v">40 g</div></div>
+        <div class="recipe-macro"><div class="k">Cal</div><div class="v">520</div></div>
+        <div class="recipe-macro"><div class="k">Carbs</div><div class="v">35 g</div></div>
+        <div class="recipe-macro"><div class="k">Fat</div><div class="v">22 g</div></div>
+      </div>
+      <div class="recipe-section">
+        <div class="recipe-section-label">Ingredients</div>
+        <ul class="recipe-ingredients">
+          <li>5 oz fresh salmon fillet, skin on</li>
+          <li>8 oz baby gold or red potatoes</li>
+          <li>2 cups baby spinach</li>
+          <li>2 garlic cloves, minced</li>
+          <li>2 tbsp olive oil, divided</li>
+          <li>1 lemon — zest + juice</li>
+          <li>1 tbsp fresh dill, chopped</li>
+          <li>Salt, black pepper</li>
+        </ul>
+      </div>
+      <div class="recipe-section">
+        <div class="recipe-section-label">Method</div>
+        <ol class="recipe-steps">
+          <li>Boil potatoes in salted water 12–15 min until fork-tender. Drain.</li>
+          <li>Meanwhile, heat oven to 400°F. Drained potatoes on a sheet pan, smash each with a glass to ½" thick. Drizzle 1 tbsp olive oil, salt. Roast 15 min until crisp edges.</li>
+          <li>Pat salmon dry. Salt + pepper. Heat remaining olive oil in nonstick over medium-high. Salmon skin-side-down 4 min — don't move it. Flip, 2 min more. Pull.</li>
+          <li>Same pan, add garlic + spinach. Toss 1 min until wilted.</li>
+          <li>Plate. Squeeze lemon over salmon. Sprinkle dill + lemon zest.</li>
+        </ol>
+      </div>
+      <div class="recipe-note"><strong>The 3-card classic.</strong> Crisp skin = pan must be hot, salmon must be dry. Don't peek for the first 4 minutes.</div>
+    </div>
+
+    <div class="recipe-card" data-meal="lunch">
+      <div class="recipe-head">
+        <span class="recipe-tag fish">B · Shrimp</span>
+        <div class="recipe-name">Garlic shrimp with rice &amp; sautéed peppers</div>
+        <div class="recipe-meal">12:30 · 20 min · serves 1</div>
+      </div>
+      <div class="recipe-why">shrimp is one of the most digestible proteins on your panel — no histamine load, quick cook, easy on the gut. White rice is a comfort carb that your body knows what to do with. The peppers bring sweetness and Vitamin C without any of the tomato family showing up.</div>
+      <div class="recipe-macros">
+        <div class="recipe-macro protein"><div class="k">Protein</div><div class="v">38 g</div></div>
+        <div class="recipe-macro"><div class="k">Cal</div><div class="v">470</div></div>
+        <div class="recipe-macro"><div class="k">Carbs</div><div class="v">48 g</div></div>
+        <div class="recipe-macro"><div class="k">Fat</div><div class="v">14 g</div></div>
+      </div>
+      <div class="recipe-section">
+        <div class="recipe-section-label">Ingredients</div>
+        <ul class="recipe-ingredients">
+          <li>6 oz fresh shrimp, peeled &amp; deveined</li>
+          <li>½ cup white rice, cooked</li>
+          <li>1 red bell pepper, sliced</li>
+          <li>1 yellow bell pepper, sliced</li>
+          <li>1 cup zucchini, sliced</li>
+          <li>4 garlic cloves, minced</li>
+          <li>1 tbsp olive oil</li>
+          <li>½ lemon, juiced</li>
+          <li>1 tbsp fresh parsley, chopped</li>
+          <li>Salt, red pepper flakes</li>
+        </ul>
+      </div>
+      <div class="recipe-section">
+        <div class="recipe-section-label">Method</div>
+        <ol class="recipe-steps">
+          <li>Pat shrimp very dry — wet shrimp steams instead of sears.</li>
+          <li>Heat ½ tbsp olive oil in nonstick over medium-high. Add peppers + zucchini + salt. Cook 5 min until tender-crisp. Move to plate.</li>
+          <li>Same pan, remaining oil + garlic. 30 seconds. Add shrimp in single layer + red pepper flakes. 2 min one side, 1 min other — opaque and pink.</li>
+          <li>Off heat, squeeze lemon. Toss parsley.</li>
+          <li>Plate rice, top with vegetables, shrimp over the top with all the garlic-oil from the pan.</li>
+        </ol>
+      </div>
+      <div class="recipe-note"><strong>Shrimp pro tip:</strong> if frozen, thaw in a bowl of cold water 15 min, then pat very dry with paper towels. Wet shrimp = rubber shrimp.</div>
+    </div>
+
+    <div class="recipe-card" data-meal="lunch">
+      <div class="recipe-head">
+        <span class="recipe-tag meat">C · Turkey</span>
+        <div class="recipe-name">Turkey patty with cucumber salad &amp; sweet potato</div>
+        <div class="recipe-meal">12:30 · 25 min · serves 1</div>
+      </div>
+      <div class="recipe-why">lean turkey is body-friendly protein that doesn't sit heavy, cucumber is the most hydrating salad ingredient on the planet, and the sweet potato lands warm and sweet without anything you'd second-guess at 1pm.</div>
+      <div class="recipe-macros">
+        <div class="recipe-macro protein"><div class="k">Protein</div><div class="v">38 g</div></div>
+        <div class="recipe-macro"><div class="k">Cal</div><div class="v">480</div></div>
+        <div class="recipe-macro"><div class="k">Carbs</div><div class="v">36 g</div></div>
+        <div class="recipe-macro"><div class="k">Fat</div><div class="v">20 g</div></div>
+      </div>
+      <div class="recipe-section">
+        <div class="recipe-section-label">Ingredients</div>
+        <ul class="recipe-ingredients">
+          <li>6 oz ground turkey 93%</li>
+          <li>1 small sweet potato (~6 oz)</li>
+          <li>1 large cucumber, sliced thin</li>
+          <li>1 carrot, julienned or shaved</li>
+          <li>2 tbsp fresh dill or parsley, chopped</li>
+          <li>1 garlic clove, minced</li>
+          <li>1 tbsp olive oil, plus more for cooking</li>
+          <li>1 tbsp distilled white vinegar <em>safe — non-fermented</em></li>
+          <li>1 tsp lemon juice</li>
+          <li>Salt, black pepper</li>
+        </ul>
+      </div>
+      <div class="recipe-section">
+        <div class="recipe-section-label">Method</div>
+        <ol class="recipe-steps">
+          <li>Heat oven to 425°F. Pierce sweet potato all over. Roast 30 min — or microwave 6 min if time-pressed.</li>
+          <li>While potato cooks: mix ground turkey with minced garlic, salt, pepper, half the herbs. Form one 6 oz patty, ¾" thick.</li>
+          <li>Cucumber salad: toss cucumber + carrot with olive oil, vinegar, lemon, remaining herbs, salt.</li>
+          <li>Heat 1 tsp olive oil in pan over medium-high. Patty 4 min one side, flip, 3 min other — 165°F internal.</li>
+          <li>Plate: split sweet potato, top with a drizzle of olive oil + salt. Patty alongside. Cucumber salad next to it.</li>
+        </ol>
+      </div>
+      <div class="recipe-note"><strong>Make a 4-pack:</strong> double the turkey for 4 patties, freeze 3 raw between parchment. Cook from frozen as needed — ~12 min total.</div>
+    </div>
+
+    <div class="recipe-card" data-meal="lunch">
+      <div class="recipe-head">
+        <span class="recipe-tag meat">D · Wrap, grab-and-go</span>
+        <div class="recipe-name">Turkey, cucumber &amp; dill wrap on cassava</div>
+        <div class="recipe-meal">12:30 · 10 min · serves 1 · made night-before or AM-of</div>
+      </div>
+      <div class="recipe-why">this is the office lunch that doesn't ask anything of you at noon. Built around a cooked-then-cooled turkey patty, it sits in the fridge or your bag for hours and stays good. Siete cassava tortillas are grain-free and panel-safe — the wheat wrap workaround that actually tastes like a real wrap.</div>
+      <div class="recipe-macros">
+        <div class="recipe-macro protein"><div class="k">Protein</div><div class="v">38 g</div></div>
+        <div class="recipe-macro"><div class="k">Cal</div><div class="v">490</div></div>
+        <div class="recipe-macro"><div class="k">Carbs</div><div class="v">36 g</div></div>
+        <div class="recipe-macro"><div class="k">Fat</div><div class="v">22 g</div></div>
+      </div>
+      <div class="recipe-section">
+        <div class="recipe-section-label">Ingredients</div>
+        <ul class="recipe-ingredients">
+          <li>1 cooked turkey patty (~5 oz), cold or room temp <em>or 5 oz sliced cooked turkey</em></li>
+          <li>1 large Siete cassava tortillas <em>burrito size</em></li>
+          <li>½ avocado, mashed with salt &amp; pepper</li>
+          <li>½ cup baby spinach</li>
+          <li>½ cucumber, sliced thin lengthwise</li>
+          <li>2 tbsp shredded carrot <em>optional, for crunch</em></li>
+          <li>1 tbsp fresh dill, chopped</li>
+          <li>Salt, pepper, squeeze of lemon</li>
+        </ul>
+      </div>
+      <div class="recipe-section">
+        <div class="recipe-section-label">Method</div>
+        <ol class="recipe-steps">
+          <li>Warm the tortilla 15 seconds in a dry pan — makes it pliable, less likely to crack when rolling.</li>
+          <li>Spread mashed avocado across the center third of the tortilla. Salt, pepper, lemon.</li>
+          <li>Layer spinach, then sliced turkey (or crumbled patty), then cucumber and carrot. Scatter fresh dill.</li>
+          <li>Fold sides in, then roll from the bottom up tight like a burrito.</li>
+          <li>Wrap in parchment or foil. Slice diagonally if you want. Eat within 24 hours.</li>
+        </ol>
+      </div>
+      <div class="recipe-note"><strong>Grab-and-go logistics:</strong> cook the turkey patty Sunday night with the meatballs. Assemble the wrap before bed, wrap tight in parchment, refrigerate. Grab on your way to BambooHR. Eats well at the desk — no heating, no mess.</div>
+    </div>
+
+    <div class="recipe-card" data-meal="lunch">
+      <div class="recipe-head">
+        <span class="recipe-tag fish">E · Wrap, grab-and-go</span>
+        <div class="recipe-name">Lemon-dill salmon &amp; avocado wrap</div>
+        <div class="recipe-meal">12:30 · 10 min · serves 1 · made night-before or AM-of</div>
+      </div>
+      <div class="recipe-why">if you cooked salmon for dinner, this is what tomorrow's lunch is built from. Flaked cold salmon with avocado on a cassava wrap is one of the most satiating cold lunches you can make — high protein, healthy fats, fresh-tasting even at 1pm. No reheating, no smell at the office.</div>
+      <div class="recipe-macros">
+        <div class="recipe-macro protein"><div class="k">Protein</div><div class="v">36 g</div></div>
+        <div class="recipe-macro"><div class="k">Cal</div><div class="v">510</div></div>
+        <div class="recipe-macro"><div class="k">Carbs</div><div class="v">32 g</div></div>
+        <div class="recipe-macro"><div class="k">Fat</div><div class="v">26 g</div></div>
+      </div>
+      <div class="recipe-section">
+        <div class="recipe-section-label">Ingredients</div>
+        <ul class="recipe-ingredients">
+          <li>5 oz cooked salmon, cold, flaked <em>from last night's dinner</em></li>
+          <li>1 large Siete cassava tortilla</li>
+          <li>½ avocado, mashed</li>
+          <li>½ cup baby spinach</li>
+          <li>¼ cucumber, sliced thin</li>
+          <li>1 tbsp fresh dill, chopped</li>
+          <li>Juice of ½ lemon</li>
+          <li>Salt, pepper</li>
+        </ul>
+      </div>
+      <div class="recipe-section">
+        <div class="recipe-section-label">Method</div>
+        <ol class="recipe-steps">
+          <li>Warm the tortilla 15 seconds in a dry pan to make it pliable.</li>
+          <li>In a small bowl, mix flaked salmon with lemon juice, dill, salt, pepper.</li>
+          <li>Spread mashed avocado across the center third of the tortilla.</li>
+          <li>Layer spinach, then the salmon mixture, then cucumber.</li>
+          <li>Fold sides in, roll tight from the bottom. Wrap in parchment.</li>
+          <li>Refrigerate up to 12 hours, or grab and go straight away. Eat within 24h of assembly.</li>
+        </ol>
+      </div>
+      <div class="recipe-note"><strong>The Sunday-night logic:</strong> cook an extra salmon fillet whenever you make Dinner A. Cool it in the fridge overnight. By Tuesday lunch, you've got the makings of this wrap with zero new cooking effort.</div>
+    </div>
+
+    <div class="recipe-card" data-meal="lunch">
+      <div class="recipe-head">
+        <span class="recipe-tag plant">F · Wrap, grab-and-go</span>
+        <div class="recipe-name">Garlic-ginger tofu fajita wrap</div>
+        <div class="recipe-meal">12:30 · 20 min · serves 1 · made night-before or AM-of</div>
+      </div>
+      <div class="recipe-why">this is your plant-day wrap when you want something different from the salmon-or-turkey rotation. Fresh tofu is one of the cleanest plant proteins on your panel — non-fermented soy is well-tolerated where miso, tempeh, and soy sauce aren't. The garlic-ginger-coconut-aminos finish gives it real fajita flavor without anything fermented or aged.</div>
+      <div class="recipe-macros">
+        <div class="recipe-macro protein"><div class="k">Protein</div><div class="v">37 g</div></div>
+        <div class="recipe-macro"><div class="k">Cal</div><div class="v">480</div></div>
+        <div class="recipe-macro"><div class="k">Carbs</div><div class="v">38 g</div></div>
+        <div class="recipe-macro"><div class="k">Fat</div><div class="v">24 g</div></div>
+      </div>
+      <div class="recipe-section">
+        <div class="recipe-section-label">Ingredients</div>
+        <ul class="recipe-ingredients">
+          <li>6 oz extra-firm tofu, pressed <em>see step 1</em></li>
+          <li>1 large Siete cassava tortilla</li>
+          <li>2 tbsp hummus <em>or sunflower seed butter — see note below</em></li>
+          <li>½ red bell pepper, sliced thin</li>
+          <li>½ yellow or orange bell pepper, sliced thin</li>
+          <li>¼ red onion, sliced thin</li>
+          <li>½ cup baby spinach</li>
+          <li>1 tbsp olive oil, split</li>
+          <li>2 garlic cloves, minced</li>
+          <li>1 tsp fresh ginger, grated</li>
+          <li>1 tbsp coconut aminos</li>
+          <li>1 tbsp cornstarch or tapioca starch <em>for crispy edges</em></li>
+          <li>½ tsp ground cumin · salt · black pepper</li>
+          <li>Fresh cilantro + lime wedge to finish</li>
+        </ul>
+      </div>
+      <div class="recipe-section">
+        <div class="recipe-section-label">Method</div>
+        <ol class="recipe-steps">
+          <li>Press the tofu: wrap in a clean towel, set a heavy pan on top, 15 minutes. (Or use a tofu press if you have one.) <em>Pressed tofu pan-fries crisp; soggy tofu steams and falls apart.</em></li>
+          <li>While tofu presses, slice peppers and onion. Heat ½ tbsp olive oil in skillet over medium-high. Sauté peppers + onion + pinch of cumin + salt, 5 minutes until tender with charred edges. Remove to plate.</li>
+          <li>Cube pressed tofu into ½" pieces. Toss in a bowl with cornstarch, remaining cumin, salt, pepper.</li>
+          <li>Heat remaining ½ tbsp olive oil in the same pan over medium-high. Add tofu in single layer. Don't touch for 2 minutes. Flip, cook 2 min more. Repeat for all sides — about 8 minutes total — until golden and crispy.</li>
+          <li>Add garlic and ginger to the pan, stir 30 seconds. Pour in coconut aminos. Toss tofu to coat. Off heat.</li>
+          <li>Warm the tortilla 15 seconds in a dry pan to make it pliable.</li>
+          <li>Spread hummus across center third of tortilla. Layer spinach, fajita veggies, then tofu. Scatter cilantro, squeeze lime.</li>
+          <li>Fold sides in, roll tight from the bottom. Wrap in parchment if heading to the office.</li>
+        </ol>
+      </div>
+      <div class="recipe-note"><strong>A small note on the hummus:</strong> chickpeas are in the same legume family as pea, kidney bean, and pinto bean — all flagged on your panel. They weren't directly tested, so they may be fine — but if you start noticing low-grade reactions after this one, sunflower seed butter or a thick layer of mashed avocado swap in cleanly without changing the wrap much. Shelby would have a good read on whether to test-and-see or skip.</div>
+    </div>
+
+    <!-- SNACK -->
+    <div class="recipe-group-label" data-group="snack">Snack · 22–34g protein</div>
+
+    <div class="recipe-card" data-meal="snack">
+      <div class="recipe-head">
+        <span class="recipe-tag plant">A · Shake</span>
+        <div class="recipe-name">Truvani shake with banana &amp; cinnamon</div>
+        <div class="recipe-meal">16:00 · 3 min · serves 1</div>
+      </div>
+      <div class="recipe-why">this is the snack that lands 34g of protein in about a minute, even when appetite is gone. Cold, sweet, easy to sip. The banana brings just enough sugar to sit alongside the protein, the cinnamon settles blood sugar, the high-protein Fairlife goes down smooth.</div>
+      <div class="recipe-macros">
+        <div class="recipe-macro protein"><div class="k">Protein</div><div class="v">34 g</div></div>
+        <div class="recipe-macro"><div class="k">Cal</div><div class="v">270</div></div>
+        <div class="recipe-macro"><div class="k">Carbs</div><div class="v">22 g</div></div>
+        <div class="recipe-macro"><div class="k">Fat</div><div class="v">5 g</div></div>
+      </div>
+      <div class="recipe-section">
+        <div class="recipe-section-label">Ingredients</div>
+        <ul class="recipe-ingredients">
+          <li>1 scoop Truvani plant protein</li>
+          <li>1 scoop collagen peptides <em>+10g, no flavor</em></li>
+          <li>1 cup Fairlife or Kirkland lactose-free milk</li>
+          <li>½ frozen banana</li>
+          <li>1 tsp sunflower seed butter <em>optional</em></li>
+          <li>Big pinch cinnamon</li>
+          <li>3–4 ice cubes</li>
+        </ul>
+      </div>
+      <div class="recipe-section">
+        <div class="recipe-section-label">Method</div>
+        <ol class="recipe-steps">
+          <li>Combine in blender or shake bottle. Blend 30 seconds.</li>
+          <li>Drink on the way to Lifetime — pre-lift fuel.</li>
+        </ol>
+      </div>
+      <div class="recipe-note"><strong>Tirzepatide low-appetite day?</strong> This is the go-to. Cold, easy to sip, lands 34g protein in 3 min. Make it slowly throughout 30 min if needed.</div>
+    </div>
+
+    <div class="recipe-card" data-meal="snack">
+      <div class="recipe-head">
+        <span class="recipe-tag meat">B · Beef</span>
+        <div class="recipe-name">Equip Beef Protein shake</div>
+        <div class="recipe-meal">16:00 · 2 min · serves 1</div>
+      </div>
+      <div class="recipe-why">for the days you want animal protein but can't bring yourself to cook one more thing. Equip is grass-fed beef isolate — same complete amino profile as whey without the cow whey reaction. Tastes like chocolate milk, no funny aftertaste.</div>
+      <div class="recipe-macros">
+        <div class="recipe-macro protein"><div class="k">Protein</div><div class="v">32 g</div></div>
+        <div class="recipe-macro"><div class="k">Cal</div><div class="v">190</div></div>
+        <div class="recipe-macro"><div class="k">Carbs</div><div class="v">12 g</div></div>
+        <div class="recipe-macro"><div class="k">Fat</div><div class="v">1 g</div></div>
+      </div>
+      <div class="recipe-section">
+        <div class="recipe-section-label">Ingredients</div>
+        <ul class="recipe-ingredients">
+          <li>1 scoop Equip Beef Protein <em>chocolate or vanilla</em></li>
+          <li>1 cup Fairlife or Kirkland lactose-free milk</li>
+          <li>Cinnamon</li>
+          <li>Ice</li>
+        </ul>
+      </div>
+      <div class="recipe-section">
+        <div class="recipe-section-label">Method</div>
+        <ol class="recipe-steps">
+          <li>Shake or blend.</li>
+          <li>That's it.</li>
+        </ol>
+      </div>
+      <div class="recipe-note"><strong>The animal protein alternative:</strong> if you want a protein source that isn't plant-based, Equip is grass-fed beef isolate. Tastes like chocolate milk. Tested safe on your panel.</div>
+    </div>
+
+    <div class="recipe-card" data-meal="snack">
+      <div class="recipe-head">
+        <span class="recipe-tag plant">C · Whole food</span>
+        <div class="recipe-name">Apple with sunflower seed butter &amp; collagen water</div>
+        <div class="recipe-meal">16:00 · 3 min · serves 1</div>
+      </div>
+      <div class="recipe-why">this is the snack for the days when even a shake feels like too much. The apple brings crunch and fiber, sunflower seed butter brings the satisfying fat, collagen in lemon water sneaks in 20g of protein that tastes like flavored water.</div>
+      <div class="recipe-macros">
+        <div class="recipe-macro protein"><div class="k">Protein</div><div class="v">22 g</div></div>
+        <div class="recipe-macro"><div class="k">Cal</div><div class="v">290</div></div>
+        <div class="recipe-macro"><div class="k">Carbs</div><div class="v">36 g</div></div>
+        <div class="recipe-macro"><div class="k">Fat</div><div class="v">11 g</div></div>
+      </div>
+      <div class="recipe-section">
+        <div class="recipe-section-label">Ingredients</div>
+        <ul class="recipe-ingredients">
+          <li>1 medium apple, sliced</li>
+          <li>2 tbsp sunflower seed butter</li>
+          <li>2 scoops collagen peptides <em>20g protein</em></li>
+          <li>10 oz cold water + lemon</li>
+          <li>Cinnamon for dipping</li>
+        </ul>
+      </div>
+      <div class="recipe-section">
+        <div class="recipe-section-label">Method</div>
+        <ol class="recipe-steps">
+          <li>Slice apple, dust with cinnamon.</li>
+          <li>Whisk collagen into lemon water until dissolved.</li>
+          <li>Dip apple slices in sunflower seed butter. Sip collagen water alongside.</li>
+        </ol>
+      </div>
+      <div class="recipe-note"><strong>The no-shake option:</strong> for days when even thinking about a smoothie feels like too much. Collagen has no flavor in lemon water — sips like flavored water.</div>
+    </div>
+
+    <!-- DINNER -->
+    <div class="recipe-group-label" data-group="dinner">Dinner · 38–42g protein</div>
+
+    <div class="recipe-card" data-meal="dinner">
+      <div class="recipe-head">
+        <span class="recipe-tag meat">A · Steak</span>
+        <div class="recipe-name">Pan-seared steak with roasted potatoes &amp; greens</div>
+        <div class="recipe-meal">19:30 · 30 min · serves 1</div>
+      </div>
+      <div class="recipe-why">lean red meat is body-friendly in a way that surprises people — high in iron, B-vitamins, and creatine, all of which support the lifting work you're doing. Smashed potatoes are pure comfort, the greens close the loop with fiber and folate.</div>
+      <div class="recipe-macros">
+        <div class="recipe-macro protein"><div class="k">Protein</div><div class="v">42 g</div></div>
+        <div class="recipe-macro"><div class="k">Cal</div><div class="v">540</div></div>
+        <div class="recipe-macro"><div class="k">Carbs</div><div class="v">34 g</div></div>
+        <div class="recipe-macro"><div class="k">Fat</div><div class="v">24 g</div></div>
+      </div>
+      <div class="recipe-section">
+        <div class="recipe-section-label">Ingredients</div>
+        <ul class="recipe-ingredients">
+          <li>5 oz sirloin or flank steak, ¾" thick</li>
+          <li>8 oz baby potatoes, halved</li>
+          <li>2 cups baby spinach (or zucchini)</li>
+          <li>3 garlic cloves, 2 minced, 1 smashed</li>
+          <li>2 tbsp olive oil, divided</li>
+          <li>1 sprig fresh rosemary or thyme</li>
+          <li>Flaky salt, black pepper</li>
+          <li>Lemon wedge</li>
+        </ul>
+      </div>
+      <div class="recipe-section">
+        <div class="recipe-section-label">Method</div>
+        <ol class="recipe-steps">
+          <li>Heat oven to 425°F. Toss potatoes with 1 tbsp olive oil, salt, smashed garlic. Roast 25 min, flipping at 15 min.</li>
+          <li>Pull steak from fridge — salt both sides — let sit 15 min while potatoes cook (room temp steak sears better).</li>
+          <li>Heat remaining oil in cast iron or heavy pan over medium-high until shimmering. Lay steak in, don't move it. 3 min per side for medium-rare (130°F internal). Add rosemary + smashed garlic for last min — baste with the oil.</li>
+          <li>Rest steak 5 min. While resting: sauté minced garlic + spinach in the same pan, 1 min.</li>
+          <li>Slice steak against the grain. Plate with potatoes, greens. Flaky salt + lemon.</li>
+        </ol>
+      </div>
+      <div class="recipe-note"><strong>Resting is non-negotiable.</strong> Cut into a steak right off heat, juices run out. Wait 5 min — they redistribute.</div>
+    </div>
+
+    <div class="recipe-card" data-meal="dinner">
+      <div class="recipe-head">
+        <span class="recipe-tag fish">B · Shrimp</span>
+        <div class="recipe-name">Ginger shrimp stir-fry with rice</div>
+        <div class="recipe-meal">19:30 · 20 min · serves 1</div>
+      </div>
+      <div class="recipe-why">stir-fry is one of the best vehicles for vegetables when you don't feel like eating salad. Ginger settles the stomach (helpful on tirzepatide days), coconut aminos brings the salty-sweet without any fermented soy, and the shrimp is one of the cleanest proteins on your panel.</div>
+      <div class="recipe-macros">
+        <div class="recipe-macro protein"><div class="k">Protein</div><div class="v">38 g</div></div>
+        <div class="recipe-macro"><div class="k">Cal</div><div class="v">470</div></div>
+        <div class="recipe-macro"><div class="k">Carbs</div><div class="v">52 g</div></div>
+        <div class="recipe-macro"><div class="k">Fat</div><div class="v">12 g</div></div>
+      </div>
+      <div class="recipe-section">
+        <div class="recipe-section-label">Ingredients</div>
+        <ul class="recipe-ingredients">
+          <li>6 oz fresh shrimp, peeled</li>
+          <li>½ cup white rice, cooked</li>
+          <li>1 cup carrots, sliced thin on bias</li>
+          <li>1 cup bell peppers, sliced</li>
+          <li>1 cup zucchini, sliced</li>
+          <li>2 tbsp coconut aminos</li>
+          <li>1 tbsp grated fresh ginger</li>
+          <li>3 garlic cloves, minced</li>
+          <li>1 tbsp olive oil</li>
+          <li>1 tsp toasted sesame oil <em>finishing</em></li>
+          <li>Sliced scallions to serve</li>
+        </ul>
+      </div>
+      <div class="recipe-section">
+        <div class="recipe-section-label">Method</div>
+        <ol class="recipe-steps">
+          <li>Pat shrimp very dry. Heat olive oil in large nonstick over high heat until shimmering.</li>
+          <li>Add carrots first (hardest). Stir-fry 2 min. Add peppers + zucchini, 2 min more — keep moving.</li>
+          <li>Push veg to side. Add shrimp in single layer. 1 min, flip, 1 min more.</li>
+          <li>Add ginger + garlic, 30 sec. Pour in coconut aminos — it will steam and reduce. Toss everything 30 sec.</li>
+          <li>Off heat, drizzle sesame oil. Plate over rice. Top with scallions.</li>
+        </ol>
+      </div>
+      <div class="recipe-note"><strong>Coconut aminos:</strong> sweeter and less salty than soy sauce, but works the same. Look for "coconut aminos" — not "coconut amino sauce" (different product).</div>
+    </div>
+
+    <div class="recipe-card" data-meal="dinner">
+      <div class="recipe-head">
+        <span class="recipe-tag meat">C · Turkey</span>
+        <div class="recipe-name">Turkey meatballs over rice with sautéed spinach</div>
+        <div class="recipe-meal">19:30 · 30 min · serves 2 <em>(1 portion + tomorrow's lunch — but eat within 24h)</em></div>
+      </div>
+      <div class="recipe-why">meatballs are a Sunday-night meal that travels well into Monday lunch (just barely — eat within 24h). Lean turkey is panel-safe, the rice settles in nicely, the spinach brings iron without any of the tomato sauce that usually shows up with meatballs.</div>
+      <div class="recipe-macros">
+        <div class="recipe-macro protein"><div class="k">Protein</div><div class="v">40 g</div></div>
+        <div class="recipe-macro"><div class="k">Cal</div><div class="v">510</div></div>
+        <div class="recipe-macro"><div class="k">Carbs</div><div class="v">48 g</div></div>
+        <div class="recipe-macro"><div class="k">Fat</div><div class="v">16 g</div></div>
+      </div>
+      <div class="recipe-section">
+        <div class="recipe-section-label">Ingredients</div>
+        <ul class="recipe-ingredients">
+          <li>1 lb ground turkey 93%</li>
+          <li>4 garlic cloves, minced</li>
+          <li>2 tbsp fresh parsley, chopped</li>
+          <li>1 tbsp fresh dill, chopped</li>
+          <li>1 tsp salt · ½ tsp black pepper</li>
+          <li>1 tsp lemon zest</li>
+          <li>2 tbsp olive oil, divided</li>
+          <li>1 cup cooked white rice (per serving)</li>
+          <li>4 cups baby spinach</li>
+          <li>1 lemon, halved</li>
+        </ul>
+      </div>
+      <div class="recipe-section">
+        <div class="recipe-section-label">Method</div>
+        <ol class="recipe-steps">
+          <li>Mix turkey with half the garlic, half the herbs, salt, pepper, lemon zest. Form 8 meatballs (~2 oz each).</li>
+          <li>Heat 1 tbsp olive oil in large nonstick over medium. Add meatballs. Sear 2 min per side (4 sides total) — 8 min — until 165°F. Lower heat if browning too fast.</li>
+          <li>Remove meatballs. Same pan, remaining oil + remaining garlic. 30 sec. Add spinach in batches, tossing until wilted, ~2 min.</li>
+          <li>Plate rice, spinach, 4 meatballs. Squeeze lemon over the top. Remaining herbs.</li>
+        </ol>
+      </div>
+      <div class="recipe-note"><strong>Histamine note on leftovers:</strong> meatballs reheat well but histamine builds in stored protein. Eat second portion within 24h, or freeze immediately (single portion in a bag). Reheat from frozen, not thawed.</div>
+    </div>
+
+  </section>
+
+  <div class="quote">
+    <p>Fresh, simple, repeatable. Pick three. Cook them in a rotation. Let the rest wait.</p>
+  </div>
+</div>
+
+<!-- ============ LOG ============ -->
+<div class="phase-panel" data-phase="8">
+  <section>
+    <div class="phase-card">
+      <div class="month-range">YOUR LOG</div>
+      <h2>Every set, every week. <em>See yourself getting strong.</em></h2>
+      <p class="lede">Weights you've logged across all workouts. Each exercise shows the last 5 sessions. Pull this up before any lift to see what you did last week and beat it.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-label">Save your logs to Google Sheets</div>
+    <div class="setup-card">
+      <p class="setup-lede">localStorage doesn't always persist on iOS Safari when opening files. To keep your logs across sessions and devices, connect a Google Sheet — five-minute one-time setup, then it just works in the background.</p>
+
+      <div class="sync-status-row">
+        <div class="sync-dot" id="syncDot"></div>
+        <div id="syncStatus">Not connected to Sheets</div>
+      </div>
+
+      <details class="setup-steps">
+        <summary>Setup walkthrough <em>(one time, ~5 min)</em></summary>
+        <ol>
+          <li>Open <a href="https://sheets.new" target="_blank" rel="noopener">sheets.new</a> in a new tab to create a blank Google Sheet. Name it whatever you want.</li>
+          <li>Click <strong>Extensions → Apps Script</strong> from the Sheet menu.</li>
+          <li>Delete the default code. Paste the Apps Script code from <code>year-strong-sheets.gs</code> (the file shared alongside this HTML).</li>
+          <li>Click the <strong>disk icon</strong> to save the project.</li>
+          <li>Click <strong>Deploy → New deployment</strong> (top right).</li>
+          <li>Click the <strong>gear icon</strong> next to "Select type" → choose <strong>Web app</strong>.</li>
+          <li>Settings: <em>Execute as</em> = Me · <em>Who has access</em> = Anyone.</li>
+          <li>Click <strong>Deploy</strong>. When Google asks for permissions, click <strong>Authorize access</strong> → choose your account → click <em>Advanced</em> → <em>Go to (your project) (unsafe)</em> → <strong>Allow</strong>. (It's your own script — totally safe.)</li>
+          <li>Copy the <strong>Web app URL</strong> Google gives you.</li>
+          <li>Paste it in the field below and tap Connect.</li>
+        </ol>
+      </details>
+
+      <div class="setup-form">
+        <input type="text" id="sheetsUrlInput" placeholder="https://script.google.com/macros/s/.../exec" autocomplete="off" autocapitalize="off" spellcheck="false">
+        <button id="connectSheets">Connect</button>
+        <button id="disconnectSheets" style="display:none;">Disconnect</button>
+      </div>
+
+      <div id="setupMessage" class="setup-message"></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-label">Your logs</div>
+    <div id="logSummary"></div>
+    <div style="text-align: center; margin-top: 24px;">
+      <button id="exportLog" style="background: var(--card); border: 1px solid var(--rule-warm); color: var(--ink-2); padding: 10px 20px; border-radius: 4px; font-family: 'Hanken Grotesk', serif; font-style: italic; font-size: 14px; font-weight: 500; cursor: pointer; margin-right: 8px;">Export to clipboard</button>
+      <button id="clearLog" style="background: transparent; border: 1px solid var(--rule-warm); color: var(--ink-3); padding: 10px 20px; border-radius: 4px; font-family: 'Hanken Grotesk', serif; font-style: italic; font-size: 14px; font-weight: 500; cursor: pointer;">Clear all</button>
+    </div>
+  </section>
+</div>
+
+<!-- ============ PRINCIPLES ============ -->
+<div class="phase-panel" data-phase="6">
+  <section>
+    <div class="phase-card" style="--accent: var(--sage);">
+      <div class="month-range" style="color: var(--sage-dark);">THE GOVERNING PRINCIPLES</div>
+      <h2>Ten rules. <em>Read once a month.</em></h2>
+      <p class="lede">Programs change. The principles don't. When you're tempted to skip, to add, to chase a new method — come here first.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-label">The Ten</div>
+    <div class="principle"><div class="principle-num">01.</div><div class="principle-body"><h4>Protein protects what the cut threatens</h4><p>On GLP-1s, your body will lose weight either way. Protein + lifting decide whether you lose fat or muscle. 120–130g daily, every day, no exceptions.</p></div></div>
+    <div class="principle"><div class="principle-num">02.</div><div class="principle-body"><h4>Show up five times — even when small</h4><p>The med makes you tired some days. A 30-minute version of the workout that gets done is worth more than the perfect one you skip. Log it either way.</p></div></div>
+    <div class="principle"><div class="principle-num">03.</div><div class="principle-body"><h4>Progressive overload, always</h4><p>Each week, add weight, reps, or quality on the priority lifts. The Log tab tells you what last week looked like. Beat it by something.</p></div></div>
+    <div class="principle"><div class="principle-num">04.</div><div class="principle-body"><h4>Hips, core, balance every week</h4><p>Wednesday is the dedicated day. But Bulgarian splits, dead bugs, Pallof presses, and single-leg work weave through every other day too. The midsection follows.</p></div></div>
+    <div class="principle"><div class="principle-num">05.</div><div class="principle-body"><h4>Hydration is non-negotiable</h4><p>Tirzepatide suppresses thirst. Drink 2.5L water minimum. Add electrolytes on lift days. Headaches and fatigue are usually dehydration, not effort.</p></div></div>
+    <div class="principle"><div class="principle-num">06.</div><div class="principle-body"><h4>Fresh food, not stored</h4><p>Histamine builds in storage. Cook portion-size. Eat within 24h if you must save. Freeze immediately for longer.</p></div></div>
+    <div class="principle"><div class="principle-num">07.</div><div class="principle-body"><h4>Sleep first, supplements last</h4><p>7+ hours minimum. Caffeine cutoff 2 PM — yes, even on stimulant days. Creatine 5g daily is the only supplement worth the line item.</p></div></div>
+    <div class="principle"><div class="principle-num">08.</div><div class="principle-body"><h4>The scale lies weekly, tells truth monthly</h4><p>Weigh daily, look at the 7-day average. Sodium, period, glycogen, water — they all add 1–4 lb noise. The 4-week trend is the real signal.</p></div></div>
+    <div class="principle"><div class="principle-num">09.</div><div class="principle-body"><h4>Photos beat the scale</h4><p>Photos every 4 weeks, same morning, same light, same suit. Waist-tape too. These tell the truth when the scale doesn't.</p></div></div>
+    <div class="principle"><div class="principle-num">10.</div><div class="principle-body"><h4>Consistency outscores perfection</h4><p>Four good workouts a week for 50 weeks beats five perfect workouts for 12. 80% adherence beats 100% for two weeks then quitting.</p></div></div>
+  </section>
+
+  <section>
+    <div class="section-label">Equipment You Actually Need</div>
+    <div style="background: var(--card); border: 1px solid var(--rule); border-radius: 8px; padding: 6px 18px;">
+      <div class="macro-row"><div class="macro-name">Lifetime membership <em>already have</em></div><div class="macro-value">essential</div></div>
+      <div class="macro-row"><div class="macro-name">Resistance bands <em>light + medium</em></div><div class="macro-value">$30</div></div>
+      <div class="macro-row"><div class="macro-name">Glute band (loop, fabric)</div><div class="macro-value">$15</div></div>
+      <div class="macro-row"><div class="macro-name">Garmin <em>already have</em></div><div class="macro-value">tracking</div></div>
+      <div class="macro-row"><div class="macro-name">Truvani plant protein</div><div class="macro-value">~$45/mo</div></div>
+      <div class="macro-row"><div class="macro-name">Equip Beef Protein <em>backup</em></div><div class="macro-value">~$50</div></div>
+      <div class="macro-row"><div class="macro-name">Collagen peptides</div><div class="macro-value">~$30/mo</div></div>
+    </div>
+  </section>
+
+  <div class="quote"><p>One year of patient, deliberate work. The body follows.</p></div>
+</div>
+
+<footer>
+  <div class="signoff">— made with care for a body learning what it can do.</div>
+  <div class="ornament-sm">✦  ·  ✦  ·  ✦</div>
+  <div>Jess · 5'4" · 160 → 125 · 2026</div>
+</footer>
+
+<script>
+// ============ NAV ============
+const pills = document.querySelectorAll('.phase-pill');
+const panels = document.querySelectorAll('.phase-panel');
+pills.forEach(pill => {
+  pill.addEventListener('click', () => {
+    const target = pill.dataset.phase;
+    pills.forEach(p => p.classList.remove('active'));
+    panels.forEach(p => p.classList.remove('active'));
+    pill.classList.add('active');
+    document.querySelector(`.phase-panel[data-phase="${target}"]`).classList.add('active');
+    window.scrollTo({ top: document.querySelector('.phase-nav').offsetTop - 12, behavior: 'smooth' });
+    if (target === '8') renderLogSummary();
+  });
+});
+
+// ============ WORKOUT TOGGLES ============
+document.querySelectorAll('.workout-header').forEach(header => {
+  header.addEventListener('click', () => header.parentElement.classList.toggle('open'));
+});
+
+// ============ RECIPE FILTER ============
+const filterPills = document.querySelectorAll('.recipe-filter-pill');
+const recipeCards = document.querySelectorAll('.recipe-card');
+const groupLabels = document.querySelectorAll('.recipe-group-label');
+filterPills.forEach(pill => {
+  pill.addEventListener('click', () => {
+    const filter = pill.dataset.filter;
+    filterPills.forEach(p => p.classList.remove('active'));
+    pill.classList.add('active');
+    recipeCards.forEach(card => {
+      const meal = card.dataset.meal;
+      card.classList.toggle('hidden', !(filter === 'all' || meal === filter));
+    });
+    groupLabels.forEach(label => {
+      const group = label.dataset.group;
+      const visible = Array.from(recipeCards).filter(c => c.dataset.meal === group && !c.classList.contains('hidden'));
+      label.style.display = visible.length === 0 ? 'none' : '';
+    });
+  });
+});
+
+// ============ WEIGHT LOG with Google Sheets backend ============
+const STORAGE_KEY = 'year-strong-log-v3';
+const SHEETS_URL_KEY = 'year-strong-sheets-url';
+
+let logCache = {}; // { exId: [{date, weight, reps}, ...] }
+let sheetsUrl = null;
+
+function loadLocal() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    return raw ? JSON.parse(raw) : {};
+  } catch (e) { return {}; }
+}
+
+function saveLocal(data) {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); }
+  catch (e) { console.warn('Could not save locally:', e); }
+}
+
+function getSheetsUrl() {
+  try { return localStorage.getItem(SHEETS_URL_KEY) || null; }
+  catch { return null; }
+}
+
+function persistSheetsUrl(url) {
+  try {
+    if (url) localStorage.setItem(SHEETS_URL_KEY, url);
+    else localStorage.removeItem(SHEETS_URL_KEY);
+  } catch {}
+}
+
+function setSyncStatus(state, msg) {
+  const dot = document.getElementById('syncDot');
+  const label = document.getElementById('syncStatus');
+  if (!dot || !label) return;
+  dot.className = 'sync-dot';
+  const labels = {
+    'unset': 'Not connected to Sheets — saving locally only',
+    'syncing': 'Syncing…',
+    'synced': 'Synced to Google Sheets ✓',
+    'error': 'Connection issue — saving locally',
+    'offline': 'Offline — will sync when connected'
+  };
+  if (state === 'synced') dot.classList.add('synced');
+  if (state === 'syncing') dot.classList.add('syncing');
+  if (state === 'error' || state === 'offline') dot.classList.add('error');
+  label.textContent = msg || labels[state] || state;
+}
+
+async function fetchFromSheets() {
+  if (!sheetsUrl) return null;
+  try {
+    setSyncStatus('syncing');
+    const res = await fetch(sheetsUrl, { method: 'GET' });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const data = await res.json();
+    setSyncStatus('synced');
+    const grouped = {};
+    (data.entries || []).forEach(e => {
+      if (!e.exercise) return;
+      if (!grouped[e.exercise]) grouped[e.exercise] = [];
+      grouped[e.exercise].push({
+        date: e.date,
+        weight: Number(e.weight),
+        reps: Number(e.reps)
+      });
+    });
+    Object.keys(grouped).forEach(exId => {
+      grouped[exId].sort((a, b) => new Date(a.date) - new Date(b.date));
+    });
+    return grouped;
+  } catch (e) {
+    console.warn('Sheets fetch failed:', e);
+    setSyncStatus('error');
+    return null;
+  }
+}
+
+async function postToSheets(exId, weight, reps) {
+  if (!sheetsUrl) return false;
+  try {
+    setSyncStatus('syncing');
+    await fetch(sheetsUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({
+        date: new Date().toISOString(),
+        exercise: exId,
+        weight: weight,
+        reps: reps
+      })
+    });
+    setSyncStatus('synced');
+    return true;
+  } catch (e) {
+    console.warn('Sheets post failed:', e);
+    setSyncStatus('error');
+    return false;
+  }
+}
+
+async function clearSheets() {
+  if (!sheetsUrl) return false;
+  try {
+    setSyncStatus('syncing');
+    await fetch(sheetsUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({ action: 'clear' })
+    });
+    setSyncStatus('synced');
+    return true;
+  } catch (e) {
+    console.warn('Sheets clear failed:', e);
+    setSyncStatus('error');
+    return false;
+  }
+}
+
+function mergeData(local, remote) {
+  if (!remote) return local;
+  const combined = {};
+  const all = new Set([...Object.keys(local || {}), ...Object.keys(remote || {})]);
+  all.forEach(exId => {
+    const localE = (local && local[exId]) || [];
+    const remoteE = (remote && remote[exId]) || [];
+    const seen = new Set();
+    const merged = [];
+    [...remoteE, ...localE].forEach(e => {
+      const key = `${e.date}|${e.weight}|${e.reps}`;
+      if (!seen.has(key)) {
+        seen.add(key);
+        merged.push(e);
+      }
+    });
+    merged.sort((a, b) => new Date(a.date) - new Date(b.date));
+    combined[exId] = merged.slice(-30);
+  });
+  return combined;
+}
+
+function formatDate(iso) {
+  const d = new Date(iso);
+  return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+}
+
+function renderLastFor(exId) {
+  const entries = logCache[exId] || [];
+  const el = document.querySelector(`[data-last-for="${exId}"]`);
+  if (!el) return;
+  if (entries.length === 0) {
+    el.classList.add('empty');
+    el.textContent = 'No log yet';
+    return;
+  }
+  el.classList.remove('empty');
+  const last = entries[entries.length - 1];
+  el.innerHTML = `Last: <span>${last.weight} × ${last.reps}</span> · ${formatDate(last.date)}`;
+}
+
+function renderAllLast() {
+  document.querySelectorAll('[data-ex-id]').forEach(ex => {
+    renderLastFor(ex.dataset.exId);
+  });
+}
+
+async function logExercise(exId, weight, reps) {
+  const entry = { date: new Date().toISOString(), weight, reps };
+  if (!logCache[exId]) logCache[exId] = [];
+  logCache[exId].push(entry);
+  logCache[exId] = logCache[exId].slice(-30);
+  saveLocal(logCache);
+  renderLastFor(exId);
+  if (sheetsUrl) {
+    await postToSheets(exId, weight, reps);
+  }
+}
+
+document.querySelectorAll('[data-log-for]').forEach(btn => {
+  const exId = btn.dataset.logFor;
+  btn.addEventListener('click', async () => {
+    const weightEl = document.querySelector(`[data-weight-for="${exId}"]`);
+    const repsEl = document.querySelector(`[data-reps-for="${exId}"]`);
+    const weight = parseFloat(weightEl.value);
+    const reps = parseInt(repsEl.value);
+    if (isNaN(weight) || isNaN(reps)) {
+      btn.style.background = 'var(--ink-3)';
+      setTimeout(() => btn.style.background = '', 500);
+      return;
+    }
+    logExercise(exId, weight, reps);
+    weightEl.value = '';
+    repsEl.value = '';
+    btn.classList.add('saved');
+    btn.textContent = '✓';
+    setTimeout(() => {
+      btn.classList.remove('saved');
+      btn.textContent = 'Log';
+    }, 1200);
+  });
+});
+
+// ============ LOG SUMMARY ============
+function renderLogSummary() {
+  const container = document.getElementById('logSummary');
+  if (!container) return;
+  const exerciseIds = Object.keys(logCache);
+  if (exerciseIds.length === 0) {
+    container.innerHTML = '<div class="note-box"><div class="note-label">Empty</div><div class="note-text">No workouts logged yet. Tap "Log" on any exercise after a set to start tracking.</div></div>';
+    return;
+  }
+  const nameLookup = {};
+  document.querySelectorAll('[data-ex-id]').forEach(el => {
+    const id = el.dataset.exId;
+    const name = el.querySelector('.ex-name').textContent;
+    nameLookup[id] = name;
+  });
+  let html = '';
+  exerciseIds.forEach(exId => {
+    const entries = logCache[exId];
+    if (!entries || entries.length === 0) return;
+    const name = nameLookup[exId] || exId;
+    const recent = entries.slice(-5).reverse();
+    html += `<div class="log-summary"><h3>${name}</h3>`;
+    recent.forEach(e => {
+      html += `<div style="display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px dotted var(--rule-warm); font-family:'Hanken Grotesk',serif; font-size:14px;">
+        <span style="color:var(--ink-3);">${formatDate(e.date)}</span>
+        <span style="color:var(--terra-dark);">${e.weight} × ${e.reps}</span>
+      </div>`;
+    });
+    html += `</div>`;
+  });
+  container.innerHTML = html;
+}
+
+// ============ SHEETS SETUP UI ============
+function showSetupMessage(text, kind) {
+  const el = document.getElementById('setupMessage');
+  if (!el) return;
+  el.textContent = text;
+  el.className = 'setup-message' + (kind ? ' ' + kind : '');
+}
+
+function updateConnectionUI() {
+  const input = document.getElementById('sheetsUrlInput');
+  const connectBtn = document.getElementById('connectSheets');
+  const disconnectBtn = document.getElementById('disconnectSheets');
+  if (sheetsUrl) {
+    if (input) input.value = sheetsUrl;
+    if (connectBtn) connectBtn.textContent = 'Reconnect';
+    if (disconnectBtn) disconnectBtn.style.display = 'inline-block';
+  } else {
+    if (connectBtn) connectBtn.textContent = 'Connect';
+    if (disconnectBtn) disconnectBtn.style.display = 'none';
+  }
+}
+
+document.getElementById('connectSheets')?.addEventListener('click', async () => {
+  const input = document.getElementById('sheetsUrlInput');
+  const url = (input.value || '').trim();
+  if (!url) {
+    showSetupMessage('Paste your Apps Script web app URL first.', 'error');
+    return;
+  }
+  if (!url.includes('script.google.com')) {
+    showSetupMessage('That doesn\'t look like an Apps Script URL. It should start with https://script.google.com/macros/s/', 'error');
+    return;
+  }
+  showSetupMessage('Testing connection…');
+  sheetsUrl = url;
+  const remote = await fetchFromSheets();
+  if (remote === null) {
+    showSetupMessage('Couldn\'t reach the Sheets URL. Check that the deployment is set to "Anyone" access and try again.', 'error');
+    sheetsUrl = null;
+    return;
+  }
+  persistSheetsUrl(url);
+  // Merge local with remote
+  logCache = mergeData(logCache, remote);
+  saveLocal(logCache);
+  // Push any local entries not in remote
+  const remoteKeys = new Set();
+  Object.keys(remote).forEach(exId => {
+    (remote[exId] || []).forEach(e => remoteKeys.add(`${exId}|${e.date}|${e.weight}|${e.reps}`));
+  });
+  for (const exId of Object.keys(logCache)) {
+    for (const e of logCache[exId]) {
+      const key = `${exId}|${e.date}|${e.weight}|${e.reps}`;
+      if (!remoteKeys.has(key)) {
+        await postToSheets(exId, e.weight, e.reps);
+      }
+    }
+  }
+  renderAllLast();
+  renderLogSummary();
+  updateConnectionUI();
+  const total = Object.values(logCache).reduce((sum, arr) => sum + arr.length, 0);
+  showSetupMessage(`Connected. ${total} entries synced.`, 'success');
+});
+
+document.getElementById('disconnectSheets')?.addEventListener('click', () => {
+  if (!confirm('Disconnect from Sheets? Local logs stay, but new entries won\'t sync until you reconnect.')) return;
+  sheetsUrl = null;
+  persistSheetsUrl(null);
+  setSyncStatus('unset');
+  updateConnectionUI();
+  showSetupMessage('Disconnected. Logs are saving locally only.', '');
+});
+
+document.getElementById('clearLog')?.addEventListener('click', async () => {
+  if (!confirm('Clear all logged weights? This cannot be undone.')) return;
+  if (sheetsUrl) {
+    if (confirm('Also clear the entries in your Google Sheet? (Click Cancel to clear locally only.)')) {
+      await clearSheets();
+    }
+  }
+  logCache = {};
+  saveLocal(logCache);
+  try { localStorage.removeItem(STORAGE_KEY); } catch {}
+  document.querySelectorAll('[data-last-for]').forEach(el => {
+    el.classList.add('empty');
+    el.textContent = 'No log yet';
+  });
+  renderLogSummary();
+});
+
+document.getElementById('exportLog')?.addEventListener('click', () => {
+  const nameLookup = {};
+  document.querySelectorAll('[data-ex-id]').forEach(el => {
+    nameLookup[el.dataset.exId] = el.querySelector('.ex-name').textContent;
+  });
+  let text = 'YEAR STRONG LOG\n\n';
+  Object.keys(logCache).forEach(exId => {
+    text += (nameLookup[exId] || exId) + '\n';
+    logCache[exId].forEach(e => {
+      text += `  ${formatDate(e.date)}: ${e.weight} × ${e.reps}\n`;
+    });
+    text += '\n';
+  });
+  navigator.clipboard?.writeText(text).then(() => {
+    const btn = document.getElementById('exportLog');
+    btn.textContent = 'Copied!';
+    setTimeout(() => btn.textContent = 'Export to clipboard', 1500);
+  });
+});
+
+// ============ INIT ============
+(async function initLog() {
+  logCache = loadLocal();
+  sheetsUrl = getSheetsUrl();
+  updateConnectionUI();
+  if (sheetsUrl) {
+    const remote = await fetchFromSheets();
+    if (remote) {
+      logCache = mergeData(logCache, remote);
+      saveLocal(logCache);
+    }
+  } else {
+    setSyncStatus('unset');
+  }
+  renderAllLast();
+})();
+
+// ============ PWA · register service worker ============
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./service-worker.js')
+      .then(() => console.log('Service worker registered'))
+      .catch(err => console.warn('Service worker registration failed:', err));
+  });
+}
+</script>
+
+</body>
+</html>
