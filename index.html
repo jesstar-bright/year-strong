@@ -786,6 +786,30 @@ html.lg-kbd .lg-tabbar { display:none; }
 .lg-fold-body { padding-bottom:18px; }
 .lg-fold-body section { margin:0; }
 
+
+/* ── Food · filter as a native select ──────────────────────
+   A native <select> renders as a scrollable wheel picker on iOS, which is both
+   the requested interaction and the accessible one. It also kills the hidden
+   horizontal scroller the pills were — NN/g measured >20% discoverability loss
+   for navigation you have to scroll to find. 16px, so iOS does not zoom on tap. */
+.rx-pick { display:flex; align-items:center; gap:10px; padding:10px 0 12px;
+  border-bottom:2px solid var(--lg-ink); }
+.rx-pick label { font-family:'IBM Plex Mono',monospace; font-size:10.5px; font-weight:500;
+  letter-spacing:.09em; text-transform:uppercase; color:var(--lg-pencil); flex:0 0 auto; }
+.rx-pick-field { position:relative; flex:1 1 auto; }
+.rx-pick select { -webkit-appearance:none; appearance:none; width:100%; min-height:48px;
+  padding:0 34px 0 12px; border:1px solid var(--lg-rule); border-radius:0;
+  background:var(--app); color:var(--lg-ink); cursor:pointer;
+  font-family:'IBM Plex Mono',monospace; font-size:16px; font-weight:600;
+  letter-spacing:.04em; text-transform:uppercase; }
+.rx-pick select:focus { outline:none; border-color:var(--lg-ink); box-shadow:inset 0 -2px 0 var(--lg-live); }
+.rx-pick-field::after { content:''; position:absolute; right:14px; top:50%; margin-top:-2px;
+  width:8px; height:8px; border-right:2px solid var(--lg-pencil); border-bottom:2px solid var(--lg-pencil);
+  transform:rotate(45deg) translate(-2px,-2px); pointer-events:none; }
+.rx-count { font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--lg-pencil);
+  flex:0 0 auto; font-variant-numeric:tabular-nums; }
+.recipe-filter { display:none; }
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
 }
@@ -1897,6 +1921,62 @@ html.lg-kbd .lg-tabbar { display:none; }
 <!-- ============ NUTRITION ============ -->
 <div class="phase-panel" data-phase="5" data-dest="notes">
   <section>
+    <div class="section-label">Reference · iron &amp; insulin</div>
+<div class="recipe-card" data-meal="evidence" data-tags="reference">
+      <div class="recipe-head">
+        <span class="recipe-tag plant">Reference · iron</span>
+        <div class="recipe-name">Getting the iron in is not the problem. Absorbing it is.</div>
+        <div class="recipe-meal">the pairing rules, and how much to trust them</div>
+      </div>
+      <div class="recipe-why">Beef, eggs, spinach, beans and chickpeas were all on the list your doctor gave you — but only the beef carries haem iron, the form your gut takes without argument. Everything else is non-haem, and how much of it you actually absorb swings by a factor of several depending on what is on the plate beside it. That swing is what the iron rules on each card are managing.</div>
+      <div class="recipe-section">
+        <div class="recipe-section-label">The four rules, and the number behind each</div>
+        <ul class="recipe-ingredients">
+          <li><strong>~50 mg vitamin C in every iron meal.</strong> Across 299 subjects, absorption rose in direct proportion to ascorbic acid; 50 mg per main meal was the stated point of practical optimum. Half a bell pepper, one orange, or 80 g of broccoli each clear it. <em>Hallberg, Brune &amp; Rossander 1986, Hum Nutr Appl Nutr 40:97</em></li>
+          <li><strong>A little meat or fish lifts the plants.</strong> Against an equal amount of egg protein, beef muscle raised non-haem absorption 180% and chicken 100%. This is why 2 oz of beef sits in a chickpea breakfast. <em>Hurrell, Reddy, Juillerat &amp; Cook 2006, J Nutr 136:2808</em></li>
+          <li><strong>Coffee and tea after, never with — and before is free.</strong> Coffee cut absorption 39% and tea 64% from the same meal. The timing finding is the useful one: coffee an hour <em>before</em> the meal did nothing at all, coffee an hour <em>after</em> inhibited as much as drinking it alongside. <em>Morck, Lynch &amp; Cook 1983, AJCN 37:416 · Hallberg &amp; Rossander 1982</em></li>
+          <li><strong>Phytate is the reason beans underdeliver.</strong> 25 mg of phytate-phosphorus cut absorption 64%; 250 mg cut it 82%. Rinsing tinned pulses, and soaking dried ones, both help — and vitamin C directly counteracts the inhibition rather than just adding to it. <em>Hallberg, Brune &amp; Rossander 1989, AJCN 49:140</em></li>
+        </ul>
+      </div>
+      <div class="recipe-section">
+        <div class="recipe-section-label">Two things you have probably read that are wrong</div>
+        <ul class="recipe-ingredients">
+          <li><strong>Oxalate is not what makes spinach a poor iron source.</strong> It was tested head-to-head: 16 women, spinach (1.27 g oxalic acid) against kale (0.01 g), then kale with oxalate added to match. Absorption 10.7% vs 11.5%, p=0.86 — no effect. Spinach is still a mediocre source, but because of its calcium and polyphenols, not its oxalate. <em>Bonsmann et al. 2008, Eur J Clin Nutr 62:336</em></li>
+          <li><strong>The "you only absorb 2% of spinach iron" figure has no traceable source.</strong> It is repeated everywhere and attributed to nothing. It is not printed on any card here.</li>
+        </ul>
+      </div>
+      <div class="recipe-note"><strong>How much to trust all of this.</strong> Every dramatic number above comes from a single labelled test meal in a fasting subject. When the same questions are asked over a whole diet, the effects shrink — one study spanning 51 to 247 mg of vitamin C a day found no significant difference in absorption at all (Cook &amp; Reddy 2001), and the 2010 reference-values review calls these effects "modest in varied, multimeal studies" (Hurrell &amp; Egli). The rules are directionally right and cost nothing to follow. They are not a 3× multiplier on your ferritin. The lifting, the red meat and the actual iron dose are doing the heavy work; the pairings are trimming the losses.</div>
+    </div>
+<div class="recipe-card" data-meal="evidence" data-tags="reference">
+      <div class="recipe-head">
+        <span class="recipe-tag meat">Reference · insulin</span>
+        <div class="recipe-name">Insulin is the open problem. Here is what actually moves it.</div>
+        <div class="recipe-meal">ranked by how good the evidence is, not by how good it sounds</div>
+      </div>
+      <div class="recipe-why">Inflammation is improving and the elimination work is doing its job. Insulin resistance is the thing still standing. These cards are built around the interventions with the best evidence in PCOS specifically — which turns out not to be the ones the internet talks about most.</div>
+      <div class="recipe-section">
+        <div class="recipe-section-label">Strong · meta-analysed, hard endpoints, replicated</div>
+        <ul class="recipe-ingredients">
+          <li><strong>Beans, lentils and chickpeas as the carbohydrate.</strong> A cup of legumes a day for three months lowered HbA1c by 0.5% against a high-wheat-fibre control in 121 people, a between-group difference of 0.2% (p&lt;0.001). Backed by a 41-trial meta-analysis. This is the best-evidenced single change on the whole list — and it is the same change that raises your iron. <em>Jenkins 2012, Arch Intern Med 172:1653 · Sievenpiper 2009, Diabetologia 52:1479</em></li>
+          <li><strong>Viscous soluble fibre, around 13 g a day.</strong> Across 28 comparisons in 1,394 people: HbA1c −0.58%, HOMA-IR −1.89, moderate certainty. That HbA1c effect is roughly half a metformin dose-step, from food. <em>Jovanovski 2019, Diabetes Care 42:755</em></li>
+          <li><strong>Low glycaemic index carbohydrate, in PCOS specifically.</strong> Ten RCTs, 403 women: HOMA-IR −0.78, total testosterone −0.21 nmol/L, waist −2.81 cm. And the 12-month RCT behind it found menstrual cyclicity improved in 95% of the low-GI group versus 63% of controls. This is why quinoa replaced white rice and why zucchini ribbons replaced pasta. <em>Kazemi 2021, Adv Nutr 12:161 · Marsh 2010, AJCN 92:83</em></li>
+          <li><strong>Fewer, larger meals — your three-meals-no-snacking pattern is the right one.</strong> Two large meals beat six small ones at identical calories over 12 weeks: more weight lost, more liver fat lost, and greater improvement in insulin sensitivity (p=0.01). <em>Kahleova 2014, Diabetologia 57:1552</em></li>
+          <li><strong>Saturated fat is the thing to avoid; monounsaturated fat is the replacement, not a treatment.</strong> Over three months at matched calories, a saturated-fat diet impaired insulin sensitivity by 10% while a monounsaturated one held it flat. Read that carefully — olive oil and avocado did not improve anything, they avoided the damage. The benefit also disappeared entirely once total fat went above 37% of energy, which is why these cards are not drowning in oil. <em>Vessby 2001, KANWU, Diabetologia 44:312</em></li>
+        </ul>
+      </div>
+      <div class="recipe-section">
+        <div class="recipe-section-label">Directionally sound but thinner than it sounds</div>
+        <ul class="recipe-ingredients">
+          <li><strong>Eating order — vegetables and protein first, carbohydrate last.</strong> The acute effect is big and repeatedly replicated: glucose area-under-curve 38–73% lower, insulin AUC significantly lower, and it works in prediabetes as well as diabetes. But the total number of people across all those trials is under a hundred, <em>none of them had PCOS</em>, and the one meta-analysis of longer trials found no HbA1c benefit (−0.21%, confidence interval crossing zero, low certainty). It costs nothing, it survives a 16-week trial at 94% adherence, and it makes you eat the vegetables first — which may be most of the point. Treat it as a free habit, not a treatment. <em>Shukla 2015 &amp; 2017 · Okami 2022, BMJ Open Diab Res Care 10:e002534</em></li>
+          <li><strong>Front-loading calories into breakfast.</strong> The single most striking PCOS result found: 60 women, same 1,800 calories, moved from dinner to breakfast for 90 days — insulin AUC fell 54%, free testosterone fell 50%, SHBG doubled, ovulation increased. One trial, never replicated at that size, and done in <em>lean</em> PCOS. Big enough to be worth trying, thin enough that it should not be treated as settled. <em>Jakubowicz 2013, Clin Sci 125:423</em></li>
+          <li><strong>Omega-3.</strong> Three separate meta-analyses in PCOS put the HOMA-IR effect at −0.80, at −0.57, and at nothing at all. The anti-inflammatory and triglyceride effects are far more consistent than the insulin ones. Oily fish twice a week is still right — just not for the insulin.</li>
+        </ul>
+      </div>
+      <div class="recipe-note"><strong>On the 120 g protein target.</strong> Your doctor set it, and these cards deliver it — three meals of 40–48 g. Worth knowing what sits behind the number: PCOS trials that tested high protein used about 30% of energy, which lands near 120 g at your intake, and they disagree with each other about whether it improves HOMA-IR at all. What does hold up is body composition — a high-protein arm lost 1.5 kg of fat-free mass against 4.4 kg on standard protein. And the intervention with the strongest evidence for protecting muscle on tirzepatide is not protein at all, it is resistance training: lean mass was 17.5% of total weight lost with lifting versus 25.4% without. Which is the rest of this app. <em>Mehrabani 2012 · Wang 2025 · Eisa 2026, Diabetes Obes Metab</em></div>
+    </div>
+  </section>
+
+  <section>
     <div class="phase-card">
       <div class="month-range">DAILY NUTRITION · REVISED 29 AUG 2026</div>
       <h2>Eat for healing. <em>Protein is the rule. Now fat quality and iron are too.</em></h2>
@@ -2662,63 +2742,7 @@ html.lg-kbd .lg-tabbar { display:none; }
       <div class="recipe-note"><strong>Standing order.</strong> Keep six tins of sardines, two tins of chickpeas and a bag of peppers in permanently. This card is only a rescue if the ingredients never run out — a rescue plan you have to shop for is not a rescue plan.</div>
     </div>
 
-      <div class="recipe-group-label" data-group="evidence">Why the cards say what they say</div>
-
-    <div class="recipe-card" data-meal="evidence" data-tags="reference">
-      <div class="recipe-head">
-        <span class="recipe-tag plant">Reference · iron</span>
-        <div class="recipe-name">Getting the iron in is not the problem. Absorbing it is.</div>
-        <div class="recipe-meal">the pairing rules, and how much to trust them</div>
-      </div>
-      <div class="recipe-why">Beef, eggs, spinach, beans and chickpeas were all on the list your doctor gave you — but only the beef carries haem iron, the form your gut takes without argument. Everything else is non-haem, and how much of it you actually absorb swings by a factor of several depending on what is on the plate beside it. That swing is what the iron rules on each card are managing.</div>
-      <div class="recipe-section">
-        <div class="recipe-section-label">The four rules, and the number behind each</div>
-        <ul class="recipe-ingredients">
-          <li><strong>~50 mg vitamin C in every iron meal.</strong> Across 299 subjects, absorption rose in direct proportion to ascorbic acid; 50 mg per main meal was the stated point of practical optimum. Half a bell pepper, one orange, or 80 g of broccoli each clear it. <em>Hallberg, Brune &amp; Rossander 1986, Hum Nutr Appl Nutr 40:97</em></li>
-          <li><strong>A little meat or fish lifts the plants.</strong> Against an equal amount of egg protein, beef muscle raised non-haem absorption 180% and chicken 100%. This is why 2 oz of beef sits in a chickpea breakfast. <em>Hurrell, Reddy, Juillerat &amp; Cook 2006, J Nutr 136:2808</em></li>
-          <li><strong>Coffee and tea after, never with — and before is free.</strong> Coffee cut absorption 39% and tea 64% from the same meal. The timing finding is the useful one: coffee an hour <em>before</em> the meal did nothing at all, coffee an hour <em>after</em> inhibited as much as drinking it alongside. <em>Morck, Lynch &amp; Cook 1983, AJCN 37:416 · Hallberg &amp; Rossander 1982</em></li>
-          <li><strong>Phytate is the reason beans underdeliver.</strong> 25 mg of phytate-phosphorus cut absorption 64%; 250 mg cut it 82%. Rinsing tinned pulses, and soaking dried ones, both help — and vitamin C directly counteracts the inhibition rather than just adding to it. <em>Hallberg, Brune &amp; Rossander 1989, AJCN 49:140</em></li>
-        </ul>
-      </div>
-      <div class="recipe-section">
-        <div class="recipe-section-label">Two things you have probably read that are wrong</div>
-        <ul class="recipe-ingredients">
-          <li><strong>Oxalate is not what makes spinach a poor iron source.</strong> It was tested head-to-head: 16 women, spinach (1.27 g oxalic acid) against kale (0.01 g), then kale with oxalate added to match. Absorption 10.7% vs 11.5%, p=0.86 — no effect. Spinach is still a mediocre source, but because of its calcium and polyphenols, not its oxalate. <em>Bonsmann et al. 2008, Eur J Clin Nutr 62:336</em></li>
-          <li><strong>The "you only absorb 2% of spinach iron" figure has no traceable source.</strong> It is repeated everywhere and attributed to nothing. It is not printed on any card here.</li>
-        </ul>
-      </div>
-      <div class="recipe-note"><strong>How much to trust all of this.</strong> Every dramatic number above comes from a single labelled test meal in a fasting subject. When the same questions are asked over a whole diet, the effects shrink — one study spanning 51 to 247 mg of vitamin C a day found no significant difference in absorption at all (Cook &amp; Reddy 2001), and the 2010 reference-values review calls these effects "modest in varied, multimeal studies" (Hurrell &amp; Egli). The rules are directionally right and cost nothing to follow. They are not a 3× multiplier on your ferritin. The lifting, the red meat and the actual iron dose are doing the heavy work; the pairings are trimming the losses.</div>
-    </div>
-
-    <div class="recipe-card" data-meal="evidence" data-tags="reference">
-      <div class="recipe-head">
-        <span class="recipe-tag meat">Reference · insulin</span>
-        <div class="recipe-name">Insulin is the open problem. Here is what actually moves it.</div>
-        <div class="recipe-meal">ranked by how good the evidence is, not by how good it sounds</div>
-      </div>
-      <div class="recipe-why">Inflammation is improving and the elimination work is doing its job. Insulin resistance is the thing still standing. These cards are built around the interventions with the best evidence in PCOS specifically — which turns out not to be the ones the internet talks about most.</div>
-      <div class="recipe-section">
-        <div class="recipe-section-label">Strong · meta-analysed, hard endpoints, replicated</div>
-        <ul class="recipe-ingredients">
-          <li><strong>Beans, lentils and chickpeas as the carbohydrate.</strong> A cup of legumes a day for three months lowered HbA1c by 0.5% against a high-wheat-fibre control in 121 people, a between-group difference of 0.2% (p&lt;0.001). Backed by a 41-trial meta-analysis. This is the best-evidenced single change on the whole list — and it is the same change that raises your iron. <em>Jenkins 2012, Arch Intern Med 172:1653 · Sievenpiper 2009, Diabetologia 52:1479</em></li>
-          <li><strong>Viscous soluble fibre, around 13 g a day.</strong> Across 28 comparisons in 1,394 people: HbA1c −0.58%, HOMA-IR −1.89, moderate certainty. That HbA1c effect is roughly half a metformin dose-step, from food. <em>Jovanovski 2019, Diabetes Care 42:755</em></li>
-          <li><strong>Low glycaemic index carbohydrate, in PCOS specifically.</strong> Ten RCTs, 403 women: HOMA-IR −0.78, total testosterone −0.21 nmol/L, waist −2.81 cm. And the 12-month RCT behind it found menstrual cyclicity improved in 95% of the low-GI group versus 63% of controls. This is why quinoa replaced white rice and why zucchini ribbons replaced pasta. <em>Kazemi 2021, Adv Nutr 12:161 · Marsh 2010, AJCN 92:83</em></li>
-          <li><strong>Fewer, larger meals — your three-meals-no-snacking pattern is the right one.</strong> Two large meals beat six small ones at identical calories over 12 weeks: more weight lost, more liver fat lost, and greater improvement in insulin sensitivity (p=0.01). <em>Kahleova 2014, Diabetologia 57:1552</em></li>
-          <li><strong>Saturated fat is the thing to avoid; monounsaturated fat is the replacement, not a treatment.</strong> Over three months at matched calories, a saturated-fat diet impaired insulin sensitivity by 10% while a monounsaturated one held it flat. Read that carefully — olive oil and avocado did not improve anything, they avoided the damage. The benefit also disappeared entirely once total fat went above 37% of energy, which is why these cards are not drowning in oil. <em>Vessby 2001, KANWU, Diabetologia 44:312</em></li>
-        </ul>
-      </div>
-      <div class="recipe-section">
-        <div class="recipe-section-label">Directionally sound but thinner than it sounds</div>
-        <ul class="recipe-ingredients">
-          <li><strong>Eating order — vegetables and protein first, carbohydrate last.</strong> The acute effect is big and repeatedly replicated: glucose area-under-curve 38–73% lower, insulin AUC significantly lower, and it works in prediabetes as well as diabetes. But the total number of people across all those trials is under a hundred, <em>none of them had PCOS</em>, and the one meta-analysis of longer trials found no HbA1c benefit (−0.21%, confidence interval crossing zero, low certainty). It costs nothing, it survives a 16-week trial at 94% adherence, and it makes you eat the vegetables first — which may be most of the point. Treat it as a free habit, not a treatment. <em>Shukla 2015 &amp; 2017 · Okami 2022, BMJ Open Diab Res Care 10:e002534</em></li>
-          <li><strong>Front-loading calories into breakfast.</strong> The single most striking PCOS result found: 60 women, same 1,800 calories, moved from dinner to breakfast for 90 days — insulin AUC fell 54%, free testosterone fell 50%, SHBG doubled, ovulation increased. One trial, never replicated at that size, and done in <em>lean</em> PCOS. Big enough to be worth trying, thin enough that it should not be treated as settled. <em>Jakubowicz 2013, Clin Sci 125:423</em></li>
-          <li><strong>Omega-3.</strong> Three separate meta-analyses in PCOS put the HOMA-IR effect at −0.80, at −0.57, and at nothing at all. The anti-inflammatory and triglyceride effects are far more consistent than the insulin ones. Oily fish twice a week is still right — just not for the insulin.</li>
-        </ul>
-      </div>
-      <div class="recipe-note"><strong>On the 120 g protein target.</strong> Your doctor set it, and these cards deliver it — three meals of 40–48 g. Worth knowing what sits behind the number: PCOS trials that tested high protein used about 30% of energy, which lands near 120 g at your intake, and they disagree with each other about whether it improves HOMA-IR at all. What does hold up is body composition — a high-protein arm lost 1.5 kg of fat-free mass against 4.4 kg on standard protein. And the intervention with the strongest evidence for protecting muscle on tirzepatide is not protein at all, it is resistance training: lean mass was 17.5% of total weight lost with lifting versus 25.4% without. Which is the rest of this app. <em>Mehrabani 2012 · Wang 2025 · Eisa 2026, Diabetes Obes Metab</em></div>
-    </div>
-
-  </section>
+      </section>
 
 <!-- ============ LOG ============ -->
 </div>
@@ -3306,6 +3330,40 @@ if ('serviceWorker' in navigator) {
       det.appendChild(sum); det.appendChild(body); body.appendChild(sec);
     });
   });
+})();
+
+
+// ============ FOOD · filter as a native select ============
+// Built FROM the existing pills rather than replacing them: the pills stay in
+// the DOM (hidden) and still own the filtering logic, so this is a new control
+// surface over proven behaviour rather than a second implementation to keep in
+// step. Selecting an option just clicks the pill it stands for.
+(function foodPicker(){
+  const panel = document.querySelector('.phase-panel[data-dest="food"]');
+  const row   = panel && panel.querySelector('.recipe-filter');
+  if (!row) return;
+  const pills = [...row.querySelectorAll('.recipe-filter-pill')];
+  if (!pills.length) return;
+
+  const wrap = document.createElement('div');
+  wrap.className = 'rx-pick';
+  const id = 'rxFilter';
+  wrap.innerHTML = '<span class="rx-pick-field"><select id="' + id + '" aria-label="Filter recipes">' +
+    pills.map((p, i) => '<option value="' + i + '">' + p.textContent.trim() + '</option>').join('') +
+    '</select></span><span class="rx-count" id="rxCount"></span>';
+  row.parentNode.insertBefore(wrap, row);
+
+  const sel   = wrap.querySelector('select');
+  const count = wrap.querySelector('#rxCount');
+  const tally = () => {
+    const n = [...panel.querySelectorAll('.recipe-card')].filter(c => !c.classList.contains('hidden')).length;
+    count.textContent = n + (n === 1 ? ' meal' : ' meals');
+    sel.blur();
+  };
+  sel.addEventListener('change', () => { pills[+sel.value].click(); setTimeout(tally, 0); });
+  const active = pills.findIndex(p => p.classList.contains('active'));
+  sel.value = String(active < 0 ? 0 : active);
+  tally();
 })();
 
 // ============ TODAY · gym mode ============
