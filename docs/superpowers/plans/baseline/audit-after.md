@@ -48,3 +48,37 @@ five fixes above are text-safe companions to a fill token.
 - `.recipe-tag.meat` still uses `--pink-wash` / `--pink-ink` as a categorical
   chip. It passes contrast, but it is decorative rather than actionable, so it
   sits slightly outside Decision 1.0. Left as-is; flag for eyeballing.
+
+
+## UX comparison against the design mockup (2026-08-30, second pass)
+
+Compared the built Today screen against Jessica's mockup screenshot. The token
+migration was correct but had left the **Ledger's own component shapes** in
+place — the migration tiers in Task 4 covered the field-guide classes
+(`.phase-card`, `.recipe-card`, `.principle`) and never touched the `lg-`
+components.
+
+| Element | Was | Now |
+|---|---|---|
+| `.lg-log` (LOG SET) — the CTA | ink `#1A1A18`, square, no border, no shadow, Space Mono 13px | `--pink` pill, `--stroke-pen` border, `--shadow-sticker`, Gluten 19px, presses in on `:active` |
+| `.lg-tab.is-on` indicator | ink top bar | `--pink` top bar |
+| `.lg-obj` (`4 × 1 round`) | ink | `--pink-ink` (5.26:1 on paper) |
+
+Contrast on the new pairings: ink on `--pink` is **5.03:1** — large text at
+19px bold needs 3:1. Dark CTA is `--pink-soft` at **11.40:1**, per the design
+system's own note that "hot pink at 6am is too much".
+
+Re-audited after the change: **0/0/0/0 on all three tabs in both modes.**
+
+## Still divergent from the mockup — structural, not styling
+
+Two things in the mockup do not exist in the app, and neither is a CSS fix:
+
+1. **A fourth tab, `LOG`.** The app has three; `Log` was folded into Notes by
+   commit `4aae4f5` ("Collapse to three tabs — nothing scrolls past 3
+   screens"). Restoring it reverses that decision.
+2. **A "See the whole phase ›" link.** This links *into* phase content, which
+   contradicts the request to make phases non-user-facing. See the phases note
+   in `2026-08-30-design-decisions.md`.
+
+Both need a decision, not an implementation.

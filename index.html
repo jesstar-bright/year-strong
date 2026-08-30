@@ -204,7 +204,15 @@
 
     /* the design system's own note: "hot pink at 6am is too much" */
     --accent: var(--pink-soft);
+    --cta-bg: var(--pink-soft);
   }
+}
+
+/* Dark CTA: soft pink, not hot pink. Border matches the fill so the button
+   reads as one shape against the near-black page. 11.40:1 with ink text. */
+@media (prefers-color-scheme: dark) {
+  .lg-log { background:var(--pink-soft); border-color:var(--pink-soft); }
+  .lg-log:active { background:var(--pink-soft); }
 }
 * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 html { background: var(--bg); }
@@ -648,7 +656,8 @@ body { padding-bottom: calc(var(--lg-tabbar-h) + env(safe-area-inset-bottom, 0px
 .lg-name { font-family:var(--font-display); font-size:21px; font-weight:600;
   line-height:1.2; margin:0; }
 /* the objective line — stated once, plainly */
-.lg-obj { font-family:var(--font-mono); font-size:15px; font-weight:600;
+.lg-obj { color:var(--pink-ink);
+  font-family:var(--font-mono); font-size:15px; font-weight:600;
   margin-top:5px; color:var(--lg-ink); }
 .lg-obj b { color:var(--lg-live-ink); font-weight:600; }
 .lg-cue { font-size:13.5px; line-height:1.5; color:var(--lg-pencil); margin:9px 0 0; }
@@ -686,11 +695,20 @@ body { padding-bottom: calc(var(--lg-tabbar-h) + env(safe-area-inset-bottom, 0px
   color:var(--lg-pencil); margin-top:12px; }
 .lg-why b { color:var(--lg-ink); font-weight:600; }
 
-.lg-log { display:block; width:100%; min-height:52px; margin-top:16px; border:none;
-  background:var(--lg-ink); color:var(--lg-paper); cursor:pointer;
-  font-family:var(--font-mono); font-size:13px; font-weight:600;
-  letter-spacing:.14em; text-transform:uppercase; }
-.lg-log:active { background:var(--lg-live); }
+/* The CTA. Pink pill, pen stroke, sticker shadow — it presses INTO the page
+   on :active (shadow collapses, button shifts by --press-shift) rather than
+   changing colour. ink on --pink is 5.03:1; at 19px bold that is large text
+   (3:1 floor), so it clears with room. */
+.lg-log { display:block; width:100%; min-height:60px; margin-top:16px;
+  background:var(--pink); color:var(--ink);
+  border:var(--stroke-pen) solid var(--border-strong);
+  border-radius:var(--radius-pill);
+  box-shadow:var(--shadow-sticker); cursor:pointer;
+  font-family:var(--font-display); font-size:var(--text-lg); font-weight:800;
+  letter-spacing:.02em; text-transform:uppercase;
+  transition:transform .16s cubic-bezier(.34,1.56,.64,1), box-shadow .16s; }
+.lg-log:active { background:var(--pink); transform:translate(3px,4px);
+  box-shadow:0 0 0 var(--shadow-ink); }
 .lg-log.warn { background:var(--lg-live); }
 .lg-log.done { background:var(--lg-done); }
 
@@ -841,7 +859,7 @@ h1.title { font-weight:800; }
   letter-spacing:.11em; text-transform:uppercase; color:var(--lg-pencil); }
 .lg-tab:first-child { border-left:none; }
 .lg-tab:active { background:var(--lg-rule-2); }
-.lg-tab.is-on { color:var(--lg-ink); font-weight:600; border-top-color:var(--lg-ink); }
+.lg-tab.is-on { color:var(--lg-ink); font-weight:700; border-top-color:var(--pink); }
 
 .lg-subnav { display:flex; padding:0 20px; background:var(--lg-paper);
   border-bottom:1px solid var(--lg-rule); }
