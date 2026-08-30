@@ -3,7 +3,7 @@
 // Network requests to script.google.com (your Sheets backend) are never cached
 // so logs always go to live data when you're online.
 
-const CACHE_VERSION = 'year-strong-v23';
+const CACHE_VERSION = 'year-strong-v27';
 const APP_SHELL = [
   './',
   './index.html',

@@ -736,9 +736,78 @@ html.lg-kbd .lg-tabbar { display:none; }
 .recipe-filter-pill.active { background:none; color:var(--lg-ink); font-weight:600;
   border-bottom-color:var(--lg-ink); }
 
+.lg-archive { display: none !important; }
+
+/* ── Today · the day's three meals, collapsed ── */
+.lg-menu { margin-top:18px; padding-top:16px; border-top:2px solid var(--lg-ink); }
+.lg-menu-k { font-family:'IBM Plex Mono',monospace; font-size:10.5px; font-weight:500;
+  letter-spacing:.09em; text-transform:uppercase; color:var(--lg-pencil); }
+.lg-menu-note { margin-top:8px; font-family:'IBM Plex Mono',monospace; font-size:11px;
+  line-height:1.55; color:var(--lg-pencil); }
+.lg-menu-note b { color:var(--lg-ink); font-weight:600; }
+.lg-slot { border-bottom:1px solid var(--lg-rule); }
+.lg-slot:last-child { border-bottom:none; }
+.lg-slot > summary { list-style:none; cursor:pointer; min-height:56px; display:flex;
+  align-items:center; gap:12px; padding:8px 0; }
+.lg-slot > summary::-webkit-details-marker { display:none; }
+.lg-slot-when { font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.09em;
+  text-transform:uppercase; color:var(--lg-pencil); width:62px; flex:0 0 auto; }
+.lg-slot-name { flex:1 1 auto; font-family:'Zilla Slab',Georgia,serif; font-size:16px;
+  font-weight:600; line-height:1.25; color:var(--lg-ink); }
+.lg-slot-p { font-family:'IBM Plex Mono',monospace; font-size:13px; font-weight:600;
+  color:var(--lg-ink); flex:0 0 auto; }
+.lg-slot-x { font-family:'IBM Plex Mono',monospace; font-size:14px; color:var(--lg-pencil);
+  flex:0 0 auto; width:14px; text-align:center; }
+.lg-slot[open] .lg-slot-x { color:var(--lg-live); }
+.lg-slot-body { padding:2px 0 16px; }
+.lg-slot-body .recipe-card { border:none; margin:0; }
+
+/* ── Food · recipe cards collapse to a title row ── */
+.rx-fold > summary { list-style:none; cursor:pointer; }
+.rx-fold > summary::-webkit-details-marker { display:none; }
+.rx-fold { border-bottom:1px solid var(--lg-rule); }
+.rx-head { min-height:60px; display:flex; align-items:center; gap:10px; padding:10px 0; }
+.rx-head-name { flex:1 1 auto; font-family:'Zilla Slab',Georgia,serif; font-size:16px;
+  font-weight:600; line-height:1.25; color:var(--lg-ink); }
+.rx-head-meta { font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.04em;
+  color:var(--lg-pencil); flex:0 0 auto; text-align:right; line-height:1.4; }
+.rx-head-meta b { display:block; color:var(--lg-ink); font-size:13px; font-weight:600; }
+.rx-fold[open] .rx-head { border-bottom:1px solid var(--lg-rule-2); }
+
+/* ── Notes · everything collapses ── */
+.lg-fold { border-bottom:1px solid var(--lg-rule); }
+.lg-fold > summary { list-style:none; cursor:pointer; min-height:58px; display:flex;
+  align-items:center; justify-content:space-between; gap:10px;
+  font-family:'IBM Plex Mono',monospace; font-size:12px; font-weight:600;
+  letter-spacing:.08em; text-transform:uppercase; color:var(--lg-ink); }
+.lg-fold > summary::-webkit-details-marker { display:none; }
+.lg-fold > summary::after { content:'+'; color:var(--lg-pencil); font-size:16px; }
+.lg-fold[open] > summary::after { content:'\2212'; color:var(--lg-live); }
+.lg-fold-body { padding-bottom:18px; }
+.lg-fold-body section { margin:0; }
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
 }
+.lg-rx-meta { display:flex; background:var(--sub); border-bottom:1px solid var(--line); }
+.lg-rx-meta > div { flex:1 1 0; min-width:0; padding:10px 12px; text-align:center;
+  border-left:1px solid var(--line); font-family:'IBM Plex Mono',monospace;
+  font-size:10px; font-weight:500; letter-spacing:.08em; text-transform:uppercase;
+  color:var(--ink-3-text); font-variant-numeric:tabular-nums; }
+.lg-rx-meta > div:first-child { border-left:none; }
+.lg-rx-meta b { display:block; margin-top:3px; font-size:12px; font-weight:600;
+  letter-spacing:.04em; color:var(--ink); }
+
+.lg-rx-rule { padding:13px 22px 13px 19px; border-bottom:1px solid var(--line);
+  border-left:3px solid var(--line-2); font-size:13.5px; line-height:1.5; color:var(--ink-2); }
+.lg-rx-rule b { display:block; margin-bottom:3px; font-family:'IBM Plex Mono',monospace;
+  font-size:10px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:var(--ink); }
+.lg-rx-rule.iron  { border-left-color:var(--lg-live); }
+.lg-rx-rule.iron b  { color:var(--accent-text); }
+.lg-rx-rule.chain { border-left-color:var(--lg-done); }
+.lg-rx-rule.chain b { color:var(--green-text); }
+.lg-rx-rule.order { border-left-color:var(--lg-ink); }
+
 </style>
 </head>
 <body>
@@ -753,23 +822,15 @@ html.lg-kbd .lg-tabbar { display:none; }
   <div class="lg-meter" id="todayProgress"></div>
   <div class="lg-days" id="todayDays"></div>
   <div id="todayBody"></div>
+  <div class="lg-menu" id="todayMenu"></div>
 </div>
 
 
 <div class="ornament">✦  ·  ✦  ·  ✦</div>
 
-<div class="lg-subnav" data-for="plan" hidden>
-  <button type="button" class="lg-subtab" data-sub="workouts">Workouts</button>
-  <button type="button" class="lg-subtab" data-sub="phases">Phases</button>
-  <button type="button" class="lg-subtab" data-sub="rules">Rules</button>
-</div>
-<div class="lg-subnav" data-for="food" hidden>
-  <button type="button" class="lg-subtab" data-sub="nutrition">Nutrition</button>
-  <button type="button" class="lg-subtab" data-sub="recipes">Recipes</button>
-</div>
 
 <!-- ============ PHASE 1 ============ -->
-<div class="phase-panel" data-phase="1" data-dest="plan" data-sub="phases">
+<div class="phase-panel lg-archive" data-phase="1">
 
   <section>
     <div class="phase-card">
@@ -801,7 +862,7 @@ html.lg-kbd .lg-tabbar { display:none; }
 </div>
 
 <!-- ============ THE WORKOUTS · Plan > Workouts ============ -->
-<div class="phase-panel" data-phase="9" data-dest="plan" data-sub="workouts">
+<div class="phase-panel lg-archive" data-phase="9">
 <section>
     <div class="section-label">The workouts</div>
 
@@ -1746,7 +1807,7 @@ html.lg-kbd .lg-tabbar { display:none; }
 
 
 <!-- ============ PHASE 2 ============ -->
-<div class="phase-panel" data-phase="2" data-dest="plan" data-sub="phases">
+<div class="phase-panel lg-archive" data-phase="2">
   <section>
     <div class="phase-card">
       <div class="month-range">MONTHS 4 — 6 · 12 WEEKS</div>
@@ -1774,7 +1835,7 @@ html.lg-kbd .lg-tabbar { display:none; }
 </div>
 
 <!-- ============ PHASE 3 ============ -->
-<div class="phase-panel" data-phase="3" data-dest="plan" data-sub="phases">
+<div class="phase-panel lg-archive" data-phase="3">
   <section>
     <div class="phase-card">
       <div class="month-range">MONTHS 7 — 9 · 12 WEEKS</div>
@@ -1806,7 +1867,7 @@ html.lg-kbd .lg-tabbar { display:none; }
 </div>
 
 <!-- ============ PHASE 4 ============ -->
-<div class="phase-panel" data-phase="4" data-dest="plan" data-sub="phases">
+<div class="phase-panel lg-archive" data-phase="4">
   <section>
     <div class="phase-card">
       <div class="month-range">MONTHS 10 — 12 · 12 WEEKS</div>
@@ -1834,7 +1895,7 @@ html.lg-kbd .lg-tabbar { display:none; }
 </div>
 
 <!-- ============ NUTRITION ============ -->
-<div class="phase-panel" data-phase="5" data-dest="food" data-sub="nutrition">
+<div class="phase-panel" data-phase="5" data-dest="notes">
   <section>
     <div class="phase-card">
       <div class="month-range">DAILY NUTRITION · REVISED 29 AUG 2026</div>
@@ -2015,38 +2076,9 @@ html.lg-kbd .lg-tabbar { display:none; }
      propagation block already restyles. Small bold mono labels use the
      AA-safe --accent-text/--green-text, not --lg-live/--lg-done, so the
      "0 contrast failures" state holds. -->
-<style>
-.lg-rx-meta { display:flex; background:var(--sub); border-bottom:1px solid var(--line); }
-.lg-rx-meta > div { flex:1 1 0; min-width:0; padding:10px 12px; text-align:center;
-  border-left:1px solid var(--line); font-family:'IBM Plex Mono',monospace;
-  font-size:10px; font-weight:500; letter-spacing:.08em; text-transform:uppercase;
-  color:var(--ink-3-text); font-variant-numeric:tabular-nums; }
-.lg-rx-meta > div:first-child { border-left:none; }
-.lg-rx-meta b { display:block; margin-top:3px; font-size:12px; font-weight:600;
-  letter-spacing:.04em; color:var(--ink); }
 
-.lg-rx-rule { padding:13px 22px 13px 19px; border-bottom:1px solid var(--line);
-  border-left:3px solid var(--line-2); font-size:13.5px; line-height:1.5; color:var(--ink-2); }
-.lg-rx-rule b { display:block; margin-bottom:3px; font-family:'IBM Plex Mono',monospace;
-  font-size:10px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:var(--ink); }
-.lg-rx-rule.iron  { border-left-color:var(--lg-live); }
-.lg-rx-rule.iron b  { color:var(--accent-text); }
-.lg-rx-rule.chain { border-left-color:var(--lg-done); }
-.lg-rx-rule.chain b { color:var(--green-text); }
-.lg-rx-rule.order { border-left-color:var(--lg-ink); }
-
-</style>
-
-<!-- ============ PANEL HEADER (replaces the histamine framing) ============ -->
-  <section>
-    <div class="phase-card">
-      <div class="month-range">THE RECIPES · IRON &amp; INSULIN</div>
-      <h2>Cook the year. <em>Twelve meals that hit 120&nbsp;g and raise your ferritin.</em></h2>
-      <p class="lede">Rebuilt 29 Aug 2026 around the panel: 120&nbsp;g protein a day across three meals, red meat and eggs and beans for iron, olive oil and avocado instead of butter, and every plant-iron meal paired with enough vitamin C to actually absorb it. No dairy, no nuts, no added sugar. Each card tells you the effort before the ingredients — and where its leftovers go tomorrow.</p>
-    </div>
-  </section>
-
-  <div class="recipe-filter">
+<div class="phase-panel" data-phase="7" data-dest="food">
+<div class="recipe-filter">
     <button class="recipe-filter-pill active" data-filter="all">All</button>
     <button class="recipe-filter-pill" data-filter="tag:10min">10 min</button>
     <button class="recipe-filter-pill" data-filter="tag:iron">High iron</button>
@@ -2062,7 +2094,7 @@ html.lg-kbd .lg-tabbar { display:none; }
     <div class="recipe-group-label" data-group="breakfast">Breakfast · 40–48 g protein</div>
 
     <!-- B1 -->
-    <div class="recipe-card" data-meal="breakfast" data-tags="10min iron">
+    <div data-rx="B1" class="recipe-card" data-meal="breakfast" data-tags="10min iron">
       <div class="recipe-head">
         <span class="recipe-tag meat">B1 · Monday, from Sunday's steak</span>
         <div class="recipe-name">Steak &amp; eggs with charred red pepper chimichurri</div>
@@ -2111,7 +2143,7 @@ html.lg-kbd .lg-tabbar { display:none; }
     </div>
 
     <!-- B2 -->
-    <div class="recipe-card" data-meal="breakfast" data-tags="omega3">
+    <div data-rx="B2" class="recipe-card" data-meal="breakfast" data-tags="omega3">
       <div class="recipe-head">
         <span class="recipe-tag fish">B2 · Savoury</span>
         <div class="recipe-name">Salmon, sweet potato &amp; spinach hash with a lemon-cracked egg</div>
@@ -2158,7 +2190,7 @@ html.lg-kbd .lg-tabbar { display:none; }
     </div>
 
     <!-- B3 -->
-    <div class="recipe-card" data-meal="breakfast" data-tags="10min iron">
+    <div data-rx="B3" class="recipe-card" data-meal="breakfast" data-tags="10min iron">
       <div class="recipe-head">
         <span class="recipe-tag plant">B3 · The iron card</span>
         <div class="recipe-name">Smoky red pepper, chickpea &amp; egg skillet</div>
@@ -2211,7 +2243,7 @@ html.lg-kbd .lg-tabbar { display:none; }
     <div class="recipe-group-label" data-group="lunch">Lunch · 40–47 g protein</div>
 
     <!-- L1 -->
-    <div class="recipe-card" data-meal="lunch" data-tags="10min iron">
+    <div data-rx="L1" class="recipe-card" data-meal="lunch" data-tags="10min iron">
       <div class="recipe-head">
         <span class="recipe-tag meat">L1 · Cold, no cooking</span>
         <div class="recipe-name">Cold steak &amp; white bean salad, lemon and a lot of parsley</div>
@@ -2256,7 +2288,7 @@ html.lg-kbd .lg-tabbar { display:none; }
     </div>
 
     <!-- L2 -->
-    <div class="recipe-card" data-meal="lunch" data-tags="10min omega3">
+    <div data-rx="L2" class="recipe-card" data-meal="lunch" data-tags="10min omega3">
       <div class="recipe-head">
         <span class="recipe-tag fish">L2 · Wrap, grab-and-go</span>
         <div class="recipe-name">Lemon-dill salmon &amp; avocado wrap on chickpea flour</div>
@@ -2300,7 +2332,7 @@ html.lg-kbd .lg-tabbar { display:none; }
     </div>
 
     <!-- L3 -->
-    <div class="recipe-card" data-meal="lunch" data-tags="10min iron">
+    <div data-rx="L3" class="recipe-card" data-meal="lunch" data-tags="10min iron">
       <div class="recipe-head">
         <span class="recipe-tag fish">L3 · Store-cupboard</span>
         <div class="recipe-name">Tuna, chickpea &amp; roast pepper bowl over cooled potato</div>
@@ -2346,7 +2378,7 @@ html.lg-kbd .lg-tabbar { display:none; }
     <div class="recipe-group-label" data-group="dinner">Dinner · 40–50 g protein · the batch engine</div>
 
     <!-- D1 -->
-    <div class="recipe-card" data-meal="dinner" data-tags="iron batch">
+    <div data-rx="D1" class="recipe-card" data-meal="dinner" data-tags="iron batch">
       <div class="recipe-head">
         <span class="recipe-tag meat">D1 · Sunday · MAKE TRIPLE</span>
         <div class="recipe-name">Pan-seared sirloin, cooled-then-crisped potatoes, garlic broccoli</div>
@@ -2393,7 +2425,7 @@ html.lg-kbd .lg-tabbar { display:none; }
     </div>
 
     <!-- D2 -->
-    <div class="recipe-card" data-meal="dinner" data-tags="omega3 batch">
+    <div data-rx="D2" class="recipe-card" data-meal="dinner" data-tags="omega3 batch">
       <div class="recipe-head">
         <span class="recipe-tag fish">D2 · MAKE DOUBLE</span>
         <div class="recipe-name">Lemon-dill salmon tray with spinach, peppers &amp; quinoa</div>
@@ -2440,7 +2472,7 @@ html.lg-kbd .lg-tabbar { display:none; }
     </div>
 
     <!-- D3 -->
-    <div class="recipe-card" data-meal="dinner" data-tags="iron batch">
+    <div data-rx="D3" class="recipe-card" data-meal="dinner" data-tags="iron batch">
       <div class="recipe-head">
         <span class="recipe-tag meat">D3 · MAKE TRIPLE · freezer</span>
         <div class="recipe-name">Beef &amp; lentil ragù over zucchini ribbons and roast squash</div>
@@ -2491,7 +2523,7 @@ html.lg-kbd .lg-tabbar { display:none; }
     </div>
 
     <!-- D4 -->
-    <div class="recipe-card" data-meal="dinner" data-tags="10min">
+    <div data-rx="D4" class="recipe-card" data-meal="dinner" data-tags="10min">
       <div class="recipe-head">
         <span class="recipe-tag fish">D4 · Fast</span>
         <div class="recipe-name">Ginger-garlic shrimp with greens and cooled jasmine rice</div>
@@ -2542,7 +2574,7 @@ html.lg-kbd .lg-tabbar { display:none; }
     <div class="recipe-group-label" data-group="rescue">Rescue · 6 pm, bad day, hand on the phone</div>
 
     <!-- R1 -->
-    <div class="recipe-card" data-meal="rescue" data-tags="10min iron">
+    <div data-rx="R1" class="recipe-card" data-meal="rescue" data-tags="10min iron">
       <div class="recipe-head">
         <span class="recipe-tag meat">R1 · 10 minutes, one pan</span>
         <div class="recipe-name">Beef &amp; egg fried rice with cauliflower</div>
@@ -2587,7 +2619,7 @@ html.lg-kbd .lg-tabbar { display:none; }
     </div>
 
     <!-- R2 -->
-    <div class="recipe-card" data-meal="rescue" data-tags="10min iron omega3">
+    <div data-rx="R2" class="recipe-card" data-meal="rescue" data-tags="10min iron omega3">
       <div class="recipe-head">
         <span class="recipe-tag fish">R2 · Zero cooking</span>
         <div class="recipe-name">The tin plate — sardines, chickpeas, pepper, egg</div>
@@ -2689,7 +2721,9 @@ html.lg-kbd .lg-tabbar { display:none; }
   </section>
 
 <!-- ============ LOG ============ -->
-<div class="phase-panel" data-phase="8" data-dest="log">
+</div>
+
+<div class="phase-panel" data-phase="8" data-dest="notes">
 
   <section>
     <div class="section-label">Where you are</div>
@@ -2706,62 +2740,13 @@ html.lg-kbd .lg-tabbar { display:none; }
 </div>
   </section>
 
-  <section>
-    <div class="phase-card">
-      <div class="month-range">YOUR LOG</div>
-      <h2>Every set, every week. <em>See yourself getting strong.</em></h2>
-      <p class="lede">Weights you've logged across all workouts. Each exercise shows the last 5 sessions. Pull this up before any lift to see what you did last week and beat it.</p>
-    </div>
-  </section>
+  
 
-  <section>
-    <div class="section-label">Save your logs to Google Sheets</div>
-    <div class="setup-card">
-      <p class="setup-lede">localStorage doesn't always persist on iOS Safari when opening files. To keep your logs across sessions and devices, connect a Google Sheet — five-minute one-time setup, then it just works in the background.</p>
-
-      <div class="sync-status-row">
-        <div class="sync-dot" id="syncDot"></div>
-        <div id="syncStatus">Not connected to Sheets</div>
-      </div>
-
-      <details class="setup-steps">
-        <summary>Setup walkthrough <em>(one time, ~5 min)</em></summary>
-        <ol>
-          <li>Open <a href="https://sheets.new" target="_blank" rel="noopener">sheets.new</a> in a new tab to create a blank Google Sheet. Name it whatever you want.</li>
-          <li>Click <strong>Extensions → Apps Script</strong> from the Sheet menu.</li>
-          <li>Delete the default code. Paste the Apps Script code from <code>year-strong-sheets.gs</code> (the file shared alongside this HTML).</li>
-          <li>Click the <strong>disk icon</strong> to save the project.</li>
-          <li>Click <strong>Deploy → New deployment</strong> (top right).</li>
-          <li>Click the <strong>gear icon</strong> next to "Select type" → choose <strong>Web app</strong>.</li>
-          <li>Settings: <em>Execute as</em> = Me · <em>Who has access</em> = Anyone.</li>
-          <li>Click <strong>Deploy</strong>. When Google asks for permissions, click <strong>Authorize access</strong> → choose your account → click <em>Advanced</em> → <em>Go to (your project) (unsafe)</em> → <strong>Allow</strong>. (It's your own script — totally safe.)</li>
-          <li>Copy the <strong>Web app URL</strong> Google gives you.</li>
-          <li>Paste it in the field below and tap Connect.</li>
-        </ol>
-      </details>
-
-      <div class="setup-form">
-        <input type="text" id="sheetsUrlInput" placeholder="https://script.google.com/macros/s/.../exec" autocomplete="off" autocapitalize="off" spellcheck="false">
-        <button id="connectSheets">Connect</button>
-        <button id="disconnectSheets" style="display:none;">Disconnect</button>
-      </div>
-
-      <div id="setupMessage" class="setup-message"></div>
-    </div>
-  </section>
-
-  <section>
-    <div class="section-label">Your logs</div>
-    <div id="logSummary"></div>
-    <div style="text-align: center; margin-top: 24px;">
-      <button id="exportLog" style="background: var(--card); border: 1px solid var(--rule-warm); color: var(--ink-2); padding: 10px 20px; border-radius: 4px; font-family: inherit; font-style: italic; font-size: 14px; font-weight: 500; cursor: pointer; margin-right: 8px;">Export to clipboard</button>
-      <button id="clearLog" style="background: transparent; border: 1px solid var(--rule-warm); color: var(--ink-3); padding: 10px 20px; border-radius: 4px; font-family: inherit; font-style: italic; font-size: 14px; font-weight: 500; cursor: pointer;">Clear all</button>
-    </div>
-  </section>
+  
 </div>
 
 <!-- ============ PRINCIPLES ============ -->
-<div class="phase-panel" data-phase="6" data-dest="plan" data-sub="rules">
+<div class="phase-panel" data-phase="6" data-dest="notes">
   <section>
     <div class="phase-card" style="--accent: var(--sage);">
       <div class="month-range" style="color: var(--sage-dark);">THE GOVERNING PRINCIPLES</div>
@@ -2804,9 +2789,8 @@ html.lg-kbd .lg-tabbar { display:none; }
 <!-- ============ LEDGER · footer register ============ -->
 <nav class="lg-tabbar" id="lgTabbar" role="tablist" aria-label="Sections">
   <button type="button" class="lg-tab" data-dest="today" role="tab">Today</button>
-  <button type="button" class="lg-tab" data-dest="plan"  role="tab">Plan</button>
   <button type="button" class="lg-tab" data-dest="food"  role="tab">Food</button>
-  <button type="button" class="lg-tab" data-dest="log"   role="tab">Log</button>
+  <button type="button" class="lg-tab" data-dest="notes" role="tab">Notes</button>
 </nav>
 
 
@@ -2823,16 +2807,14 @@ html.lg-kbd .lg-tabbar { display:none; }
 (function ledgerNav(){
   const bar = document.getElementById('lgTabbar');
   if (!bar) return;
-  const tabs    = [...bar.querySelectorAll('.lg-tab')];
-  const panels  = [...document.querySelectorAll('.phase-panel')];
-  const subnavs = [...document.querySelectorAll('.lg-subnav')];
-  const scrollMem = { today:0, plan:0, food:0, log:0 };
-  const subOf     = { plan:'workouts', food:'nutrition' };
+  const tabs   = [...bar.querySelectorAll('.lg-tab')];
+  const panels = [...document.querySelectorAll('.phase-panel:not(.lg-archive)')];
+  const scrollMem = { today:0, food:0, notes:0 };
   let current = null;
 
   function paint(){
-    // CSS keys off this attribute rather than card.hidden — gymMode already owns
-    // `hidden`, and two owners for one flag is how the card vanishes for good.
+    // CSS keys off this attribute; gymMode owns card.hidden, and two owners for
+    // one flag is how the Today card ends up invisible after a tab round-trip.
     document.body.dataset.dest = current;
     tabs.forEach(t => {
       const on = t.dataset.dest === current;
@@ -2840,27 +2822,16 @@ html.lg-kbd .lg-tabbar { display:none; }
       t.setAttribute('aria-selected', on ? 'true' : 'false');
       if (on) t.setAttribute('aria-current', 'page'); else t.removeAttribute('aria-current');
     });
-    subnavs.forEach(n => {
-      n.hidden = n.dataset.for !== current;
-      n.querySelectorAll('.lg-subtab').forEach(b =>
-        b.classList.toggle('is-on', b.dataset.sub === subOf[n.dataset.for]));
-    });
-    panels.forEach(pl => {
-      const sub = pl.dataset.sub;
-      pl.classList.toggle('active', pl.dataset.dest === current && (!sub || sub === subOf[current]));
-    });
+    panels.forEach(pl => pl.classList.toggle('active', pl.dataset.dest === current));
   }
   function go(dest){
     if (dest === current) { window.scrollTo(0,0); scrollMem[dest] = 0; return; }
     if (current) scrollMem[current] = window.scrollY;
     current = dest; paint();
-    if (dest === 'log' && typeof renderLogSummary === 'function') renderLogSummary();
+    if (dest === 'notes' && typeof renderLogSummary === 'function') renderLogSummary();
     requestAnimationFrame(() => window.scrollTo(0, scrollMem[dest] || 0));
   }
-  function goSub(dest, sub){ subOf[dest] = sub; paint(); window.scrollTo(0,0); scrollMem[dest] = 0; }
   tabs.forEach(t => t.addEventListener('click', () => go(t.dataset.dest)));
-  subnavs.forEach(n => n.querySelectorAll('.lg-subtab').forEach(b =>
-    b.addEventListener('click', () => goSub(n.dataset.for, b.dataset.sub))));
   go('today');
   window.__lgGo = go;
 })();
@@ -3283,6 +3254,60 @@ if ('serviceWorker' in navigator) {
   });
 }
 
+
+// ============ FOOD · collapse the recipe cards ============
+// 14 open cards is ~15 screens. Collapsed to a name + protein + effort row it is
+// about 3, which is what makes the filters usable instead of decorative.
+(function foodFold(){
+  const panel = document.querySelector('.phase-panel[data-dest="food"]');
+  if (!panel) return;
+  panel.querySelectorAll('.recipe-card').forEach(card => {
+    if (card.parentElement && card.parentElement.classList.contains('rx-fold')) return;
+    const nameEl = card.querySelector('.recipe-name');
+    if (!nameEl) return;
+    const prot = (card.querySelector('.recipe-macro.protein .v') || {}).textContent || '';
+    let effort = '';
+    card.querySelectorAll('.lg-rx-meta > div').forEach(d => {
+      if (/^effort/i.test(d.textContent)) effort = (d.querySelector('b') || {}).textContent || '';
+    });
+    const det = document.createElement('details');
+    det.className = 'rx-fold';
+    const sum = document.createElement('summary');
+    sum.innerHTML = '<div class="rx-head"><span class="rx-head-name">' + nameEl.innerHTML + '</span>' +
+      '<span class="rx-head-meta"><b>' + prot + '</b>' + (effort ? effort.toLowerCase() + ' effort' : '') + '</span></div>';
+    card.parentNode.insertBefore(det, card);
+    det.appendChild(sum);
+    det.appendChild(card);
+  });
+  // the filter toggles .hidden on the CARD; the wrapper has to follow it
+  const sync = () => panel.querySelectorAll('.rx-fold').forEach(d => {
+    const c = d.querySelector('.recipe-card');
+    d.style.display = (c && c.classList.contains('hidden')) ? 'none' : '';
+  });
+  panel.querySelectorAll('.recipe-filter-pill').forEach(b => b.addEventListener('click', () => setTimeout(sync, 0)));
+  sync();
+})();
+
+// ============ NOTES · collapse each section ============
+(function notesFold(){
+  document.querySelectorAll('.phase-panel[data-dest="notes"]').forEach(panel => {
+    [...panel.children].filter(el => el.tagName === 'SECTION').forEach(sec => {
+      const label = sec.querySelector('.section-label') || sec.querySelector('.month-range');
+      if (!label) return;
+      const title = label.textContent.trim();
+      label.remove();
+      const det = document.createElement('details');
+      det.className = 'lg-fold';
+      const sum = document.createElement('summary');
+      sum.textContent = title;
+      const body = document.createElement('div');
+      body.className = 'lg-fold-body';
+      sec.parentNode.insertBefore(det, sec);
+      det.appendChild(sum); det.appendChild(body); body.appendChild(sec);
+    });
+  });
+})();
+
 // ============ TODAY · gym mode ============
 // Reads the plan straight out of the field-guide markup below, so the workouts
 // stay single-sourced. Sessions are DERIVED from the existing flat log by
@@ -3429,6 +3454,56 @@ if ('serviceWorker' in navigator) {
   function firstIncomplete(d){
     const i = plan[d].exercises.findIndex(e => !isDone(e));
     return i >= 0 ? i : plan[d].exercises.length - 1;
+  }
+
+
+  // ---- the day's three meals -------------------------------------------
+  // Fixed rotation, built on the batch chain the recipe cards already encode:
+  // Sunday cooks D1 triple, which IS Monday's breakfast and lunch. No choices
+  // at 6am, and tomorrow's prep is always knowable tonight.
+  const MENU = {
+    SUNDAY:    ['B3','L3','D1'],
+    MONDAY:    ['B1','L1','D2'],
+    TUESDAY:   ['B2','L2','D3'],
+    WEDNESDAY: ['B3','L3','D4'],
+    THURSDAY:  ['B3','L3','D1'],
+    FRIDAY:    ['B1','L1','D2'],
+    SATURDAY:  ['B2','L2','R2']
+  };
+  const SLOT_WHEN = { B:'07:30', L:'12:30', D:'19:00', R:'any time' };
+
+  function renderMenu(dayName){
+    const host = document.getElementById('todayMenu');
+    if (!host) return;
+    const codes = MENU[dayName] || MENU.MONDAY;
+    let html = '<div class="lg-menu-k">Today\u2019s meals \u00b7 ' +
+      dayName.charAt(0) + dayName.slice(1).toLowerCase() + '</div>' +
+      '<div class="lg-menu-note"><b>Breakfast is the big one this cycle.</b> ' +
+      'Largest portion at breakfast, smallest at dinner \u2014 the experiment runs one cycle, ' +
+      'then you read it against your period. Vegetables and protein first, starch last.</div>';
+    codes.forEach(code => {
+      const src = document.querySelector('[data-rx="' + code + '"]');
+      if (!src) return;
+      const name = (src.querySelector('.recipe-name') || {}).innerHTML || code;
+      const prot = (src.querySelector('.recipe-macro.protein .v') || {}).textContent || '';
+      html += '<details class="lg-slot">' +
+        '<summary><span class="lg-slot-when">' + (SLOT_WHEN[code[0]] || '') + '</span>' +
+        '<span class="lg-slot-name">' + name + '</span>' +
+        '<span class="lg-slot-p">' + prot + '</span>' +
+        '<span class="lg-slot-x">+</span></summary>' +
+        '<div class="lg-slot-body" data-fill="' + code + '"></div></details>';
+    });
+    host.innerHTML = html;
+    // clone the real card in, so Food stays the single source of truth
+    host.querySelectorAll('[data-fill]').forEach(slot => {
+      const src = document.querySelector('[data-rx="' + slot.dataset.fill + '"]');
+      if (src) slot.appendChild(src.cloneNode(true));
+    });
+    host.querySelectorAll('.lg-slot').forEach(d =>
+      d.addEventListener('toggle', () => {
+        const x = d.querySelector('.lg-slot-x');
+        if (x) x.textContent = d.open ? '\u2212' : '+';
+      }));
   }
 
   function render(){
@@ -3584,6 +3659,7 @@ if ('serviceWorker' in navigator) {
       render();
     };
 
+    renderMenu(w.day);
     paintRest();
   }
 
