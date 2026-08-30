@@ -428,7 +428,13 @@ git commit -m "refactor(design): route hardcoded hex through tokens"
 
 ## Task 6: The one-pink rule
 
-The brand's single governing rule: **pink appears once per screen.** `var(--accent)` currently has 34 call sites, so straight aliasing puts pink everywhere and destroys the signal.
+> **SUPERSEDED IN PART — read `2026-08-30-design-decisions.md` first.**
+> The readme's "pink appears once per screen" is wrong; Jessica's own design
+> uses pink six times on Today. The actual rule is **pink marks what is current
+> or actionable, and never decorates.** Every allocation below is now decided —
+> see Decision 1. Do not re-derive it.
+
+`var(--accent)` currently has 34 call sites, so straight aliasing puts pink everywhere and destroys the signal.
 
 **Files:**
 - Modify: `index.html` CSS block
