@@ -90,4 +90,65 @@ it is not.)
 
 ## Decision 2 — Type
 
+**Reviewed:** `type-stress-test.html`, `recipe-names.html` (scratch, not in repo).
+Both checked in light and dark mode, against the app's *longest* real content
+rather than the short strings the original mockup used.
+
+### 2.0 The three faces — confirmed as drawn
+
+`--font-display` **Gluten** · `--font-body` **Nunito** · `--font-mono` **Space Mono**
+
+Not re-litigated; these were already chosen in `explorations/today-final.html`.
+What was tested was whether they survive the dense screens that mockup never
+covered.
+
+### 2.1 Body — **Nunito**, confirmed
+
+Verified across three stacked real paragraphs from the Food tab's
+doctor's-notes content, not a single sentence.
+
+### 2.2 Numbers — **Space Mono**, confirmed
+
+Verified on real gym-glance content: `4 × 8 · 95 lb`, `3 × 10/leg`, the
+four-up macro grid, `120 g`. This was the choice with a functional stake —
+these are read mid-set — and it was made against IBM Plex Mono side by side.
+
+### 2.3 Short titles — **Gluten at full display size**
+
+`.workout-name` (longest: 11 chars, `Single-leg`) · `h2` / `.phase-card h2`
+(longest: 27 chars, `Show up five times a week.`) · `.today-title`
+
+### 2.4 Recipe names — **Gluten, sized down to 19px** (`--text-lg`)
+
+`.recipe-name` runs 61–65 characters (`Pan-seared sirloin, cooled-then-crisped
+potatoes, garlic broccoli`) and is the **only** long heading in the display set.
+Chosen over full-size Gluten and over switching to Nunito bold: keeps the brand
+face on every heading while dropping the volume where the text is long.
+
+**This is a rule about place, not length.** CSS cannot branch on string length,
+so the exception is scoped to the one selector where long headings occur.
+
+### 2.5 Principle headings — **stay on the body face**
+
+`.principle-body h4`, 48 instances, 16px/700.
+
+These are the app's genuinely long headings (`Pull-up negatives → band-assisted
+concentric`). They already render in the body face — but **by accident**, see
+2.6. The migration should make this deliberate: Nunito 800, not Gluten.
+
+### 2.6 Second dead selector found — **fix, don't migrate**
+
+Line 592 lists `.principle h3` in the display-face rule, but every principle
+uses `<h4>`. The selector has matched nothing since it was written. The
+accident produced the right result, so the fix is to correct the selector to
+`.principle-body h4` and keep it on the body face deliberately — not to give
+it the display face.
+
+Running list of dead CSS found while scoping: `h1.title em` (1.6),
+`.principle h3` (2.6).
+
+---
+
+## Decision 3 — Shape, stroke and the sticker shadow
+
 Not yet reviewed.
