@@ -5,3 +5,6 @@ design-system/uploads/
 
 # macOS
 .DS_Store
+
+# Pre-migration UI audit captures — regenerated, not source of truth
+docs/superpowers/plans/baseline/
