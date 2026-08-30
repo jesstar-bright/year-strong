@@ -28,9 +28,12 @@ line number** — the file is edited often and line numbers go stale immediately
 sets `document.body.dataset.dest`:
 
 - **Today** — `#todayCard`, the gym screen. The only view used mid-workout.
-- **Plan** — sub-tabs Workouts (7 days) · Phases (P1–P4) · Rules
-- **Food** — sub-tabs Nutrition · Recipes
-- **Log** — goals, starting line, logged sets, Sheets setup
+- **Food** — nutrition and recipes
+- **Notes** — reference cards, rules, logged sets, Sheets setup
+
+(Training Phases 1–4 exist in the markup but are hidden via `.lg-archive`
+and unreachable. The auto-adjust logic they were hidden for was never built —
+see `docs/superpowers/plans/2026-08-30-design-decisions.md`.)
 
 Panels carry `data-dest` and optionally `data-sub`; `ledgerNav` toggles
 `.active` and remembers scroll position per destination.
@@ -59,9 +62,12 @@ yet.** Until it does, the repo carries two design languages: `index.html` is
 still Ledger (Zilla Slab, brick red), while `design-system/` is the new brand
 (warm paper, Gluten, pink). Do not mix them in one screen.
 
-## The design language: "The Ledger"
+## The design language: "The Ledger" — RETIRED 2026-08-30
 
-**Superseded by the design system above — still live in `index.html`.**
+**No longer live.** Migrated to the design system above. Kept here only so an
+old screenshot or commit still makes sense. The `lg-` class prefix survives
+(the markup was not touched) but the tokens behind it now resolve to the new
+brand: `--lg-live` is pink, `--lg-done` is sage, `--lg-paper` is warm paper.
 
 
 A hand-kept training ledger read like a game HUD. Deliberately NOT the
@@ -95,7 +101,14 @@ cream + serif + terracotta look, which is a documented AI-design default.
 
 Run the `mobile-ui-audit` skill. It measures touch targets, contrast, iOS zoom
 traps and safe-area handling at a real phone width. Current state: **0 contrast
-failures and 0 sub-44px touch targets across all four tabs.**
+failures and 0 sub-44px touch targets across all three tabs, in BOTH light and
+dark.** Dark has no in-app toggle — switch macOS/iOS appearance and re-run.
+
+**A token being in the design system does not make it safe as text.** The
+migration introduced 15 contrast failures per tab by using `--ink-3`,
+`--pink` and `--state-warn` as small text. Each now has a text-safe companion
+(`--ink-3-text`, `--lg-live-ink`, `--state-warn-ink`). Before using any token
+as text under 18px, measure it — see `baseline/audit-after.md`.
 
 ## Sheets sync
 
