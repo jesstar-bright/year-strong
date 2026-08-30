@@ -83,5 +83,15 @@ is deployed and working — don't re-deploy it to fix a frontend problem.
 
 ## Because the repo is public
 
-No secrets, no personal health details beyond workout numbers, no real names
-in committed content.
+No secrets and no third-party real names in committed content.
+
+**Health data: Jessica decided on 2026-08-29 to publish it knowingly.** She was
+shown exactly what would become world-readable — PCOS, insulin resistance,
+ferritin and iron labs, tirzepatide, menstrual cycle, a medication question,
+start and goal weight — and chose to push rather than depersonalise or go
+private. Do not quietly strip it back out, and do not re-ask. If she ever wants
+it gone, note that deleting it in a new commit is NOT enough: git history,
+forks and caches keep it, so it needs history rewriting or a private repo.
+
+Still off-limits: API keys, tokens, credentials, her home address, and other
+people's names.
