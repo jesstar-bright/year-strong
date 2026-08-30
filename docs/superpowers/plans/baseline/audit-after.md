@@ -82,3 +82,38 @@ Two things in the mockup do not exist in the app, and neither is a CSS fix:
    in `2026-08-30-design-decisions.md`.
 
 Both need a decision, not an implementation.
+
+## Decision-by-decision verification (2026-08-30, third pass)
+
+Prompted by the CTA miss: the audit measures whether a UI is *usable*, never
+whether it is the one that was designed. So every decision was re-checked as an
+explicit assertion against computed style, not eyeballed.
+
+**42 of 42 assertions pass.** 14 measured on live elements; the state-dependent
+ones (`.sync-dot.error`, `.set-dots span.on`, `.day.active-day .dow`,
+`.meal-time`) verified against the declared CSS rules instead, since those
+elements are not in the DOM at rest.
+
+Covered: D1.1 pink allocation on Today (6 elements) · D1.2 decorative marks ink
+incl. four `::before` pseudo-elements · D1.3 mono metadata ink · D1.4 sage
+numerals and data · D1.5 danger pink · D1.6 and D2.6 both dead selectors absent
+from the stylesheet · D2.0/2.3/2.4/2.5 type roles and the 19px recipe-name
+exception · D3.1 all three elevation tiers · D4.1–4.3 dark plumbing
+(`@media prefers-color-scheme` present, `[data-mode="dark"]` absent, paired
+`theme-color`, `black-translucent`, `color-scheme: light dark`, no in-app
+toggle).
+
+Visual pass on Food and Notes in light, and Today in dark: nothing else
+diverged from the mockup.
+
+### One observation, not a defect
+
+All 12 visible `.recipe-card` elements are **1349–2093px tall** (median 1577) —
+each is a full expanded recipe, not a compact card. A `--shadow-sticker`
+(`4px 5px 0`) on an element that tall is effectively invisible: you see the top
+border, scroll 1500px, then meet the bottom edge. The 2.5px stroke reads as a
+page frame rather than a card.
+
+Harmless, and left as-is. If it ever looks like dead weight, the fix is to move
+`.recipe-card` to a flat variant (border, no shadow) — the design system already
+ships `.ys-card--flat` for exactly this.
