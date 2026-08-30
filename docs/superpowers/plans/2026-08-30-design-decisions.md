@@ -151,4 +151,62 @@ Running list of dead CSS found while scoping: `h1.title em` (1.6),
 
 ## Decision 3 — Shape, stroke and the sticker shadow
 
-Not yet reviewed.
+**Reviewed:** `shadow-tiers.html` (scratch, not in repo), both modes.
+
+### 3.1 Elevation — **containers only** (Variant B)
+
+- **Sticker shadow** (`--shadow-sticker`): top-level containers only —
+  `.phase-card`, `.workout`, `.recipe-card`, `.setup-panel`.
+- **Sunken, no shadow** (`.ys-card--sunken` equivalent): `.phase-stat`,
+  `.intro-stat`, `.macro` — anything nested inside a shadowed container.
+- **Ruled rows, no shadow, no radius**: `.principle` (48), set-table rows.
+  These are list items, not cards.
+- **`--stroke-pen` 2.5px** carries the brand on everything else.
+
+**Counts that drove this:** 45 shadow candidates land on Notes alone — 48
+`.principle`, 28 `.phase-stat`, 14 `.recipe-card`, 6 `.phase-card`, 6
+`.workout`, 5 `.note-box`, 4 `.intro-stat`, 3 `.med-box`. Shadowing all of
+them stacks 45 offset shadows down one scroll, and nests shadows inside
+shadows where `.phase-stat` sits within `.phase-card` — an incoherent depth
+model, not just a busy one.
+
+### 3.2 Correction to the migration plan
+
+**Task 4 of `2026-08-30-design-system-migration.md` is wrong as written.** It
+applies `--shadow-sticker-sm` to nine card classes at once. It must be
+rewritten to the tiers in 3.1. The error came from reading `.ys-card` in
+`components.css` and generalising it, while ignoring that the same file ships
+`.ys-card--flat` and `.ys-card--sunken` precisely because not everything is
+raised.
+
+---
+
+## Out of scope — surfaced during review
+
+### Training phases are hidden, but the automatic behaviour was never built
+
+Raised by Jessica 2026-08-30: phases should not be user-facing, and the app
+should instead know the current phase and adjust workouts automatically.
+
+**Current state, verified:**
+
+- Panels `data-phase` 1–4 and 9 carry `.lg-archive`
+  (`display: none !important`, `index.html:739`), and `ledgerNav` excludes
+  them: `querySelectorAll('.phase-panel:not(.lg-archive)')` (`:2835`).
+- `.phase-nav` has **zero markup instances** — the phase pill nav is gone,
+  only dead CSS remains at `:109`, `:110`, `:622`.
+- No "Phase N" string renders: both surviving mentions (`:1839`, `:1885`) sit
+  inside archived panels.
+- **There is no phase logic anywhere in the JS.** No phase computation, no
+  workout adjustment. The panels were hidden, not converted into behaviour.
+- `.phase-card` and `.principle` in the *live* Notes panels (5, 6) are legacy
+  class names reused for reference content (`THE GOVERNING PRINCIPLES`,
+  `Reference · iron & insulin`) — not training phases.
+- ~1,000 lines of archived markup still ship in `index.html`, in a public
+  repo, and are cached to the phone by the service worker.
+
+**This is a feature, not a design decision.** It needs its own brainstorm and
+plan — what determines the current phase (calendar week? logged volume?
+bodyweight?), what "adjust the workouts" means concretely, and whether the
+archived content becomes data or gets deleted. Do not fold it into the design
+migration.
