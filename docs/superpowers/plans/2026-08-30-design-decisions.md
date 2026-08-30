@@ -181,6 +181,67 @@ raised.
 
 ---
 
+## Decision 4 — Dark mode
+
+### 4.1 **Follow the system. No toggle.**
+
+The page respects `prefers-color-scheme` and offers no in-app control.
+
+Reasoning: the app has **no header** — it opens straight into the Today card,
+with `.lg-tabbar` as the only persistent chrome, so a toggle has no natural
+home. iOS already provides a system-wide dark mode with sunrise/sunset
+scheduling, which handles 6am workouts better than a manual switch would.
+
+Note: the toggle in `explorations/today-final.html` sits in the `.bar` element
+**outside** the `.ph` phone frame — it is the mockup page's own furniture, not
+part of the app design. Nothing was lost by leaving it out.
+
+### 4.2 Implement dark as a media query, not `[data-mode]`
+
+`design-system/tokens/colors.css` scopes dark to `[data-mode="dark"]`. That
+selector cannot fire from `prefers-color-scheme` on its own; it needs JS to
+set the attribute, which means a flash of the light theme before the script
+runs. Convert the block to:
+
+```css
+@media (prefers-color-scheme: dark){ :root{ /* dark tokens */ } }
+```
+
+Media queries apply before first paint, so there is no flash. **This also
+sidesteps the `data-mode` collision entirely** — days F and G already use
+`data-mode="recovery"` on `.today` to suppress overload advice, and never
+sharing the attribute removes the risk of re-enabling overload advice on a
+yoga day.
+
+### 4.3 `theme-color` must change with it
+
+`index.html:6` hardcodes `<meta name="theme-color" content="#FFFFFF">`. On a
+dark page this paints a white band across the top of the iPhone — the most
+common way a PWA dark mode looks broken. It cannot take a CSS variable. Fix
+with paired tags:
+
+```html
+<meta name="theme-color" content="#F7F5F0" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#141413" media="(prefers-color-scheme: dark)">
+```
+
+`apple-mobile-web-app-status-bar-style` (`:15`) is `default`, which also
+assumes a light app, and needs to change alongside.
+
+---
+
+## Decision 5 — `explorations/`
+
+**Keep in the repo.** 172K of plain HTML, and the provenance for every
+decision above. `today-final.html` was the reference that caught two wrong
+assumptions during this review; losing it would mean future sessions cannot
+check a decision against what was actually drawn.
+
+Contrast with `design-system/uploads/` (8.3M of mood-board inputs), which
+stays gitignored.
+
+---
+
 ## Out of scope — surfaced during review
 
 ### Training phases are hidden, but the automatic behaviour was never built

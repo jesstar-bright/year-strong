@@ -56,7 +56,7 @@ The app talks like a good coach who is slightly bored of being asked. **Dry, dir
 ## Visual foundations
 
 ### Colour
-`--pink #FF2E93` is the action colour and appears **once per screen**. Text-weight pink is `--pink-ink #C4156A` (4.9:1 on paper — the bright pink fails as text and is fill-only). `--sage #2F5D50` is the information colour: reference cards, completed checkboxes, done stats, the Notes tab. Everything else is `--ink #1A1A18` on `--paper #F7F5F0`.
+`--pink #FF2E93` is the action colour. It marks **what is current or actionable, and never decorates** — a screen may carry several pink elements (Today has six: progress, active day, live set row, CTA, active tab, mode toggle) so long as every one of them is a state, not an ornament. An earlier draft of this file said "appears once per screen"; that contradicted `explorations/today-final.html` and is corrected here (see `docs/superpowers/plans/2026-08-30-design-decisions.md`, Decision 1). Text-weight pink is `--pink-ink #C4156A` (4.9:1 on paper — the bright pink fails as text and is fill-only). `--sage #2F5D50` is the information colour: reference cards, completed checkboxes, done stats, the Notes tab. Everything else is `--ink #1A1A18` on `--paper #F7F5F0`.
 
 Paper is **warm-neutral, not cream**. Backgrounds are never `#FFF`, text is never `#000`, and there are no gradients anywhere in the system.
 

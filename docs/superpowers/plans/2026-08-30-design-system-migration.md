@@ -10,6 +10,10 @@
 
 **Spec:** `design-system/readme.md` plus `design-system/tokens/*.css` and `design-system/ui_kits/yearstrong/` as the reference renders.
 
+**Decisions:** `2026-08-30-design-decisions.md` — **read it first.** Every
+open design question in this plan has been answered there against rendered
+comparisons. Do not re-derive any of them.
+
 ---
 
 ## Global Constraints
@@ -191,7 +195,19 @@ sed -i '' "s/font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sa
 
 `font-family:'Hanken Grotesk',serif;` appears once and Hanken Grotesk is **not loaded** — it has been silently falling back to serif. Replace it with `var(--font-body)`.
 
-- [ ] **Step 5: Verify no Plex/Zilla references survive**
+- [ ] **Step 5: Size down the one long heading (Decision 2.4)**
+
+`.recipe-name` runs 61–65 characters and is the only long heading in the
+display set. Everything else is under 27.
+
+```css
+/* Gluten stays the face; the volume drops where the text is long.
+   CSS cannot branch on string length, so the exception is scoped to the one
+   selector where long headings actually occur. */
+.recipe-name { font-size: var(--text-lg); line-height: 1.18; }
+```
+
+- [ ] **Step 6: Verify no Plex/Zilla references survive**
 
 ```bash
 grep -c "IBM Plex\|Zilla Slab\|Hanken" index.html
@@ -199,7 +215,7 @@ grep -c "IBM Plex\|Zilla Slab\|Hanken" index.html
 
 Expected: `0`. If not, the remaining ones are inside the fonts URL you already replaced, or a `!important` variant at line ~430 — handle it explicitly.
 
-- [ ] **Step 6: Bump the cache and check in the browser**
+- [ ] **Step 7: Bump the cache and check in the browser**
 
 ```bash
 sed -i '' "s/year-strong-v29/year-strong-v30/" service-worker.js
@@ -207,7 +223,7 @@ sed -i '' "s/year-strong-v29/year-strong-v30/" service-worker.js
 
 Open `index.html`. Expected: Gluten on titles, Nunito body, Space Mono on all numbers. **Judgement point — Gluten is a dramatic change from Zilla Slab. Stop and get sign-off here before continuing.**
 
-- [ ] **Step 7: Commit**
+- [ ] **Step 8: Commit**
 
 ```bash
 git add index.html service-worker.js
@@ -345,16 +361,36 @@ Remove entirely:
 
 These enforce the Ledger's "ruled, not stacked" rule, which is the opposite of the new system's card language. `!important` on a bare element selector cannot be overridden from a token, so this must be deleted rather than re-declared.
 
-- [ ] **Step 2: Give those same elements the new card treatment**
+- [ ] **Step 2: Apply the three elevation tiers (Decision 3.1)**
+
+Do **not** shadow everything — 45 shadow candidates land on Notes alone, and
+`.phase-stat` nests inside `.phase-card`, so a blanket rule stacks shadows
+inside shadows.
 
 ```css
-/* Cards in the new system are outlined and offset, not flat and ruled. */
-.phase-card, .workout, .recipe-card, .med-box, .note-box,
-.principle, .week, .setup-panel, .log-summary-card {
+/* Tier 1 — raised containers get the sticker shadow. */
+.phase-card, .workout, .recipe-card, .setup-panel {
   background: var(--surface-card);
   border: var(--stroke-pen) solid var(--border-strong);
   border-radius: var(--radius-md);
-  box-shadow: var(--shadow-sticker-sm);
+  box-shadow: var(--shadow-sticker);
+}
+
+/* Tier 2 — sunken: nested inside a raised container, so never raised itself. */
+.phase-stat, .intro-stat, .med-box, .note-box {
+  background: var(--surface-sunken);
+  border: var(--stroke-rule) solid var(--border-soft);
+  border-radius: var(--radius-sm);
+  box-shadow: none;
+}
+
+/* Tier 3 — ruled rows. List items, not cards: no radius, no shadow, no fill. */
+.principle {
+  background: none;
+  border: 0;
+  border-bottom: var(--stroke-rule) solid var(--border-soft);
+  border-radius: 0;
+  box-shadow: none;
 }
 ```
 
@@ -446,17 +482,35 @@ cd ~/Projects/year-strong
 grep -n 'var(--accent)\|var(--pink)\|var(--lg-live)' index.html
 ```
 
-- [ ] **Step 2: Pick the one pink element per screen**
+- [ ] **Step 2: Apply the decided allocation (Decision 1)**
 
-Against `design-system/ui_kits/yearstrong/`:
+The rule is **pink marks what is current or actionable, and never decorates.**
+Not "one element per screen" — Today legitimately has six.
 
-- **Today** — the live set row and `LOG SET`. One of the two, not both.
-- **Food** — the primary action only.
-- **Notes** — reference material is sage; Notes may legitimately have **no** pink.
+**Stays pink** — progress segments, active day underline, live set row,
+`LOG SET`, active tab, `.set-dots span.on`.
 
-- [ ] **Step 3: Demote the rest**
+**Becomes `--focus-ring`** (`--pink-ink`) — `.ex-log-inputs input:focus`,
+`.now-entry input:focus`, `.setup-form input:focus`.
 
-Everything that loses its pink becomes `var(--ink)` for emphasis or `var(--sage)` where it marks something completed. Reference cards and completed checkboxes are sage by definition.
+**Becomes ink** — `.quote::before`, `.section-label::before`,
+`.workout-why::before`, `.recipe-ingredients li::before`,
+`.exercise.priority .ex-name::before`, `.ex-prescription`, `.meal-time`,
+`.workout-day`, `.phase-card .month-range`.
+
+**Becomes sage** — `.principle-num` (48 instances; see Decision 1.4 for the
+measured contrast), `.trajectory-row .bar-fill`, `.recipe-macro.protein .v`,
+`.day.active-day .dow`.
+
+**Stays pink, deliberately** — `.sync-dot.error`, `.log-summary .clear-btn:hover`,
+`.setup-form button#disconnectSheets:hover`. Chosen with the tradeoff stated;
+see Decision 1.5.
+
+- [ ] **Step 3: Delete the dead selectors**
+
+`h1.title em` (zero instances) and `.principle h3` (all 48 principles use
+`<h4>`). Correct the second to `.principle-body h4` and keep it on the **body**
+face — that is Decision 2.5, and it is what the app already does by accident.
 
 - [ ] **Step 4: Check text-weight pink**
 
@@ -478,57 +532,84 @@ git commit -m "feat(design): enforce one-pink-per-screen"
 
 ## Task 7: Dark mode
 
-The design system ships a full dark palette under `[data-mode="dark"]`. The app has no toggle today.
+**Decision 4: follow the system, no toggle.** The app has no header to host a
+control, and iOS already schedules dark mode by sunset. Do not build a toggle.
 
 **Files:**
-- Modify: `index.html` `:root` area, `index.html:2831` (`ledgerNav` IIFE region) for the toggle
+- Modify: `index.html:6` and `:15` (meta tags), `:24-60` (`:root` area)
 
-- [ ] **Step 1: Copy the dark block verbatim**
+- [ ] **Step 1: Convert the dark block to a media query**
 
-The entire `[data-mode="dark"]{...}` block from `design-system/tokens/colors.css`, plus the dark override in `effects.css`:
+`design-system/tokens/colors.css` scopes dark to `[data-mode="dark"]`. That
+attribute would have to be set by JS, which flashes the light theme before the
+script runs. Copy the token *values* verbatim but change the selector:
 
 ```css
-[data-mode="dark"]{
-  --shadow-ink:rgba(245,244,240,.9);
-  --shadow-sheet:0 -8px 32px -8px rgba(0,0,0,.7);
+@media (prefers-color-scheme: dark){
+  :root{
+    --paper:#141413; --card:#1E1E1C; --chip:#2A2A27;
+    --ink:#F5F4F0;   --ink-2:#B3AFA6; --ink-3:#837E76;
+    --line:#454540;  --line-soft:#333330;
+    --pink:#FF3D9B;  --pink-ink:#FF8CC0; --pink-soft:#FFBFDC; --pink-wash:#2B1A22;
+    --sage:#4E8A76;  --sage-mid:#4E8A76; --sage-soft:#8FCDB2; --sage-wash:#1F2C27;
+    --text-ref:var(--sage-soft); --border-ref:var(--sage-mid);
+    --cta-bg:var(--pink-soft);  --cta-text:#1A1A18;
+    --state-warn:#E0AE55; --state-warn-wash:#2E2517;
+    --focus-ring:var(--pink-soft); --ios-veil:rgba(0,0,0,.55);
+    --shadow-ink:rgba(245,244,240,.9);
+    --shadow-sheet:0 -8px 32px -8px rgba(0,0,0,.7);
+  }
 }
 ```
 
-Note the design system's own reasoning: in dark, the CTA becomes `--pink-soft`, because "hot pink at 6am is too much" — and 6am is exactly when this app is used.
+Media queries apply before first paint, so there is no flash. This also avoids
+the `data-mode` collision — days F and G use `data-mode="recovery"` on
+`.today`, and never sharing the attribute means the theme can never
+accidentally re-enable progressive-overload advice on a yoga day.
 
-- [ ] **Step 2: Add the toggle, persisted separately from the log**
+Note the design system's own reasoning for `--cta-bg: var(--pink-soft)` in
+dark: *"hot pink at 6am is too much"* — which is exactly when this app is used.
 
-```javascript
-(function darkMode(){
-  // Deliberately NOT stored under year-strong-log-v3 — that key holds logged
-  // sets and must never take on unrelated shape.
-  const KEY = 'year-strong-mode';
-  const saved = localStorage.getItem(KEY);
-  const prefers = matchMedia('(prefers-color-scheme: dark)').matches;
-  const set = m => {
-    document.documentElement.dataset.mode = m;
-    localStorage.setItem(KEY, m);
-  };
-  set(saved || (prefers ? 'dark' : 'light'));
-  document.getElementById('modeToggle')?.addEventListener('click', () =>
-    set(document.documentElement.dataset.mode === 'dark' ? 'light' : 'dark'));
-})();
+- [ ] **Step 2: Fix `theme-color` (Decision 4.3)**
+
+`index.html:6` is `<meta name="theme-color" content="#FFFFFF">`. It cannot take
+a CSS variable, and left as-is it paints a white band across the top of the
+phone in dark mode. Replace with paired tags:
+
+```html
+<meta name="theme-color" content="#F7F5F0" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#141413" media="(prefers-color-scheme: dark)">
 ```
 
-- [ ] **Step 3: Confirm the selector target**
+- [ ] **Step 3: Fix the status bar style**
 
-`design-system/tokens/colors.css` scopes dark to `[data-mode="dark"]`. Setting it on `<html>` (`document.documentElement`) makes it match. Do **not** set it on `<body>` — `body` already carries `data-dest` for nav, and `.today` carries `data-mode="recovery"` for rest-day behaviour. **`data-mode` is already in use on training days F and G.** Putting the theme on `body` or on `.today` would collide with recovery mode and silently re-enable progressive-overload advice on yoga days.
+`index.html:15` is `apple-mobile-web-app-status-bar-style` = `default`, which
+assumes a light app. Change to `black-translucent` and verify the safe-area
+padding still holds — `black-translucent` extends the page under the status
+bar, so content can slide beneath the clock if `env(safe-area-inset-top)` is
+not respected.
 
-- [ ] **Step 4: Add the toggle control to the markup**
+- [ ] **Step 4: Add `color-scheme` so form controls follow**
 
-A `<button id="modeToggle">` in the header. Minimum 44×44px per the audit gate.
+```css
+:root { color-scheme: light dark; }
+```
 
-- [ ] **Step 5: Bump cache, verify both modes on all three tabs, commit**
+Without this, native controls — the Food tab's `<select>`, text inputs, the
+scrollbars — keep rendering light-on-light in dark mode. It is one line and it
+is the difference between a themed page and a themed app.
+
+- [ ] **Step 5: Verify by switching the OS, not a toggle**
+
+macOS System Settings → Appearance, or iOS Settings → Display & Brightness.
+Check all three tabs in both. There is no in-app switch to test.
+
+- [ ] **Step 6: Bump cache, commit**
 
 ```bash
 sed -i '' "s/year-strong-v34/year-strong-v35/" service-worker.js
 git add index.html service-worker.js
-git commit -m "feat(design): add dark mode toggle"
+git commit -m "feat(design): dark mode via prefers-color-scheme"
 ```
 
 ---
@@ -542,6 +623,8 @@ git commit -m "feat(design): add dark mode toggle"
 - [ ] **Step 1: Run the audit against both modes**
 
 Run `mobile-ui-audit` at 390px on Today, Food and Notes, in light **and** dark.
+Dark is switched at the OS level (there is no in-app toggle), so the audit must
+be run twice with the system appearance changed between runs.
 
 Gate: **0 contrast failures, 0 sub-44px touch targets** — matching the Task 1 baseline. Dark mode doubles the contrast surface and is the likely source of any regression.
 
