@@ -9,42 +9,77 @@ home screen.
 
 ## The whole app is one file
 
-`index.html` (~2,400 lines) holds styles, markup, and JS together:
+`index.html` holds styles, markup, and JS together. **Navigate by anchor, not by
+line number** — the file is edited often and line numbers go stale immediately:
 
-| Section | Lines |
+| To find | grep for |
 |---|---|
-| Styles | 21–316 |
-| Phase nav | 341 |
-| Phase 1 workouts (Mon–Fri) | 352–1063 |
-| Phases 2 / 3 / 4 | 1064 / 1092 / 1124 |
-| Nutrition | 1152 |
-| Recipes | 1242 |
-| Log + Sheets setup UI | 1899 |
-| Principles | 1955 |
-| All app JS | 2001–2414 |
+| A specific exercise | `data-ex-id="goblet-squat"` |
+| A workout day | `DAY C · WEDNESDAY` |
+| The gym card logic | `function gymMode` |
+| The ledger design tokens | `LEDGER · the Today card` |
+| The bottom tab bar | `LEDGER · footer register` |
+| Nav / destination routing | `function ledgerNav` |
+| The set table (signature UI) | `lg-table` |
 
-Individual exercises carry `data-ex-id="..."` (e.g. `goblet-squat`), so grep
-that attribute to jump to one.
+## Structure
+
+**Four destinations**, driven by the fixed bottom tab bar (`.lg-tabbar`), which
+sets `document.body.dataset.dest`:
+
+- **Today** — `#todayCard`, the gym screen. The only view used mid-workout.
+- **Plan** — sub-tabs Workouts (7 days) · Phases (P1–P4) · Rules
+- **Food** — sub-tabs Nutrition · Recipes
+- **Log** — goals, starting line, logged sets, Sheets setup
+
+Panels carry `data-dest` and optionally `data-sub`; `ledgerNav` toggles
+`.active` and remembers scroll position per destination.
+
+**Seven training days**, Mon–Sun, all at 6am. A–E are lifting; **F (Saturday)
+and G (Sunday) are recovery/yoga** and carry `data-mode="recovery"`, which
+suppresses progressive-overload advice and the rest timer.
+
+## The design language: "The Ledger"
+
+A hand-kept training ledger read like a game HUD. Deliberately NOT the
+cream + serif + terracotta look, which is a documented AI-design default.
+
+- Type: **Zilla Slab** display · **IBM Plex Mono** all numbers/labels ·
+  **IBM Plex Sans** body. `font-variant-numeric: tabular-nums` throughout.
+- Ruled rows and tables, **not cards**. No shadows, essentially no radius.
+- One signal red (`--lg-live #B4232A`) for the live row only.
+- **Every ledger class is prefixed `lg-`.** This is not optional — an
+  unprefixed `.day` once silently inherited a white card background from the
+  field guide's global `.day` rule.
 
 ## Non-negotiables
 
 1. **Bump `CACHE_VERSION` in `service-worker.js` whenever `index.html` changes.**
    The service worker is cache-first — skip the bump and installed phones keep
    serving the OLD version, so the change looks like it did nothing. A
-   PostToolUse hook (`~/.claude/hooks/year-strong-cache-guard.sh`) now blocks on
+   PostToolUse hook (`~/.claude/hooks/year-strong-cache-guard.sh`) blocks on
    this, but understand *why* rather than just satisfying the hook.
-2. **Never change the localStorage key `year-strong-log-v3`** (index.html:2044).
-   Existing workout logs are keyed to it and would orphan.
-3. After deploying, force-close and reopen the app on the phone to fetch the
-   new version.
+2. **Never change the localStorage key `year-strong-log-v3`.** Existing logs are
+   keyed to it and would orphan. Sessions are *derived* by grouping entries on
+   local calendar day — no format change was ever needed.
+3. **The two `slice(-400)` calls must match.** One is in `logExercise`, one in
+   `mergeData`. If they drift, a Sheets sync silently re-truncates history.
+4. Entries store `toISOString()` (UTC). Always convert back with `new Date(e.date)`
+   before taking a calendar day, or evening workouts file under tomorrow.
+5. After deploying, force-close and reopen the app on the phone.
+
+## Audit before shipping UI
+
+Run the `mobile-ui-audit` skill. It measures touch targets, contrast, iOS zoom
+traps and safe-area handling at a real phone width. Current state: **0 contrast
+failures and 0 sub-44px touch targets across all four tabs.**
 
 ## Sheets sync
 
 `year-strong-sheets.gs` is deployed as a Google Apps Script Web App under
 jessicahtalbert@gmail.com. The app POSTs each log `{date,exercise,weight,reps}`
-to its `/exec` URL. The URL is entered per-device in the app's "Connect" field
-(phone and laptop use the same URL). Backend is deployed and working — don't
-re-deploy it to fix a frontend problem.
+to its `/exec` URL, entered per-device in the Log tab's "Connect" field. Backend
+is deployed and working — don't re-deploy it to fix a frontend problem.
 
 ## Because the repo is public
 

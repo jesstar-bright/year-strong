@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#FFFFFF">
 <title>Year Strong</title>
 
@@ -17,51 +17,54 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<!-- Zilla Slab: display, squared slab with a records/ledger feel.
+     IBM Plex Mono: all numeric data — genuine tabular figures.
+     IBM Plex Sans: body, pairs natively with the mono. -->
+<link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 
 :root {
   /* legacy token aliases — old warm-cookbook names mapped onto the Superpower palette
      so inline styles / JS-generated markup that reference them keep working */
-  --paper: #FFFFFF;
-  --paper-warm: #F5F5F3;
-  --card-warm: #F5F5F3;
-  --rule: #ECEBE8;
-  --rule-warm: #E2E1DD;
-  --terra: #EE5A24;
-  --terra-dark: #D8420F;
-  --terra-soft: #F2A98C;
-  --sage: #2FAE72;
-  --sage-dark: #1F8A5B;
-  --ochre: #C98A2E;
-  --shadow-soft: 0 1px 2px rgba(20,18,24,0.05);
-  --shadow-med: 0 1px 2px rgba(20,18,24,0.04), 0 4px 16px rgba(20,18,24,0.04);
+  --paper: #F7F7F4;
+  --paper-warm: #EDEDE9;
+  --card-warm: #EDEDE9;
+  --rule: #DDE2DE;
+  --rule-warm: #C9D2CE;
+  --terra: #B4232A;
+  --terra-dark: #8E1A20;
+  --terra-soft: #E0B5B2;
+  --sage: #1C6B48;
+  --sage-dark: #145236;
+  --ochre: #8A6516;
+  --shadow-soft: none;
+  --shadow-med: none;
 
   /* Superpower palette — clinical white, one warm orange, functional data colors */
   --bg:        #ECEAE6;   /* page backdrop behind the app column */
-  --app:       #FFFFFF;   /* the app surface */
-  --sub:       #F5F5F3;   /* grouped fills / inputs / inset strips */
-  --sub-2:     #F0EFEC;
-  --card:      #FFFFFF;
-  --ink:       #17161A;   /* near-black text */
-  --ink-2:     #6C6B70;   /* secondary */
-  --ink-3:     #9B9A9F;   /* tertiary / placeholder */
-  --ink-4:     #BFBEC2;
-  --line:      #ECEBE8;   /* hairline */
-  --line-2:    #E2E1DD;
-  --black:     #161519;   /* primary buttons / active */
-  --accent:    #EE5A24;   /* Superpower orange */
-  --accent-2:  #D8420F;
-  --accent-soft:#FCEDE5;
-  --green:     #2FAE72;
-  --green-soft:#E7F5EE;
+  --app:       #F7F7F4;   /* the app surface */
+  --sub:       #EDEDE9;   /* grouped fills / inputs / inset strips */
+  --sub-2:     #E3E6E2;
+  --card:      #FCFCFA;
+  --ink:       #16181C;   /* near-black text */
+  --ink-2:     #3D4147;   /* secondary  — darkened for WCAG AA text */
+  --ink-3:     #5F646B;   /* tertiary   — was #9B9A9F (2.79:1, failed AA) */
+  --ink-4:     #9AA0A6;
+  --line:      #DDE2DE;   /* hairline */
+  --line-2:    #C9D2CE;
+  --black:     #16181C;   /* primary buttons / active */
+  --accent:    #B4232A;   /* Superpower orange */
+  --accent-2:  #8E1A20;
+  --accent-soft:#F1ECEA;
+  --green:     #1C6B48;
+  --green-soft:#E7EEE9;
   --yellow:    #E2B43A;
   --pink:      #EC4899;
   --amber:     #C98A2E;
   --amber-soft:#FBF1E2;
-  --radius:    18px;
-  --radius-md: 14px;
-  --radius-sm: 11px;
+  --radius:    0px;
+  --radius-md: 0px;
+  --radius-sm: 2px;
   --shadow:    0 1px 2px rgba(20,18,24,0.04), 0 4px 16px rgba(20,18,24,0.04);
   --shadow-sm: 0 1px 2px rgba(20,18,24,0.05);
 }
@@ -70,12 +73,12 @@ html { background: var(--bg); }
 body {
   background: var(--app);
   color: var(--ink);
-  font-family: 'Hanken Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
   font-size: 16px; line-height: 1.5; letter-spacing: -0.006em;
   -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
   max-width: 430px; margin: 0 auto; min-height: 100vh;
   border-left: 1px solid var(--line-2); border-right: 1px solid var(--line-2);
-  padding-bottom: 64px; overflow-x: hidden;
+  padding-bottom: calc(var(--lg-tabbar-h) + env(safe-area-inset-bottom, 0px)); overflow-x: hidden;
 }
 
 /* ── Header · title block ─────────────────────────────── */
@@ -193,10 +196,10 @@ section { padding: 0 22px; margin-bottom: 36px; }
 .ex-log-last span { color: var(--ink); font-weight: 700; }
 .ex-log-last.empty { color: var(--ink-3); }
 .ex-log-inputs { display: flex; gap: 6px; align-items: center; }
-.ex-log-inputs input { width: 58px; padding: 8px; background: var(--sub); border: 1px solid var(--line-2); border-radius: 10px; color: var(--ink); font-family: inherit; font-size: 14px; text-align: center; font-weight: 600; }
+.ex-log-inputs input { width: 62px; min-height: 44px; padding: 8px; background: var(--sub); border: 1px solid var(--line-2); border-radius: 10px; color: var(--ink); font-family: inherit; font-size: 16px; text-align: center; font-weight: 600; }
 .ex-log-inputs input::placeholder { color: var(--ink-4); font-style: normal; font-weight: 400; }
 .ex-log-inputs input:focus { outline: none; border-color: var(--accent); background: var(--app); }
-.ex-log-inputs button { padding: 9px 16px; background: var(--black); border: none; border-radius: 10px; color: #fff; font-family: inherit; font-style: normal; font-size: 14px; font-weight: 600; cursor: pointer; transition: background 0.2s; }
+.ex-log-inputs button { min-height: 44px; min-width: 52px; padding: 9px 16px; background: var(--black); border: none; border-radius: 10px; color: #fff; font-family: inherit; font-style: normal; font-size: 14px; font-weight: 600; cursor: pointer; transition: background 0.2s; }
 .ex-log-inputs button:active, .ex-log-inputs button:hover { background: #000; }
 .ex-log-inputs button.saved { background: var(--green); }
 .ex-log-inputs .sep { color: var(--ink-3); font-size: 13px; }
@@ -291,7 +294,7 @@ section { padding: 0 22px; margin-bottom: 36px; }
 .setup-steps ol li strong { color: var(--ink); font-weight: 700; }
 .setup-steps ol li a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
 .setup-form { display: flex; gap: 8px; flex-wrap: wrap; }
-.setup-form input { flex: 1; min-width: 200px; padding: 11px 13px; background: var(--sub); border: 1px solid var(--line-2); border-radius: var(--radius-sm); color: var(--ink); font-family: inherit; font-size: 13px; }
+.setup-form input { flex: 1; min-width: 200px; min-height: 44px; padding: 11px 13px; background: var(--sub); border: 1px solid var(--line-2); border-radius: var(--radius-sm); color: var(--ink); font-family: inherit; font-size: 16px; }
 .setup-form input::placeholder { color: var(--ink-4); }
 .setup-form input:focus { outline: none; border-color: var(--accent); background: var(--app); }
 .setup-form button { padding: 11px 20px; background: var(--black); border: none; border-radius: var(--radius-sm); color: #fff; font-family: inherit; font-size: 14px; font-weight: 600; cursor: pointer; transition: background 0.2s; }
@@ -310,47 +313,411 @@ footer .ornament-sm { height: 1px; background: var(--line); margin: 14px 0; text
 
 /* ── Phase panels (tab switching) ─────────────────────── */
 .phase-panel { display: none; }
-.phase-panel.active { display: block; animation: fadeIn 0.4s ease; }
+.phase-panel.active { display: block; }
 @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
+
+/* ── Gym mode · native feel ───────────────────────────── */
+* { -webkit-tap-highlight-color: transparent; }
+html { overscroll-behavior-y: none; }
+button, .phase-pill, .workout-header, .set-dots { -webkit-user-select: none; user-select: none; touch-action: manipulation; }
+body { padding-bottom: calc(var(--lg-tabbar-h) + env(safe-area-inset-bottom, 0px)); }
+.phase-pill { min-height: 44px; }
+.workout-header { min-height: 56px; }
+
+/* ── Gym mode · Today card ────────────────────────────── */
+.today { background: var(--app); border-bottom: 1px solid var(--line-2); padding: 20px 22px 22px; }
+.today[hidden] { display: none; }
+.today-bar { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
+.today-day { font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 700; color: var(--accent); }
+.today-count { font-size: 12px; font-weight: 600; color: var(--ink-3); white-space: nowrap; }
+.today-title { font-size: 26px; font-weight: 700; letter-spacing: -0.028em; margin-top: 5px; line-height: 1.15; }
+.today-title em { font-style: normal; color: var(--ink-3); font-weight: 500; }
+.today-progress { height: 6px; border-radius: 999px; background: var(--sub-2); margin-top: 15px; overflow: hidden; }
+.today-progress i { display: block; height: 100%; background: var(--accent); border-radius: 999px; transition: width 0.35s ease; }
+.today-progress i.all { background: var(--green); }
+
+.today-days { display: flex; gap: 6px; margin-top: 14px; }
+.today-days button { flex: 1; min-height: 44px; border-radius: 11px; border: 1px solid var(--line-2); background: var(--app); color: var(--ink-3); font-family: inherit; font-size: 14px; font-weight: 700; cursor: pointer; }
+.today-days button.done { color: var(--green); border-color: var(--green); }
+.today-days button.on { background: var(--black); color: #fff; border-color: var(--black); }
+.today-days button.on.done { background: var(--green); border-color: var(--green); color: #fff; }
+
+.today-note { margin-top: 14px; font-size: 13.5px; line-height: 1.55; color: var(--ink-2); background: var(--sub); border-radius: var(--radius-sm); padding: 12px 14px; }
+.today-note b { color: var(--ink); font-weight: 700; }
+
+.now { margin-top: 16px; background: var(--accent-soft); border-radius: var(--radius); padding: 18px; }
+.now.complete { background: var(--green-soft); }
+.now-label { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 700; color: var(--accent); }
+.now.complete .now-label { color: var(--green); }
+.now-name { font-size: 21px; font-weight: 700; letter-spacing: -0.022em; margin-top: 6px; line-height: 1.22; }
+.now-rx { font-size: 14px; font-weight: 700; color: var(--ink-2); margin-top: 4px; }
+.now-cue { font-size: 13.5px; line-height: 1.5; color: var(--ink-2); margin-top: 9px; }
+
+.set-dots { display: flex; gap: 8px; margin-top: 15px; align-items: center; }
+.set-dots span { width: 14px; height: 14px; border-radius: 50%; border: 2px solid var(--accent); box-sizing: border-box; flex: 0 0 auto; }
+.set-dots span.on { background: var(--accent); }
+.now.complete .set-dots span { border-color: var(--green); }
+.now.complete .set-dots span.on { background: var(--green); }
+.set-dots .set-label { border: none; width: auto; height: auto; border-radius: 0; font-size: 12.5px; font-weight: 700; color: var(--ink-2); margin-left: 5px; }
+
+.now-last { margin-top: 15px; padding: 13px 14px; background: rgba(255,255,255,0.75); border-radius: var(--radius-sm); font-size: 13.5px; line-height: 1.5; color: var(--ink-2); }
+.now-last b { color: var(--ink); font-weight: 700; }
+.now-last .rec { display: block; margin-top: 5px; color: var(--accent); font-weight: 700; }
+.now.complete .now-last .rec { color: var(--green); }
+
+.now-entry { display: flex; gap: 10px; align-items: center; margin-top: 15px; }
+.now-entry input { flex: 1 1 0; min-width: 0; min-height: 58px; font-family: inherit; font-size: 20px; font-weight: 700; text-align: center; color: var(--ink); background: var(--app); border: 1px solid var(--line-2); border-radius: 14px; }
+.now-entry input:focus { outline: none; border-color: var(--accent); }
+.now-entry input::placeholder { color: var(--ink-4); font-weight: 500; font-size: 16px; }
+.now-entry .x { color: var(--ink-3); font-size: 15px; font-weight: 700; flex: 0 0 auto; }
+
+.now-log { display: block; width: 100%; min-height: 58px; margin-top: 12px; border: none; border-radius: 14px; background: var(--black); color: #fff; font-family: inherit; font-size: 16px; font-weight: 700; letter-spacing: 0.01em; cursor: pointer; }
+.now-log:active { background: #000; }
+.now-log.warn { background: var(--accent-2); }
+.now.complete .now-log { background: var(--green); }
+
+.now-rest { margin-top: 12px; min-height: 20px; text-align: center; font-size: 14px; font-weight: 700; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+.now-rest.ready { color: var(--green); }
+.now-rest button { min-height: 44px; margin-left: 8px; padding: 0 14px; background: none; border: none; color: var(--accent); font-family: inherit; font-size: 13px; font-weight: 700; cursor: pointer; }
+
+.now-nav { display: flex; gap: 8px; margin-top: 12px; }
+.now-nav button { flex: 1; min-height: 44px; border-radius: 11px; border: 1px solid var(--line-2); background: var(--app); color: var(--ink-2); font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; }
+.now-nav button:disabled { opacity: 0.35; }
+
+.today-next { margin-top: 15px; padding-top: 15px; border-top: 1px solid var(--line); }
+.today-next .k { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 700; color: var(--ink-3); }
+.today-next .v { font-size: 15px; font-weight: 700; margin-top: 5px; color: var(--ink); line-height: 1.4; }
+.today-next .v span { color: var(--ink-3); font-weight: 500; }
+
+
+/* ── Gym mode · contrast-safe text tokens ─────────────────
+   --accent/--green/--ink-3 are tuned for FILLS. Used as text on white they
+   land at 3.4/2.8/2.8:1, under the 4.5:1 WCAG 1.4.3 AA floor. These darker
+   variants are for TEXT ONLY — fills keep the original brand colours. */
+:root {
+  --accent-text: #8E1A20;
+  --green-text:  #145236;
+  --ink-3-text:  #4E535A;
+}
+.today-day, .now-label, .now-last .rec, .now-rest button { color: var(--accent-text); }
+.now.complete .now-label, .now.complete .now-last .rec, .now-rest.ready { color: var(--green-text); }
+.today-count, .today-title em, .set-dots .set-label, .today-next .k, .today-next .v span { color: var(--ink-3-text); }
+.today-days button { color: var(--ink-3-text); }
+.today-days button.done { color: var(--green-text); border-color: var(--green-text); }
+.today-days button.on.done { background: var(--green-text); border-color: var(--green-text); color: #fff; }
+.today-progress i.all { background: var(--green-text); }
+.now-entry input::placeholder { color: var(--ink-3-text); }
+.now-nav button:disabled { opacity: 1; color: var(--ink-4); border-color: var(--line); }
+
+/* undo — present only after a set is logged this session */
+#nowUndo { color: var(--accent-text); border-color: var(--accent); }
+
+/* session complete — the ADHD "small win" moment the audit found missing */
+.today-done { margin-top: 16px; padding: 16px 18px; border-radius: var(--radius); background: var(--green-soft); border: 1px solid var(--green-text); }
+.today-done .k { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 700; color: var(--green-text); }
+.today-done .v { font-size: 16px; font-weight: 700; margin-top: 5px; color: var(--ink); line-height: 1.4; }
+
+
+.set-dots .set-label { color: var(--ink-2); }
+.now-entry .x { color: var(--ink-2); }
+
+
+/* ── WCAG AA text pass ────────────────────────────────────
+   --accent and --green stay exactly as they are for FILLS (buttons, dots,
+   progress bars, borders) — the brand colour is unchanged. These rules only
+   swap the TEXT uses, which measured 3.43:1 and 2.83:1 against the 4.5:1 floor.
+   Large headings are left alone: they only need 3:1 and already pass.
+   Decorative ornaments are left pale — they carry no information. */
+.day.active-day .dow,
+.ex-prescription,
+.meal-time,
+.phase-card .month-range,
+.principle-num,
+.recipe-macro.protein .v,
+.setup-steps ol li a,
+.setup-steps summary,
+.trajectory-row .weight em,
+.workout-day            { color: var(--accent-text); }
+
+.day.play-day .dow,
+.day.play-day .icon,
+.day.play-day .icon em,
+.note-box .note-label,
+.recipe-tag.plant,
+.setup-message.success  { color: var(--green-text); }
+
+/* --accent-2 measured 3.91:1 on --accent-soft; small bold text still needs 4.5 */
+.med-box .note-label, .note-box .note-label { color: var(--accent-text); }
+
+/* placeholders are labels, not decoration */
+.ex-log-inputs input::placeholder,
+.setup-form input::placeholder { color: var(--ink-3); }
+
+
+/* the one-line rationale that replaced the "Last time / Cleared / go up to" block */
+.now-why { margin-top: 12px; font-size: 13px; line-height: 1.45; color: var(--ink-2); }
+.now-logged { margin-top: 6px; font-size: 12.5px; font-weight: 700; color: var(--accent-text); }
+.now-rx b { color: var(--accent-text); font-weight: 800; }
+.now-entry.bwonly input { flex: 1 1 100%; }
+
+
+/* ══ LEDGER · the Today card ══════════════════════════════
+   A hand-kept training ledger read like a game HUD. Scoped to .today so the
+   field guide below is untouched until this is approved.
+   Palette is deliberately NOT warm cream + terracotta: cool paper, accounting
+   -rule green-grey, ink, and one signal red used only for the live row. */
+.today {
+  --lg-paper:#F7F7F4; --lg-ink:#16181C; --lg-rule:#C9D2CE; --lg-rule-2:#E3E6E2;
+  --lg-pencil:#5F646B; --lg-live:#B4232A; --lg-done:#1C6B48;
+  background: var(--lg-paper); color: var(--lg-ink);
+  border-bottom: 2px solid var(--lg-ink);
+  padding: 18px 20px 22px;
+  font-family: 'IBM Plex Sans', -apple-system, sans-serif;
+  font-variant-numeric: tabular-nums;
+}
+.today[hidden]{ display:none; }
+
+.lg-head { display:flex; justify-content:space-between; align-items:baseline; gap:10px;
+  font-family:'IBM Plex Mono',monospace; font-size:11.5px; font-weight:500;
+  letter-spacing:.06em; text-transform:uppercase; color:var(--lg-pencil); }
+.lg-head .lg-day { color:var(--lg-ink); font-weight:600; }
+.lg-title { font-family:'Zilla Slab',Georgia,serif; font-size:27px; font-weight:700;
+  letter-spacing:-.015em; line-height:1.1; margin-top:6px; }
+.lg-title em { font-style:normal; color:var(--lg-pencil); font-weight:500; }
+
+/* segmented meter — one segment per exercise, like a level bar */
+.lg-meter { display:flex; gap:3px; margin-top:14px; }
+.lg-meter i { flex:1; height:6px; background:var(--lg-rule-2); }
+.lg-meter i.on   { background:var(--lg-ink); }
+.lg-meter i.here { background:var(--lg-live); }
+
+/* day tabs — file dividers, not pills */
+.lg-days { display:flex; margin-top:16px; border-bottom:1px solid var(--lg-rule); }
+.lg-days button { flex:1; min-height:44px; border:none; background:none; cursor:pointer;
+  font-family:'IBM Plex Mono',monospace; font-size:12px; font-weight:500; letter-spacing:.04em;
+  color:var(--lg-pencil); border-bottom:2px solid transparent; margin-bottom:-1px; }
+.lg-days button.done { color:var(--lg-done); }
+.lg-days button.on { color:var(--lg-ink); font-weight:600; border-bottom-color:var(--lg-ink); }
+
+.lg-ex { margin-top:20px; }
+.lg-name { font-family:'Zilla Slab',Georgia,serif; font-size:21px; font-weight:600;
+  line-height:1.2; margin:0; }
+/* the objective line — stated once, plainly */
+.lg-obj { font-family:'IBM Plex Mono',monospace; font-size:15px; font-weight:600;
+  margin-top:5px; color:var(--lg-ink); }
+.lg-obj b { color:var(--lg-live); font-weight:600; }
+.lg-cue { font-size:13.5px; line-height:1.5; color:var(--lg-pencil); margin:9px 0 0; }
+
+/* ── the signature: the set table ── */
+.lg-table { width:100%; border-collapse:collapse; margin-top:16px;
+  font-family:'IBM Plex Mono',monospace; }
+.lg-table th { font-size:10.5px; font-weight:500; letter-spacing:.09em; text-transform:uppercase;
+  color:var(--lg-pencil); text-align:right; padding:0 0 6px; border-bottom:1px solid var(--lg-ink); }
+.lg-table th:first-child { text-align:left; }
+.lg-table td { font-size:16px; text-align:right; padding:0; height:46px;
+  border-bottom:1px solid var(--lg-rule); }
+.lg-table td:first-child { text-align:left; color:var(--lg-pencil); font-size:13px; width:16%; }
+.lg-table td:last-child { width:14%; }
+.lg-table tr.is-done td { color:var(--lg-ink); font-weight:500; }
+.lg-table tr.is-done td:last-child { color:var(--lg-done); }
+.lg-table tr.is-todo td:first-child { color:var(--lg-pencil); }
+/* the live row — a cursor, not a highlight */
+.lg-table tr.is-live td { border-bottom:2px solid var(--lg-live); }
+.lg-table tr.is-live td:first-child { color:var(--lg-live); font-weight:600;
+  box-shadow:inset 3px 0 0 var(--lg-live); padding-left:7px; }
+.lg-table tr.is-live input { width:100%; height:44px; padding:0 4px; border:none; background:none;
+  font-family:'IBM Plex Mono',monospace; font-size:17px; font-weight:600; text-align:right;
+  color:var(--lg-ink); -webkit-appearance:none; }
+.lg-table tr.is-live input:focus { outline:none; background:#fff; }
+.lg-table tr.is-live input::placeholder { color:var(--lg-rule); font-weight:400; }
+.lg-table input::-webkit-outer-spin-button,
+.lg-table input::-webkit-inner-spin-button { -webkit-appearance:none; margin:0; }
+.lg-table input[type=number] { -moz-appearance:textfield; }
+.lg-table tr.is-live input:focus { background:none; box-shadow:inset 0 -2px 0 var(--lg-live); }
+@keyframes lgWrite { from { opacity:0; transform:translateY(-4px); } to { opacity:1; transform:none; } }
+.lg-table tr.just-wrote td { animation: lgWrite .12s ease-out; }
+
+.lg-why { font-family:'IBM Plex Mono',monospace; font-size:12px; line-height:1.55;
+  color:var(--lg-pencil); margin-top:12px; }
+.lg-why b { color:var(--lg-ink); font-weight:600; }
+
+.lg-log { display:block; width:100%; min-height:52px; margin-top:16px; border:none;
+  background:var(--lg-ink); color:var(--lg-paper); cursor:pointer;
+  font-family:'IBM Plex Mono',monospace; font-size:13px; font-weight:600;
+  letter-spacing:.14em; text-transform:uppercase; }
+.lg-log:active { background:var(--lg-live); }
+.lg-log.warn { background:var(--lg-live); }
+.lg-log.done { background:var(--lg-done); }
+
+/* rest as a COOLDOWN that drains, not a clock that ticks */
+.lg-rest:empty { display:none; }
+.lg-rest { margin-top:8px; min-height:44px; display:flex; align-items:center; gap:10px;
+  font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.08em;
+  text-transform:uppercase; color:var(--lg-pencil); }
+.lg-rest .track { flex:1; height:3px; background:var(--lg-rule-2); }
+.lg-rest .track i { display:block; height:100%; background:var(--lg-live); }
+.lg-rest.ready .track i { background:var(--lg-done); }
+.lg-rest button { min-height:44px; min-width:52px; padding:0 8px; border:none; background:none; cursor:pointer;
+  font:inherit; letter-spacing:.08em; color:var(--lg-ink); text-decoration:underline; }
+
+.lg-nav { display:flex; gap:14px; margin-top:14px; padding-top:12px; border-top:1px solid var(--lg-rule); }
+.lg-nav button { flex:1; min-height:44px; border:none; background:none; cursor:pointer;
+  font-family:'IBM Plex Mono',monospace; font-size:11.5px; letter-spacing:.06em;
+  color:var(--lg-pencil); text-transform:uppercase; }
+.lg-nav button:active { color:var(--lg-ink); }
+
+.lg-next { margin-top:14px; padding-top:12px; border-top:2px solid var(--lg-ink);
+  font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--lg-pencil); }
+.lg-next b { display:block; margin-top:3px; font-size:14px; font-weight:500; color:var(--lg-ink); }
+.lg-done-banner { margin-top:18px; padding:14px 16px; border:2px solid var(--lg-done);
+  font-family:'IBM Plex Mono',monospace; font-size:12.5px; color:var(--lg-done); font-weight:500;
+  letter-spacing:.03em; }
+
+
+/* ══ LEDGER · propagated to the field guide ═══════════════
+   Cards become ruled register entries. Type takes three explicit roles.
+   Everything below reuses the existing class names so the markup is untouched. */
+body { font-family:'IBM Plex Sans',-apple-system,sans-serif; font-variant-numeric: tabular-nums;
+       background: var(--app); }
+
+/* no floating panels — a ledger is ruled, not stacked */
+.phase-card, .workout, .starting-line, .intro-stat, .phase-stat, .trajectory,
+.med-box, .note-box, .recipe-card, .principle, .week, .setup-panel, .log-summary-card {
+  box-shadow: none !important; border-radius: 0 !important;
+}
+.workout, .phase-card, .recipe-card { border-left:none; border-right:none; }
+
+/* display face */
+h1.title, h2, .workout-name, .phase-card h2, .recipe-name, .principle h3, .today-title {
+  font-family:'Zilla Slab',Georgia,serif; letter-spacing:-.015em; }
+h1.title { font-weight:700; }
+
+/* mono for every label, date, measure and piece of chrome */
+.eyebrow, .section-label, .month-range, .workout-day, .label, .k, .dow, .note-label,
+.ex-prescription, .phase-stat .label, .intro-stat .k, .recipe-macro .k, .starting-line .label,
+.trajectory-row .month, .meal-time, .recipe-tag, .principle-num, .sync-dot + div, #syncStatus {
+  font-family:'IBM Plex Mono',monospace; letter-spacing:.06em; }
+
+/* numbers are data — align them */
+.ex-log-last, .ex-log-inputs input, .trajectory-row .weight, .starting-line .value,
+.phase-stat .value, .recipe-macro .v, .intro-stat .v, #logSummary {
+  font-family:'IBM Plex Mono',monospace; font-variant-numeric: tabular-nums; }
+
+/* controls: square, ruled, mono-labelled */
+.ex-log-inputs input, .setup-form input { border-radius:2px; background:var(--app);
+  border:1px solid var(--line-2); }
+.ex-log-inputs button, .setup-form button, #exportLog, #clearLog {
+  border-radius:2px !important; font-family:'IBM Plex Mono',monospace !important;
+  font-size:12px !important; font-weight:600 !important; letter-spacing:.1em; text-transform:uppercase; }
+.ex-log-inputs input::-webkit-outer-spin-button, .ex-log-inputs input::-webkit-inner-spin-button {
+  -webkit-appearance:none; margin:0; }
+.ex-log-inputs input[type=number] { -moz-appearance:textfield; }
+
+/* the phase pills become file-drawer tabs (superseded once the tab bar lands) */
+.phase-pill { border-radius:0; background:none; border:none; border-bottom:2px solid transparent;
+  font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:.06em; text-transform:uppercase;
+  color:var(--ink-3); padding:9px 12px; }
+.phase-pill.active { background:none; color:var(--ink); border-bottom-color:var(--ink); font-weight:600; }
+.phase-nav { border-bottom:1px solid var(--line-2); gap:0; margin-bottom:20px; }
+
+/* the ornaments encoded nothing — the design skill's exact complaint */
+.ornament, .ornament-sm { display:none !important; }
+
+.workout-toggle { border-radius:0; width:38px; height:38px; font-family:'IBM Plex Mono',monospace;
+  font-size:15px; background:none; border:1px solid var(--line-2); color:var(--ink-3); }
+.workout.open .workout-toggle { transform:none; background:var(--ink); color:var(--app); border-color:var(--ink); }
+.workout-header { min-height:56px; }
+
+.exercise.priority { border-radius:0; background:var(--sub); }
+.bar-track, .bar-fill { border-radius:0 !important; }
+.set-dots span { border-radius:0; }
+
+
+/* ══ LEDGER · footer register (bottom tab bar) ════════════
+   Type only, no pictograms: NN/g's icon research finds only a tiny set (home,
+   search, trash) is understood without a label, and "Plan"/"Food"/"Log" have no
+   universal glyph. A ledger has ruled columns with typed headers, not icons. */
+:root {
+  --lg-paper:#F7F7F4; --lg-ink:#16181C; --lg-rule:#C9D2CE; --lg-rule-2:#E3E6E2;
+  --lg-pencil:#5F646B; --lg-live:#B4232A; --lg-done:#1C6B48;
+  --lg-tabbar-h: 54px;   /* single source of truth: body padding reads this too */
+}
+.lg-tabbar {
+  position:fixed; bottom:0; left:0; right:0; margin:0 auto;
+  width:100%; max-width:430px; z-index:50; display:flex;
+  /* left/right:0 + margin:auto + max-width centres it over the app column
+     without a transform — a transform would become a containing block. */
+  height:calc(var(--lg-tabbar-h) + env(safe-area-inset-bottom, 0px));
+  padding-bottom:env(safe-area-inset-bottom, 0px);
+  background:var(--lg-paper); border-top:2px solid var(--lg-ink);
+  border-left:1px solid var(--line-2); border-right:1px solid var(--line-2);
+}
+.lg-tab { flex:1 1 0; min-width:0; height:var(--lg-tabbar-h);
+  display:flex; align-items:center; justify-content:center;
+  border:none; border-left:1px solid var(--lg-rule);
+  border-top:3px solid transparent;   /* reserved so switching causes no reflow */
+  background:none; cursor:pointer; touch-action:manipulation;
+  font-family:'IBM Plex Mono',monospace; font-size:10.5px; font-weight:500;
+  letter-spacing:.11em; text-transform:uppercase; color:var(--lg-pencil); }
+.lg-tab:first-child { border-left:none; }
+.lg-tab:active { background:var(--lg-rule-2); }
+.lg-tab.is-on { color:var(--lg-ink); font-weight:600; border-top-color:var(--lg-ink); }
+
+.lg-subnav { display:flex; padding:0 20px; background:var(--lg-paper);
+  border-bottom:1px solid var(--lg-rule); }
+.lg-subnav[hidden] { display:none; }
+.lg-subtab { flex:1 1 0; min-height:46px; border:none; background:none; cursor:pointer;
+  touch-action:manipulation; border-bottom:2px solid transparent; margin-bottom:-1px;
+  font-family:'IBM Plex Mono',monospace; font-size:11.5px; font-weight:500;
+  letter-spacing:.06em; text-transform:uppercase; color:var(--lg-pencil); }
+.lg-subtab.is-on { color:var(--lg-ink); font-weight:600; border-bottom-color:var(--lg-ink); }
+
+/* Today is a destination now, not a permanent banner. Driven by a body
+   attribute rather than card.hidden, which gymMode already owns. */
+body:not([data-dest="today"]) #todayCard { display:none; }
+
+/* iOS pins fixed elements to the LAYOUT viewport, which the keyboard does not
+   resize — the bar would float mid-screen while she types a weight. */
+html.lg-kbd .lg-tabbar { display:none; }
+
+#exportLog, #clearLog, #connectSheets, #disconnectSheets { min-height:44px !important; }
+.setup-steps ol li a { display:inline-block; min-height:44px; line-height:44px; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
 </style>
 </head>
 <body>
 
-<header>
-  <div class="eyebrow">A field guide <span class="ornament">·</span> Version three <span class="ornament">·</span> June 2026</div>
-  <h1 class="title">The year I get<br><em>strong.</em></h1>
-  <p class="subtitle">Twelve months of fresh food, patient lifts, and learning with the doing.</p>
-</header>
-
-<div class="starting-line">
-  <div><div class="label">Start</div><div class="value">5'4" · <strong>160 lb</strong></div></div>
-  <div><div class="label">Target</div><div class="value"><strong>~125 lb</strong> lean</div></div>
-  <div><div class="label">Window</div><div class="value">12 mo · <strong>~0.7 lb/wk</strong></div></div>
+<!-- ============ TODAY · gym mode ============ -->
+<div class="today" id="todayCard" hidden>
+  <div class="lg-head">
+    <div class="lg-day" id="todayDay"></div>
+    <div id="todayCount"></div>
+  </div>
+  <div class="lg-title" id="todayTitle"></div>
+  <div class="lg-meter" id="todayProgress"></div>
+  <div class="lg-days" id="todayDays"></div>
+  <div id="todayBody"></div>
 </div>
 
-<div class="intro-stats">
-  <div class="intro-stat"><div class="k">Goal A</div><div class="v">Strong <em>hips & core</em></div></div>
-  <div class="intro-stat"><div class="k">Goal B</div><div class="v">5 strict <em>pull-ups</em></div></div>
-  <div class="intro-stat"><div class="k">Goal C</div><div class="v">20 full <em>push-ups</em></div></div>
-  <div class="intro-stat"><div class="k">Goal D</div><div class="v">Visible <em>waist & balance</em></div></div>
-</div>
 
 <div class="ornament">✦  ·  ✦  ·  ✦</div>
 
-<nav class="phase-nav">
-  <button class="phase-pill active" data-phase="1">P1 · Cut Begins</button>
-  <button class="phase-pill" data-phase="2">P2 · Push the Cut</button>
-  <button class="phase-pill" data-phase="3">P3 · Diet Break</button>
-  <button class="phase-pill" data-phase="4">P4 · Final Reveal</button>
-  <button class="phase-pill" data-phase="5">Nutrition</button>
-  <button class="phase-pill" data-phase="7">Recipes</button>
-  <button class="phase-pill" data-phase="8">Log</button>
-  <button class="phase-pill" data-phase="6">Principles</button>
-</nav>
+<div class="lg-subnav" data-for="plan" hidden>
+  <button type="button" class="lg-subtab" data-sub="workouts">Workouts</button>
+  <button type="button" class="lg-subtab" data-sub="phases">Phases</button>
+  <button type="button" class="lg-subtab" data-sub="rules">Rules</button>
+</div>
+<div class="lg-subnav" data-for="food" hidden>
+  <button type="button" class="lg-subtab" data-sub="nutrition">Nutrition</button>
+  <button type="button" class="lg-subtab" data-sub="recipes">Recipes</button>
+</div>
 
 <!-- ============ PHASE 1 ============ -->
-<div class="phase-panel active" data-phase="1">
+<div class="phase-panel" data-phase="1" data-dest="plan" data-sub="phases">
 
   <section>
     <div class="phase-card">
@@ -369,35 +736,21 @@ footer .ornament-sm { height: 1px; background: var(--line); margin: 14px 0; text
   </section>
 
   <section>
-    <div class="section-label">12-Month Trajectory</div>
-    <div class="trajectory">
-      <div class="trajectory-row"><div class="month">Now</div><div class="bar-track"><div class="bar-fill" style="width: 100%"></div></div><div class="weight">160</div></div>
-      <div class="trajectory-row"><div class="month">Mo 3</div><div class="bar-track"><div class="bar-fill" style="width: 80%"></div></div><div class="weight">~150</div></div>
-      <div class="trajectory-row"><div class="month">Mo 6</div><div class="bar-track"><div class="bar-fill" style="width: 62%"></div></div><div class="weight">~140</div></div>
-      <div class="trajectory-row"><div class="month">Mo 9</div><div class="bar-track"><div class="bar-fill" style="width: 52%"></div></div><div class="weight">~135</div></div>
-      <div class="trajectory-row"><div class="month">Mo 12</div><div class="bar-track"><div class="bar-fill" style="width: 32%"></div></div><div class="weight"><em>~125</em></div></div>
-    </div>
     <div class="med-box">
       <div class="note-label">On the medication</div>
       <div class="note-text">Tirzepatide will do most of the calorie work for you — appetite drops, weight follows. What it won't do: protect your muscle. That's the lifting and the protein. First 1–2 weeks of any dose escalation, lifts may feel harder than they should. Don't push PRs — log what you can, come back next week.</div>
     </div>
   </section>
 
-  <section>
-    <div class="section-label">Weekly Cadence</div>
-    <div class="week">
-      <div class="day active-day"><div class="dow">MON</div><div class="icon">A<em>lower · sq</em></div></div>
-      <div class="day active-day"><div class="dow">TUE</div><div class="icon">B<em>upper · pull</em></div></div>
-      <div class="day active-day"><div class="dow">WED</div><div class="icon">C<em>single-leg</em></div></div>
-      <div class="day active-day"><div class="dow">THU</div><div class="icon">D<em>lower · hi</em></div></div>
-      <div class="day active-day"><div class="dow">FRI</div><div class="icon">E<em>upper · push</em></div></div>
-      <div class="day play-day"><div class="dow">SAT</div><div class="icon">play<em>tennis/golf</em></div></div>
-      <div class="day play-day"><div class="dow">SUN</div><div class="icon">play<em>hike/golf</em></div></div>
-    </div>
-    <p style="font-size:13px; color:var(--ink-3); font-style:italic; margin-top:14px; line-height:1.55;">Monday morning lifts preserve ArtHaus Monday 6:30 PM. Wednesday is single-leg + heavy core — your hip/balance day, full effort, not a recovery day. Weekends stay sacred for play.</p>
-  </section>
+  
 
-  <section>
+  
+
+</div>
+
+<!-- ============ THE WORKOUTS · Plan > Workouts ============ -->
+<div class="phase-panel" data-phase="9" data-dest="plan" data-sub="workouts">
+<section>
     <div class="section-label">The workouts</div>
 
     <!-- MONDAY -->
@@ -416,9 +769,9 @@ footer .ornament-sm { height: 1px; background: var(--line); margin: 14px 0; text
           <div class="ex-log">
             <div class="ex-log-last" data-last-for="goblet-squat"></div>
             <div class="ex-log-inputs">
-              <input type="number" placeholder="lb" data-weight-for="goblet-squat">
+              <input type="number" inputmode="decimal" enterkeyhint="done" placeholder="lb" data-weight-for="goblet-squat">
               <span class="sep">×</span>
-              <input type="number" placeholder="reps" data-reps-for="goblet-squat">
+              <input type="number" inputmode="numeric" enterkeyhint="done" placeholder="reps" data-reps-for="goblet-squat">
               <button data-log-for="goblet-squat">Log</button>
             </div>
           </div>
@@ -432,9 +785,9 @@ footer .ornament-sm { height: 1px; background: var(--line); margin: 14px 0; text
           <div class="ex-log">
             <div class="ex-log-last" data-last-for="front-foot-elev-lunge"></div>
             <div class="ex-log-inputs">
-              <input type="number" placeholder="lb" data-weight-for="front-foot-elev-lunge">
+              <input type="number" inputmode="decimal" enterkeyhint="done" placeholder="lb" data-weight-for="front-foot-elev-lunge">
               <span class="sep">×</span>
-              <input type="number" placeholder="reps" data-reps-for="front-foot-elev-lunge">
+              <input type="number" inputmode="numeric" enterkeyhint="done" placeholder="reps" data-reps-for="front-foot-elev-lunge">
               <button data-log-for="front-foot-elev-lunge">Log</button>
             </div>
           </div>
@@ -448,9 +801,9 @@ footer .ornament-sm { height: 1px; background: var(--line); margin: 14px 0; text
           <div class="ex-log">
             <div class="ex-log-last" data-last-for="hip-thrust-mon"></div>
             <div class="ex-log-inputs">
-              <input type="number" placeholder="lb" data-weight-for="hip-thrust-mon">
+              <input type="number" inputmode="decimal" enterkeyhint="done" placeholder="lb" data-weight-for="hip-thrust-mon">
               <span class="sep">×</span>
-              <input type="number" placeholder="reps" data-reps-for="hip-thrust-mon">
+              <input type="number" inputmode="numeric" enterkeyhint="done" placeholder="reps" data-reps-for="hip-thrust-mon">
               <button data-log-for="hip-thrust-mon">Log</button>
             </div>
           </div>
@@ -464,9 +817,9 @@ footer .ornament-sm { height: 1px; background: var(--line); margin: 14px 0; text
           <div class="ex-log">
             <div class="ex-log-last" data-last-for="leg-extension"></div>
             <div class="ex-log-inputs">
-              <input type="number" placeholder="lb" data-weight-for="leg-extension">
+              <input type="number" inputmode="decimal" enterkeyhint="done" placeholder="lb" data-weight-for="leg-extension">
               <span class="sep">×</span>
-              <input type="number" placeholder="reps" data-reps-for="leg-extension">
+              <input type="number" inputmode="numeric" enterkeyhint="done" placeholder="reps" data-reps-for="leg-extension">
               <button data-log-for="leg-extension">Log</button>
             </div>
           </div>
@@ -480,9 +833,9 @@ footer .ornament-sm { height: 1px; background: var(--line); margin: 14px 0; text
           <div class="ex-log">
             <div class="ex-log-last" data-last-for="standing-calf"></div>
             <div class="ex-log-inputs">
-              <input type="number" placeholder="lb" data-weight-for="standing-calf">
+              <input type="number" inputmode="decimal" enterkeyhint="done" placeholder="lb" data-weight-for="standing-calf">
               <span class="sep">×</span>
-              <input type="number" placeholder="reps" data-reps-for="standing-calf">
+              <input type="number" inputmode="numeric" enterkeyhint="done" placeholder="reps" data-reps-for="standing-calf">
               <button data-log-for="standing-calf">Log</button>
             </div>
           </div>
@@ -496,9 +849,9 @@ footer .ornament-sm { height: 1px; background: var(--line); margin: 14px 0; text
           <div class="ex-log">
             <div class="ex-log-last" data-last-for="dead-bug-mon"></div>
             <div class="ex-log-inputs">
-              <input type="number" placeholder="lb/BW" data-weight-for="dead-bug-mon">
+              <input inputmode="decimal" enterkeyhint="done" type="number" placeholder="lb/BW" data-weight-for="dead-bug-mon">
               <span class="sep">×</span>
-              <input type="number" placeholder="reps" data-reps-for="dead-bug-mon">
+              <input type="number" inputmode="numeric" enterkeyhint="done" placeholder="reps" data-reps-for="dead-bug-mon">
               <button data-log-for="dead-bug-mon">Log</button>
             </div>
           </div>
@@ -522,9 +875,9 @@ footer .ornament-sm { height: 1px; background: var(--line); margin: 14px 0; text
           <div class="ex-log">
             <div class="ex-log-last" data-last-for="lat-pulldown"></div>
             <div class="ex-log-inputs">
-              <input type="number" placeholder="lb" data-weight-for="lat-pulldown">
+              <input type="number" inputmode="decimal" enterkeyhint="done" placeholder="lb" data-weight-for="lat-pulldown">
               <span class="sep">×</span>
-              <input type="number" placeholder="reps" data-reps-for="lat-pulldown">
+              <input type="number" inputmode="numeric" enterkeyhint="done" placeholder="reps" data-reps-for="lat-pulldown">
               <button data-log-for="lat-pulldown">Log</button>
             </div>
           </div>
@@ -538,9 +891,9 @@ footer .ornament-sm { height: 1px; background: var(--line); margin: 14px 0; text
           <div class="ex-log">
             <div class="ex-log-last" data-last-for="pullup-negative"></div>
             <div class="ex-log-inputs">
-              <input type="number" placeholder="sets" data-weight-for="pullup-negative">
+              <input inputmode="decimal" enterkeyhint="done" type="number" placeholder="sets" data-weight-for="pullup-negative">
               <span class="sep">×</span>
-              <input type="number" placeholder="reps" data-reps-for="pullup-negative">
+              <input type="number" inputmode="numeric" enterkeyhint="done" placeholder="reps" data-reps-for="pullup-negative">
               <button data-log-for="pullup-negative">Log</button>
             </div>
           </div>
@@ -554,9 +907,9 @@ footer .ornament-sm { height: 1px; background: var(--line); margin: 14px 0; text
           <div class="ex-log">
             <div class="ex-log-last" data-last-for="chest-supported-row"></div>
             <div class="ex-log-inputs">
-              <input type="number" placeholder="lb" data-weight-for="chest-supported-row">
+              <input type="number" inputmode="decimal" enterkeyhint="done" placeholder="lb" data-weight-for="chest-supported-row">
               <span class="sep">×</span>
-              <input type="number" placeholder="reps" data-reps-for="chest-supported-row">
+              <input type="number" inputmode="numeric" enterkeyhint="done" placeholder="reps" data-reps-for="chest-supported-row">
               <button data-log-for="chest-supported-row">Log</button>
             </div>
           </div>
@@ -570,9 +923,9 @@ footer .ornament-sm { height: 1px; background: var(--line); margin: 14px 0; text
           <div class="ex-log">
             <div class="ex-log-last" data-last-for="single-arm-row"></div>
             <div class="ex-log-inputs">
-              <input type="number" placeholder="lb" data-weight-for="single-arm-row">
+              <input type="number" inputmode="decimal" enterkeyhint="done" placeholder="lb" data-weight-for="single-arm-row">
               <span class="sep">×</span>
-              <input type="number" placeholder="reps" data-reps-for="single-arm-row">
+              <input type="number" inputmode="numeric" enterkeyhint="done" placeholder="reps" data-reps-for="single-arm-row">
               <button data-log-for="single-arm-row">Log</button>
             </div>
           </div>
@@ -586,9 +939,9 @@ footer .ornament-sm { height: 1px; background: var(--line); margin: 14px 0; text
           <div class="ex-log">
             <div class="ex-log-last" data-last-for="lateral-raise-tue"></div>
             <div class="ex-log-inputs">
-              <input type="number" placeholder="lb" data-weight-for="lateral-raise-tue">
+              <input type="number" inputmode="decimal" enterkeyhint="done" placeholder="lb" data-weight-for="lateral-raise-tue">
               <span class="sep">×</span>
-              <input type="number" placeholder="reps" data-reps-for="lateral-raise-tue">
+              <input type="number" inputmode="numeric" enterkeyhint="done" placeholder="reps" data-reps-for="lateral-raise-tue">
               <button data-log-for="lateral-raise-tue">Log</button>
             </div>
           </div>
@@ -602,9 +955,9 @@ footer .ornament-sm { height: 1px; background: var(--line); margin: 14px 0; text
           <div class="ex-log">
             <div class="ex-log-last" data-last-for="face-pull-tue"></div>
             <div class="ex-log-inputs">
-              <input type="number" placeholder="lb" data-weight-for="face-pull-tue">
+              <input type="number" inputmode="decimal" enterkeyhint="done" placeholder="lb" data-weight-for="face-pull-tue">
               <span class="sep">×</span>
-              <input type="number" placeholder="reps" data-reps-for="face-pull-tue">
+              <input type="number" inputmode="numeric" enterkeyhint="done" placeholder="reps" data-reps-for="face-pull-tue">
               <button data-log-for="face-pull-tue">Log</button>
             </div>
           </div>
@@ -618,9 +971,9 @@ footer .ornament-sm { height: 1px; background: var(--line); margin: 14px 0; text
           <div class="ex-log">
             <div class="ex-log-last" data-last-for="dead-hang"></div>
             <div class="ex-log-inputs">
-              <input type="number" placeholder="sec" data-weight-for="dead-hang">
+              <input inputmode="decimal" enterkeyhint="done" type="number" placeholder="sec" data-weight-for="dead-hang">
               <span class="sep">×</span>
-              <input type="number" placeholder="sets" data-reps-for="dead-hang">
+              <input inputmode="numeric" enterkeyhint="done" type="number" placeholder="sets" data-reps-for="dead-hang">
               <button data-log-for="dead-hang">Log</button>
             </div>
           </div>
@@ -634,9 +987,9 @@ footer .ornament-sm { height: 1px; background: var(--line); margin: 14px 0; text
           <div class="ex-log">
             <div class="ex-log-last" data-last-for="lat-pull-bridge-march"></div>
             <div class="ex-log-inputs">
-              <input type="number" placeholder="lb" data-weight-for="lat-pull-bridge-march">
+              <input type="number" inputmode="decimal" enterkeyhint="done" placeholder="lb" data-weight-for="lat-pull-bridge-march">
               <span class="sep">×</span>
-              <input type="number" placeholder="reps" data-reps-for="lat-pull-bridge-march">
+              <input type="number" inputmode="numeric" enterkeyhint="done" placeholder="reps" data-reps-for="lat-pull-bridge-march">
               <button data-log-for="lat-pull-bridge-march">Log</button>
             </div>
           </div>
@@ -650,9 +1003,9 @@ footer .ornament-sm { height: 1px; background: var(--line); margin: 14px 0; text
           <div class="ex-log">
             <div class="ex-log-last" data-last-for="sprinter-crunch-db"></div>
             <div class="ex-log-inputs">
-              <input type="number" placeholder="lb" data-weight-for="sprinter-crunch-db">
+              <input type="number" inputmode="decimal" enterkeyhint="done" placeholder="lb" data-weight-for="sprinter-crunch-db">
               <span class="sep">×</span>
-              <input type="number" placeholder="reps" data-reps-for="sprinter-crunch-db">
+              <input type="number" inputmode="numeric" enterkeyhint="done" placeholder="reps" data-reps-for="sprinter-crunch-db">
               <button data-log-for="sprinter-crunch-db">Log</button>
             </div>
           </div>
@@ -676,9 +1029,9 @@ footer .ornament-sm { height: 1px; background: var(--line); margin: 14px 0; text
           <div class="ex-log">
             <div class="ex-log-last" data-last-for="bulgarian-split"></div>
             <div class="ex-log-inputs">
-              <input type="number" placeholder="lb" data-weight-for="bulgarian-split">
+              <input type="number" inputmode="decimal" enterkeyhint="done" placeholder="lb" data-weight-for="bulgarian-split">
               <span class="sep">×</span>
-              <input type="number" placeholder="reps" data-reps-for="bulgarian-split">
+              <input type="number" inputmode="numeric" enterkeyhint="done" placeholder="reps" data-reps-for="bulgarian-split">
               <button data-log-for="bulgarian-split">Log</button>
             </div>
           </div>
@@ -692,9 +1045,9 @@ footer .ornament-sm { height: 1px; background: var(--line); margin: 14px 0; text
           <div class="ex-log">
             <div class="ex-log-last" data-last-for="single-leg-rdl"></div>
             <div class="ex-log-inputs">
-              <input type="number" placeholder="lb" data-weight-for="single-leg-rdl">
+              <input type="number" inputmode="decimal" enterkeyhint="done" placeholder="lb" data-weight-for="single-leg-rdl">
               <span class="sep">×</span>
-              <input type="number" placeholder="reps" data-reps-for="single-leg-rdl">
+              <input type="number" inputmode="numeric" enterkeyhint="done" placeholder="reps" data-reps-for="single-leg-rdl">
               <button data-log-for="single-leg-rdl">Log</button>
             </div>
           </div>
@@ -708,9 +1061,9 @@ footer .ornament-sm { height: 1px; background: var(--line); margin: 14px 0; text
           <div class="ex-log">
             <div class="ex-log-last" data-last-for="step-up"></div>
             <div class="ex-log-inputs">
-              <input type="number" placeholder="lb" data-weight-for="step-up">
+              <input type="number" inputmode="decimal" enterkeyhint="done" placeholder="lb" data-weight-for="step-up">
               <span class="sep">×</span>
-              <input type="number" placeholder="reps" data-reps-for="step-up">
+              <input type="number" inputmode="numeric" enterkeyhint="done" placeholder="reps" data-reps-for="step-up">
               <button data-log-for="step-up">Log</button>
             </div>
           </div>
@@ -724,9 +1077,9 @@ footer .ornament-sm { height: 1px; background: var(--line); margin: 14px 0; text
           <div class="ex-log">
             <div class="ex-log-last" data-last-for="single-leg-ht"></div>
             <div class="ex-log-inputs">
-              <input type="number" placeholder="lb" data-weight-for="single-leg-ht">
+              <input type="number" inputmode="decimal" enterkeyhint="done" placeholder="lb" data-weight-for="single-leg-ht">
               <span class="sep">×</span>
-              <input type="number" placeholder="reps" data-reps-for="single-leg-ht">
+              <input type="number" inputmode="numeric" enterkeyhint="done" placeholder="reps" data-reps-for="single-leg-ht">
               <button data-log-for="single-leg-ht">Log</button>
             </div>
           </div>
@@ -740,9 +1093,9 @@ footer .ornament-sm { height: 1px; background: var(--line); margin: 14px 0; text
           <div class="ex-log">
             <div class="ex-log-last" data-last-for="copenhagen"></div>
             <div class="ex-log-inputs">
-              <input type="number" placeholder="sec" data-weight-for="copenhagen">
+              <input inputmode="decimal" enterkeyhint="done" type="number" placeholder="sec" data-weight-for="copenhagen">
               <span class="sep">×</span>
-              <input type="number" placeholder="sets" data-reps-for="copenhagen">
+              <input inputmode="numeric" enterkeyhint="done" type="number" placeholder="sets" data-reps-for="copenhagen">
               <button data-log-for="copenhagen">Log</button>
             </div>
           </div>
@@ -756,9 +1109,9 @@ footer .ornament-sm { height: 1px; background: var(--line); margin: 14px 0; text
           <div class="ex-log">
             <div class="ex-log-last" data-last-for="pallof-wed"></div>
             <div class="ex-log-inputs">
-              <input type="number" placeholder="lb" data-weight-for="pallof-wed">
+              <input type="number" inputmode="decimal" enterkeyhint="done" placeholder="lb" data-weight-for="pallof-wed">
               <span class="sep">×</span>
-              <input type="number" placeholder="reps" data-reps-for="pallof-wed">
+              <input type="number" inputmode="numeric" enterkeyhint="done" placeholder="reps" data-reps-for="pallof-wed">
               <button data-log-for="pallof-wed">Log</button>
             </div>
           </div>
@@ -772,9 +1125,9 @@ footer .ornament-sm { height: 1px; background: var(--line); margin: 14px 0; text
           <div class="ex-log">
             <div class="ex-log-last" data-last-for="weighted-dead-bug"></div>
             <div class="ex-log-inputs">
-              <input type="number" placeholder="lb" data-weight-for="weighted-dead-bug">
+              <input type="number" inputmode="decimal" enterkeyhint="done" placeholder="lb" data-weight-for="weighted-dead-bug">
               <span class="sep">×</span>
-              <input type="number" placeholder="reps" data-reps-for="weighted-dead-bug">
+              <input type="number" inputmode="numeric" enterkeyhint="done" placeholder="reps" data-reps-for="weighted-dead-bug">
               <button data-log-for="weighted-dead-bug">Log</button>
             </div>
           </div>
@@ -788,9 +1141,9 @@ footer .ornament-sm { height: 1px; background: var(--line); margin: 14px 0; text
           <div class="ex-log">
             <div class="ex-log-last" data-last-for="side-plank-dip"></div>
             <div class="ex-log-inputs">
-              <input type="number" placeholder="BW" data-weight-for="side-plank-dip">
+              <input inputmode="decimal" enterkeyhint="done" type="number" placeholder="BW" data-weight-for="side-plank-dip">
               <span class="sep">×</span>
-              <input type="number" placeholder="reps" data-reps-for="side-plank-dip">
+              <input type="number" inputmode="numeric" enterkeyhint="done" placeholder="reps" data-reps-for="side-plank-dip">
               <button data-log-for="side-plank-dip">Log</button>
             </div>
           </div>
@@ -814,9 +1167,9 @@ footer .ornament-sm { height: 1px; background: var(--line); margin: 14px 0; text
           <div class="ex-log">
             <div class="ex-log-last" data-last-for="trap-bar-dl"></div>
             <div class="ex-log-inputs">
-              <input type="number" placeholder="lb" data-weight-for="trap-bar-dl">
+              <input type="number" inputmode="decimal" enterkeyhint="done" placeholder="lb" data-weight-for="trap-bar-dl">
               <span class="sep">×</span>
-              <input type="number" placeholder="reps" data-reps-for="trap-bar-dl">
+              <input type="number" inputmode="numeric" enterkeyhint="done" placeholder="reps" data-reps-for="trap-bar-dl">
               <button data-log-for="trap-bar-dl">Log</button>
             </div>
           </div>
@@ -830,9 +1183,9 @@ footer .ornament-sm { height: 1px; background: var(--line); margin: 14px 0; text
           <div class="ex-log">
             <div class="ex-log-last" data-last-for="rdl"></div>
             <div class="ex-log-inputs">
-              <input type="number" placeholder="lb" data-weight-for="rdl">
+              <input type="number" inputmode="decimal" enterkeyhint="done" placeholder="lb" data-weight-for="rdl">
               <span class="sep">×</span>
-              <input type="number" placeholder="reps" data-reps-for="rdl">
+              <input type="number" inputmode="numeric" enterkeyhint="done" placeholder="reps" data-reps-for="rdl">
               <button data-log-for="rdl">Log</button>
             </div>
           </div>
@@ -846,9 +1199,9 @@ footer .ornament-sm { height: 1px; background: var(--line); margin: 14px 0; text
           <div class="ex-log">
             <div class="ex-log-last" data-last-for="hip-thrust-thu"></div>
             <div class="ex-log-inputs">
-              <input type="number" placeholder="lb" data-weight-for="hip-thrust-thu">
+              <input type="number" inputmode="decimal" enterkeyhint="done" placeholder="lb" data-weight-for="hip-thrust-thu">
               <span class="sep">×</span>
-              <input type="number" placeholder="reps" data-reps-for="hip-thrust-thu">
+              <input type="number" inputmode="numeric" enterkeyhint="done" placeholder="reps" data-reps-for="hip-thrust-thu">
               <button data-log-for="hip-thrust-thu">Log</button>
             </div>
           </div>
@@ -862,9 +1215,9 @@ footer .ornament-sm { height: 1px; background: var(--line); margin: 14px 0; text
           <div class="ex-log">
             <div class="ex-log-last" data-last-for="cable-kickback"></div>
             <div class="ex-log-inputs">
-              <input type="number" placeholder="lb" data-weight-for="cable-kickback">
+              <input type="number" inputmode="decimal" enterkeyhint="done" placeholder="lb" data-weight-for="cable-kickback">
               <span class="sep">×</span>
-              <input type="number" placeholder="reps" data-reps-for="cable-kickback">
+              <input type="number" inputmode="numeric" enterkeyhint="done" placeholder="reps" data-reps-for="cable-kickback">
               <button data-log-for="cable-kickback">Log</button>
             </div>
           </div>
@@ -878,9 +1231,9 @@ footer .ornament-sm { height: 1px; background: var(--line); margin: 14px 0; text
           <div class="ex-log">
             <div class="ex-log-last" data-last-for="walking-lunge"></div>
             <div class="ex-log-inputs">
-              <input type="number" placeholder="lb" data-weight-for="walking-lunge">
+              <input type="number" inputmode="decimal" enterkeyhint="done" placeholder="lb" data-weight-for="walking-lunge">
               <span class="sep">×</span>
-              <input type="number" placeholder="steps" data-reps-for="walking-lunge">
+              <input inputmode="numeric" enterkeyhint="done" type="number" placeholder="steps" data-reps-for="walking-lunge">
               <button data-log-for="walking-lunge">Log</button>
             </div>
           </div>
@@ -894,9 +1247,9 @@ footer .ornament-sm { height: 1px; background: var(--line); margin: 14px 0; text
           <div class="ex-log">
             <div class="ex-log-last" data-last-for="pallof-thu"></div>
             <div class="ex-log-inputs">
-              <input type="number" placeholder="lb" data-weight-for="pallof-thu">
+              <input type="number" inputmode="decimal" enterkeyhint="done" placeholder="lb" data-weight-for="pallof-thu">
               <span class="sep">×</span>
-              <input type="number" placeholder="reps" data-reps-for="pallof-thu">
+              <input type="number" inputmode="numeric" enterkeyhint="done" placeholder="reps" data-reps-for="pallof-thu">
               <button data-log-for="pallof-thu">Log</button>
             </div>
           </div>
@@ -920,9 +1273,9 @@ footer .ornament-sm { height: 1px; background: var(--line); margin: 14px 0; text
           <div class="ex-log">
             <div class="ex-log-last" data-last-for="db-bench"></div>
             <div class="ex-log-inputs">
-              <input type="number" placeholder="lb" data-weight-for="db-bench">
+              <input type="number" inputmode="decimal" enterkeyhint="done" placeholder="lb" data-weight-for="db-bench">
               <span class="sep">×</span>
-              <input type="number" placeholder="reps" data-reps-for="db-bench">
+              <input type="number" inputmode="numeric" enterkeyhint="done" placeholder="reps" data-reps-for="db-bench">
               <button data-log-for="db-bench">Log</button>
             </div>
           </div>
@@ -936,9 +1289,9 @@ footer .ornament-sm { height: 1px; background: var(--line); margin: 14px 0; text
           <div class="ex-log">
             <div class="ex-log-last" data-last-for="pushup"></div>
             <div class="ex-log-inputs">
-              <input type="number" placeholder="incl in" data-weight-for="pushup">
+              <input inputmode="decimal" enterkeyhint="done" type="number" placeholder="incl in" data-weight-for="pushup">
               <span class="sep">×</span>
-              <input type="number" placeholder="reps" data-reps-for="pushup">
+              <input type="number" inputmode="numeric" enterkeyhint="done" placeholder="reps" data-reps-for="pushup">
               <button data-log-for="pushup">Log</button>
             </div>
           </div>
@@ -952,9 +1305,9 @@ footer .ornament-sm { height: 1px; background: var(--line); margin: 14px 0; text
           <div class="ex-log">
             <div class="ex-log-last" data-last-for="ohp"></div>
             <div class="ex-log-inputs">
-              <input type="number" placeholder="lb" data-weight-for="ohp">
+              <input type="number" inputmode="decimal" enterkeyhint="done" placeholder="lb" data-weight-for="ohp">
               <span class="sep">×</span>
-              <input type="number" placeholder="reps" data-reps-for="ohp">
+              <input type="number" inputmode="numeric" enterkeyhint="done" placeholder="reps" data-reps-for="ohp">
               <button data-log-for="ohp">Log</button>
             </div>
           </div>
@@ -968,9 +1321,9 @@ footer .ornament-sm { height: 1px; background: var(--line); margin: 14px 0; text
           <div class="ex-log">
             <div class="ex-log-last" data-last-for="cable-row-fri"></div>
             <div class="ex-log-inputs">
-              <input type="number" placeholder="lb" data-weight-for="cable-row-fri">
+              <input type="number" inputmode="decimal" enterkeyhint="done" placeholder="lb" data-weight-for="cable-row-fri">
               <span class="sep">×</span>
-              <input type="number" placeholder="reps" data-reps-for="cable-row-fri">
+              <input type="number" inputmode="numeric" enterkeyhint="done" placeholder="reps" data-reps-for="cable-row-fri">
               <button data-log-for="cable-row-fri">Log</button>
             </div>
           </div>
@@ -984,9 +1337,9 @@ footer .ornament-sm { height: 1px; background: var(--line); margin: 14px 0; text
           <div class="ex-log">
             <div class="ex-log-last" data-last-for="lateral-raise-fri"></div>
             <div class="ex-log-inputs">
-              <input type="number" placeholder="lb" data-weight-for="lateral-raise-fri">
+              <input type="number" inputmode="decimal" enterkeyhint="done" placeholder="lb" data-weight-for="lateral-raise-fri">
               <span class="sep">×</span>
-              <input type="number" placeholder="reps" data-reps-for="lateral-raise-fri">
+              <input type="number" inputmode="numeric" enterkeyhint="done" placeholder="reps" data-reps-for="lateral-raise-fri">
               <button data-log-for="lateral-raise-fri">Log</button>
             </div>
           </div>
@@ -1000,9 +1353,9 @@ footer .ornament-sm { height: 1px; background: var(--line); margin: 14px 0; text
           <div class="ex-log">
             <div class="ex-log-last" data-last-for="tricep-pushdown"></div>
             <div class="ex-log-inputs">
-              <input type="number" placeholder="lb" data-weight-for="tricep-pushdown">
+              <input type="number" inputmode="decimal" enterkeyhint="done" placeholder="lb" data-weight-for="tricep-pushdown">
               <span class="sep">×</span>
-              <input type="number" placeholder="reps" data-reps-for="tricep-pushdown">
+              <input type="number" inputmode="numeric" enterkeyhint="done" placeholder="reps" data-reps-for="tricep-pushdown">
               <button data-log-for="tricep-pushdown">Log</button>
             </div>
           </div>
@@ -1016,9 +1369,9 @@ footer .ornament-sm { height: 1px; background: var(--line); margin: 14px 0; text
           <div class="ex-log">
             <div class="ex-log-last" data-last-for="rear-delt-fly"></div>
             <div class="ex-log-inputs">
-              <input type="number" placeholder="lb" data-weight-for="rear-delt-fly">
+              <input type="number" inputmode="decimal" enterkeyhint="done" placeholder="lb" data-weight-for="rear-delt-fly">
               <span class="sep">×</span>
-              <input type="number" placeholder="reps" data-reps-for="rear-delt-fly">
+              <input type="number" inputmode="numeric" enterkeyhint="done" placeholder="reps" data-reps-for="rear-delt-fly">
               <button data-log-for="rear-delt-fly">Log</button>
             </div>
           </div>
@@ -1032,9 +1385,9 @@ footer .ornament-sm { height: 1px; background: var(--line); margin: 14px 0; text
           <div class="ex-log">
             <div class="ex-log-last" data-last-for="bear-stance-pull"></div>
             <div class="ex-log-inputs">
-              <input type="number" placeholder="lb" data-weight-for="bear-stance-pull">
+              <input type="number" inputmode="decimal" enterkeyhint="done" placeholder="lb" data-weight-for="bear-stance-pull">
               <span class="sep">×</span>
-              <input type="number" placeholder="reps" data-reps-for="bear-stance-pull">
+              <input type="number" inputmode="numeric" enterkeyhint="done" placeholder="reps" data-reps-for="bear-stance-pull">
               <button data-log-for="bear-stance-pull">Log</button>
             </div>
           </div>
@@ -1044,13 +1397,292 @@ footer .ornament-sm { height: 1px; background: var(--line); margin: 14px 0; text
           <div class="exercise-top">
             <div><div class="ex-name">Single arm sit-up press</div><div class="ex-cue">DB at shoulder. Sit up while pressing the DB straight up overhead. Control the lower.</div></div>
             <div class="ex-prescription">3 × 8/side</div>
+
+    <!-- SATURDAY -->
+    <div class="workout">
+      <div class="workout-header">
+        <div><div class="workout-day">DAY F · SATURDAY</div><div class="workout-name">Open <em>· hips & long holds</em></div></div>
+        <div class="workout-toggle">+</div>
+      </div>
+      <div class="workout-body"><div class="workout-body-inner">
+        <div class="workout-why">five days of squatting, hinging and pressing all happen in one plane — forward and back. Saturday is the only day your hips get to rotate, open and breathe. Long holds are where range actually changes. Do this at 6, and tennis or the trailhead at ten feels like a different body.</div>
+
+        <div class="exercise" data-ex-id="cat-cow-sat" data-mode="recovery">
+          <div class="exercise-top">
+            <div><div class="ex-name">Cat–cow → segmental roll</div><div class="ex-cue">One vertebra at a time, top down then bottom up. Move with the breath, not through it — inhale to arch, exhale to round.</div></div>
+            <div class="ex-prescription">2 × 10 breaths</div>
+          </div>
+          <div class="ex-log">
+            <div class="ex-log-last" data-last-for="cat-cow-sat"></div>
+            <div class="ex-log-inputs">
+              <input type="number" inputmode="decimal" enterkeyhint="done" placeholder="BW" data-weight-for="cat-cow-sat">
+              <span class="sep">×</span>
+              <input type="number" inputmode="numeric" enterkeyhint="done" placeholder="breaths" data-reps-for="cat-cow-sat">
+              <button data-log-for="cat-cow-sat">Log</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="exercise priority" data-ex-id="hip-90-90-sat" data-mode="recovery">
+          <div class="exercise-top">
+            <div><div class="ex-name">90/90 hip switch</div><div class="ex-cue">Sit tall, both knees at 90°, sweep the knees floor-to-floor without using your hands. This is the internal rotation your squat and hinge never ask for — it is the single best thing here for the hips you want.</div></div>
+            <div class="ex-prescription">3 × 8/side</div>
+          </div>
+          <div class="ex-log">
+            <div class="ex-log-last" data-last-for="hip-90-90-sat"></div>
+            <div class="ex-log-inputs">
+              <input type="number" inputmode="decimal" enterkeyhint="done" placeholder="BW" data-weight-for="hip-90-90-sat">
+              <span class="sep">×</span>
+              <input type="number" inputmode="numeric" enterkeyhint="done" placeholder="reps" data-reps-for="hip-90-90-sat">
+              <button data-log-for="hip-90-90-sat">Log</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="exercise priority" data-ex-id="worlds-greatest-sat" data-mode="recovery">
+          <div class="exercise-top">
+            <div><div class="ex-name">World's greatest stretch</div><div class="ex-cue">Deep lunge, back knee off the floor, drop the elbow inside the front foot, then rotate the top arm to the ceiling and follow it with your eyes. Hip flexor, adductor and T-spine in one shape.</div></div>
+            <div class="ex-prescription">3 × 5/side</div>
+          </div>
+          <div class="ex-log">
+            <div class="ex-log-last" data-last-for="worlds-greatest-sat"></div>
+            <div class="ex-log-inputs">
+              <input type="number" inputmode="decimal" enterkeyhint="done" placeholder="BW" data-weight-for="worlds-greatest-sat">
+              <span class="sep">×</span>
+              <input type="number" inputmode="numeric" enterkeyhint="done" placeholder="reps" data-reps-for="worlds-greatest-sat">
+              <button data-log-for="worlds-greatest-sat">Log</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="exercise priority" data-ex-id="half-kneel-hip-flexor-sat" data-mode="recovery">
+          <div class="exercise-top">
+            <div><div class="ex-name">Half-kneeling hip flexor — posterior tilt</div><div class="ex-cue">Back knee down, squeeze that glute and tuck the tailbone <em>before</em> you shift forward. If you feel it in your low back you have arched instead of tucked. Four days of squats and split squats shorten this muscle; this is the undo.</div></div>
+            <div class="ex-prescription">3 × 45 sec/side</div>
+          </div>
+          <div class="ex-log">
+            <div class="ex-log-last" data-last-for="half-kneel-hip-flexor-sat"></div>
+            <div class="ex-log-inputs">
+              <input type="number" inputmode="decimal" enterkeyhint="done" placeholder="BW" data-weight-for="half-kneel-hip-flexor-sat">
+              <span class="sep">×</span>
+              <input type="number" inputmode="numeric" enterkeyhint="done" placeholder="sec" data-reps-for="half-kneel-hip-flexor-sat">
+              <button data-log-for="half-kneel-hip-flexor-sat">Log</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="exercise priority" data-ex-id="frog-rock-sat" data-mode="recovery">
+          <div class="exercise-top">
+            <div><div class="ex-name">Frog rock-back</div><div class="ex-cue">Knees wide, shins in line with thighs, feet flexed. Rock back slowly and stop where it is a stretch, not a pinch. Wednesday's Copenhagens hammer the adductors — this is their counterweight.</div></div>
+            <div class="ex-prescription">3 × 45 sec</div>
+          </div>
+          <div class="ex-log">
+            <div class="ex-log-last" data-last-for="frog-rock-sat"></div>
+            <div class="ex-log-inputs">
+              <input type="number" inputmode="decimal" enterkeyhint="done" placeholder="BW" data-weight-for="frog-rock-sat">
+              <span class="sep">×</span>
+              <input type="number" inputmode="numeric" enterkeyhint="done" placeholder="sec" data-reps-for="frog-rock-sat">
+              <button data-log-for="frog-rock-sat">Log</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="exercise" data-ex-id="figure-four-sat" data-mode="recovery">
+          <div class="exercise-top">
+            <div><div class="ex-name">Supine figure-4 — reclined pigeon</div><div class="ex-cue">On your back, ankle across the opposite knee, thread through and pull the back thigh in. Glute and deep hip rotators. Keep the head down and the jaw loose.</div></div>
+            <div class="ex-prescription">2 × 60 sec/side</div>
+          </div>
+          <div class="ex-log">
+            <div class="ex-log-last" data-last-for="figure-four-sat"></div>
+            <div class="ex-log-inputs">
+              <input type="number" inputmode="decimal" enterkeyhint="done" placeholder="BW" data-weight-for="figure-four-sat">
+              <span class="sep">×</span>
+              <input type="number" inputmode="numeric" enterkeyhint="done" placeholder="sec" data-reps-for="figure-four-sat">
+              <button data-log-for="figure-four-sat">Log</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="exercise" data-ex-id="thread-needle-sat" data-mode="recovery">
+          <div class="exercise-top">
+            <div><div class="ex-name">Thread the needle</div><div class="ex-cue">From all fours, slide one arm under the other and rest the shoulder and ear on the floor. Rotation through the mid-back, not the low back — keep the hips stacked over the knees.</div></div>
+            <div class="ex-prescription">2 × 45 sec/side</div>
+          </div>
+          <div class="ex-log">
+            <div class="ex-log-last" data-last-for="thread-needle-sat"></div>
+            <div class="ex-log-inputs">
+              <input type="number" inputmode="decimal" enterkeyhint="done" placeholder="BW" data-weight-for="thread-needle-sat">
+              <span class="sep">×</span>
+              <input type="number" inputmode="numeric" enterkeyhint="done" placeholder="sec" data-reps-for="thread-needle-sat">
+              <button data-log-for="thread-needle-sat">Log</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="exercise" data-ex-id="legs-up-wall-sat" data-mode="recovery">
+          <div class="exercise-top">
+            <div><div class="ex-name">Legs up the wall — box breathing</div><div class="ex-cue">Hips a few inches off the wall, legs resting up it. In 4, hold 4, out 6, hold 2. The long exhale is the part that does the work. This is the end of the session — do not skip it to save four minutes.</div></div>
+            <div class="ex-prescription">1 × 20 breaths</div>
+          </div>
+          <div class="ex-log">
+            <div class="ex-log-last" data-last-for="legs-up-wall-sat"></div>
+            <div class="ex-log-inputs">
+              <input type="number" inputmode="decimal" enterkeyhint="done" placeholder="BW" data-weight-for="legs-up-wall-sat">
+              <span class="sep">×</span>
+              <input type="number" inputmode="numeric" enterkeyhint="done" placeholder="breaths" data-reps-for="legs-up-wall-sat">
+              <button data-log-for="legs-up-wall-sat">Log</button>
+            </div>
+          </div>
+        </div>
+      </div></div>
+    </div>
+
+    <!-- SUNDAY -->
+    <div class="workout">
+      <div class="workout-header">
+        <div><div class="workout-day">DAY G · SUNDAY</div><div class="workout-name">Reset <em>· flow, balance & control</em></div></div>
+        <div class="workout-toggle">+</div>
+      </div>
+      <div class="workout-body"><div class="workout-body-inner">
+        <div class="workout-why">Saturday opened you up; Sunday teaches you to <em>own</em> that range. Slow flow, one-legged balance, and core work you control rather than grind. Nothing here will make Monday's squats worse — it is the session that makes them feel easy. And it means Monday morning is never the first time this week you got up at six.</div>
+
+        <div class="exercise" data-ex-id="sun-sal-a-sun" data-mode="recovery">
+          <div class="exercise-top">
+            <div><div class="ex-name">Sun salutation A</div><div class="ex-cue">Mountain → forward fold → half lift → plank → chaturanga or knees → up dog → down dog. One breath per movement. Round one is a warm-up; by round four you are actually moving.</div></div>
+            <div class="ex-prescription">4 × 1 round</div>
+          </div>
+          <div class="ex-log">
+            <div class="ex-log-last" data-last-for="sun-sal-a-sun"></div>
+            <div class="ex-log-inputs">
+              <input type="number" inputmode="decimal" enterkeyhint="done" placeholder="BW" data-weight-for="sun-sal-a-sun">
+              <span class="sep">×</span>
+              <input type="number" inputmode="numeric" enterkeyhint="done" placeholder="rounds" data-reps-for="sun-sal-a-sun">
+              <button data-log-for="sun-sal-a-sun">Log</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="exercise priority" data-ex-id="lunge-half-split-sun" data-mode="recovery">
+          <div class="exercise-top">
+            <div><div class="ex-name">Low lunge ⇄ half splits</div><div class="ex-cue">Rock forward into the lunge, then shift back over the straight front leg with a flat back. Hip flexor one way, hamstring the other. This is Thursday's RDL debt being paid.</div></div>
+            <div class="ex-prescription">3 × 5/side</div>
+          </div>
+          <div class="ex-log">
+            <div class="ex-log-last" data-last-for="lunge-half-split-sun"></div>
+            <div class="ex-log-inputs">
+              <input type="number" inputmode="decimal" enterkeyhint="done" placeholder="BW" data-weight-for="lunge-half-split-sun">
+              <span class="sep">×</span>
+              <input type="number" inputmode="numeric" enterkeyhint="done" placeholder="reps" data-reps-for="lunge-half-split-sun">
+              <button data-log-for="lunge-half-split-sun">Log</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="exercise" data-ex-id="warrior-flow-sun" data-mode="recovery">
+          <div class="exercise-top">
+            <div><div class="ex-name">Warrior II → reverse → side angle</div><div class="ex-cue">Front knee over the ankle, back foot flat and turned in, hips open. Five slow breaths in each shape before you move. Isometric glute and adductor work disguised as yoga.</div></div>
+            <div class="ex-prescription">2 × 3/side</div>
+          </div>
+          <div class="ex-log">
+            <div class="ex-log-last" data-last-for="warrior-flow-sun"></div>
+            <div class="ex-log-inputs">
+              <input type="number" inputmode="decimal" enterkeyhint="done" placeholder="BW" data-weight-for="warrior-flow-sun">
+              <span class="sep">×</span>
+              <input type="number" inputmode="numeric" enterkeyhint="done" placeholder="reps" data-reps-for="warrior-flow-sun">
+              <button data-log-for="warrior-flow-sun">Log</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="exercise priority" data-ex-id="tree-balance-sun" data-mode="recovery">
+          <div class="exercise-top">
+            <div><div class="ex-name">Tree pose — eyes closed on the last set</div><div class="ex-cue">Foot above or below the knee, never on it. Spread the toes and find one point on the floor. Closing your eyes removes vision and forces the hip and ankle to do the balancing — that is the whole point.</div></div>
+            <div class="ex-prescription">3 × 30 sec/side</div>
+          </div>
+          <div class="ex-log">
+            <div class="ex-log-last" data-last-for="tree-balance-sun"></div>
+            <div class="ex-log-inputs">
+              <input type="number" inputmode="decimal" enterkeyhint="done" placeholder="BW" data-weight-for="tree-balance-sun">
+              <span class="sep">×</span>
+              <input type="number" inputmode="numeric" enterkeyhint="done" placeholder="sec" data-reps-for="tree-balance-sun">
+              <button data-log-for="tree-balance-sun">Log</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="exercise priority" data-ex-id="bird-dog-sun" data-mode="recovery">
+          <div class="exercise-top">
+            <div><div class="ex-name">Bird dog — 5s hold</div><div class="ex-cue">Balance a water bottle on your low back and do not let it fall. Reach long rather than high. Anti-rotation for the deep core, at a speed you can actually feel.</div></div>
+            <div class="ex-prescription">3 × 8/side</div>
+          </div>
+          <div class="ex-log">
+            <div class="ex-log-last" data-last-for="bird-dog-sun"></div>
+            <div class="ex-log-inputs">
+              <input type="number" inputmode="decimal" enterkeyhint="done" placeholder="BW" data-weight-for="bird-dog-sun">
+              <span class="sep">×</span>
+              <input type="number" inputmode="numeric" enterkeyhint="done" placeholder="reps" data-reps-for="bird-dog-sun">
+              <button data-log-for="bird-dog-sun">Log</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="exercise priority" data-ex-id="side-plank-sun" data-mode="recovery">
+          <div class="exercise-top">
+            <div><div class="ex-name">Side plank — knees down if needed</div><div class="ex-cue">Stack the shoulder over the elbow, lift the bottom ribs away from the floor. Drop to the knees and hold well rather than sag from the toes. Quadratus lumborum and glute medius — the two muscles that keep hips level.</div></div>
+            <div class="ex-prescription">3 × 30 sec/side</div>
+          </div>
+          <div class="ex-log">
+            <div class="ex-log-last" data-last-for="side-plank-sun"></div>
+            <div class="ex-log-inputs">
+              <input type="number" inputmode="decimal" enterkeyhint="done" placeholder="BW" data-weight-for="side-plank-sun">
+              <span class="sep">×</span>
+              <input type="number" inputmode="numeric" enterkeyhint="done" placeholder="sec" data-reps-for="side-plank-sun">
+              <button data-log-for="side-plank-sun">Log</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="exercise" data-ex-id="bridge-march-sun" data-mode="recovery">
+          <div class="exercise-top">
+            <div><div class="ex-name">Glute bridge march — slow</div><div class="ex-cue">Bridge up, ribs down, then lift one knee without letting that hip drop an inch. Two seconds up, two seconds down. Wakes the glutes for Monday without fatiguing them.</div></div>
+            <div class="ex-prescription">3 × 10/side</div>
+          </div>
+          <div class="ex-log">
+            <div class="ex-log-last" data-last-for="bridge-march-sun"></div>
+            <div class="ex-log-inputs">
+              <input type="number" inputmode="decimal" enterkeyhint="done" placeholder="BW" data-weight-for="bridge-march-sun">
+              <span class="sep">×</span>
+              <input type="number" inputmode="numeric" enterkeyhint="done" placeholder="reps" data-reps-for="bridge-march-sun">
+              <button data-log-for="bridge-march-sun">Log</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="exercise" data-ex-id="wind-down-sun" data-mode="recovery">
+          <div class="exercise-top">
+            <div><div class="ex-name">Child's pose → supine twist → still</div><div class="ex-cue">Knees wide in child's pose, then knees to one side and look the other way. Finish flat on your back doing nothing for two minutes. Sunday ends the week and starts it — this is the switch.</div></div>
+            <div class="ex-prescription">1 × 20 breaths</div>
+          </div>
+          <div class="ex-log">
+            <div class="ex-log-last" data-last-for="wind-down-sun"></div>
+            <div class="ex-log-inputs">
+              <input type="number" inputmode="decimal" enterkeyhint="done" placeholder="BW" data-weight-for="wind-down-sun">
+              <span class="sep">×</span>
+              <input type="number" inputmode="numeric" enterkeyhint="done" placeholder="breaths" data-reps-for="wind-down-sun">
+              <button data-log-for="wind-down-sun">Log</button>
+            </div>
+          </div>
+        </div>
+      </div></div>
+    </div>
+
           </div>
           <div class="ex-log">
             <div class="ex-log-last" data-last-for="single-arm-situp-press"></div>
             <div class="ex-log-inputs">
-              <input type="number" placeholder="lb" data-weight-for="single-arm-situp-press">
+              <input type="number" inputmode="decimal" enterkeyhint="done" placeholder="lb" data-weight-for="single-arm-situp-press">
               <span class="sep">×</span>
-              <input type="number" placeholder="reps" data-reps-for="single-arm-situp-press">
+              <input type="number" inputmode="numeric" enterkeyhint="done" placeholder="reps" data-reps-for="single-arm-situp-press">
               <button data-log-for="single-arm-situp-press">Log</button>
             </div>
           </div>
@@ -1058,11 +1690,11 @@ footer .ornament-sm { height: 1px; background: var(--line); margin: 14px 0; text
       </div></div>
     </div>
   </section>
-
 </div>
 
+
 <!-- ============ PHASE 2 ============ -->
-<div class="phase-panel" data-phase="2">
+<div class="phase-panel" data-phase="2" data-dest="plan" data-sub="phases">
   <section>
     <div class="phase-card">
       <div class="month-range">MONTHS 4 — 6 · 12 WEEKS</div>
@@ -1090,7 +1722,7 @@ footer .ornament-sm { height: 1px; background: var(--line); margin: 14px 0; text
 </div>
 
 <!-- ============ PHASE 3 ============ -->
-<div class="phase-panel" data-phase="3">
+<div class="phase-panel" data-phase="3" data-dest="plan" data-sub="phases">
   <section>
     <div class="phase-card">
       <div class="month-range">MONTHS 7 — 9 · 12 WEEKS</div>
@@ -1122,7 +1754,7 @@ footer .ornament-sm { height: 1px; background: var(--line); margin: 14px 0; text
 </div>
 
 <!-- ============ PHASE 4 ============ -->
-<div class="phase-panel" data-phase="4">
+<div class="phase-panel" data-phase="4" data-dest="plan" data-sub="phases">
   <section>
     <div class="phase-card">
       <div class="month-range">MONTHS 10 — 12 · 12 WEEKS</div>
@@ -1150,7 +1782,7 @@ footer .ornament-sm { height: 1px; background: var(--line); margin: 14px 0; text
 </div>
 
 <!-- ============ NUTRITION ============ -->
-<div class="phase-panel" data-phase="5">
+<div class="phase-panel" data-phase="5" data-dest="food" data-sub="nutrition">
   <section>
     <div class="phase-card" style="--accent: var(--sage);">
       <div class="month-range" style="color: var(--sage-dark);">DAILY NUTRITION · HISTAMINE-FRIENDLY</div>
@@ -1240,7 +1872,7 @@ footer .ornament-sm { height: 1px; background: var(--line); margin: 14px 0; text
 </div>
 
 <!-- ============ RECIPES ============ -->
-<div class="phase-panel" data-phase="7">
+<div class="phase-panel" data-phase="7" data-dest="food" data-sub="recipes">
   <section>
     <div class="phase-card" style="--accent: var(--ochre);">
       <div class="month-range" style="color: var(--ochre);">THE RECIPES · HISTAMINE-FRIENDLY</div>
@@ -1897,7 +2529,23 @@ footer .ornament-sm { height: 1px; background: var(--line); margin: 14px 0; text
 </div>
 
 <!-- ============ LOG ============ -->
-<div class="phase-panel" data-phase="8">
+<div class="phase-panel" data-phase="8" data-dest="log">
+
+  <section>
+    <div class="section-label">Where you are</div>
+<div class="starting-line">
+  <div><div class="label">Start</div><div class="value">5'4" · <strong>160 lb</strong></div></div>
+  <div><div class="label">Target</div><div class="value"><strong>~125 lb</strong> lean</div></div>
+  <div><div class="label">Window</div><div class="value">12 mo · <strong>~0.7 lb/wk</strong></div></div>
+</div>
+<div class="intro-stats">
+  <div class="intro-stat"><div class="k">Goal A</div><div class="v">Strong <em>hips & core</em></div></div>
+  <div class="intro-stat"><div class="k">Goal B</div><div class="v">5 strict <em>pull-ups</em></div></div>
+  <div class="intro-stat"><div class="k">Goal C</div><div class="v">20 full <em>push-ups</em></div></div>
+  <div class="intro-stat"><div class="k">Goal D</div><div class="v">Visible <em>waist & balance</em></div></div>
+</div>
+  </section>
+
   <section>
     <div class="phase-card">
       <div class="month-range">YOUR LOG</div>
@@ -1946,14 +2594,14 @@ footer .ornament-sm { height: 1px; background: var(--line); margin: 14px 0; text
     <div class="section-label">Your logs</div>
     <div id="logSummary"></div>
     <div style="text-align: center; margin-top: 24px;">
-      <button id="exportLog" style="background: var(--card); border: 1px solid var(--rule-warm); color: var(--ink-2); padding: 10px 20px; border-radius: 4px; font-family: 'Hanken Grotesk', serif; font-style: italic; font-size: 14px; font-weight: 500; cursor: pointer; margin-right: 8px;">Export to clipboard</button>
-      <button id="clearLog" style="background: transparent; border: 1px solid var(--rule-warm); color: var(--ink-3); padding: 10px 20px; border-radius: 4px; font-family: 'Hanken Grotesk', serif; font-style: italic; font-size: 14px; font-weight: 500; cursor: pointer;">Clear all</button>
+      <button id="exportLog" style="background: var(--card); border: 1px solid var(--rule-warm); color: var(--ink-2); padding: 10px 20px; border-radius: 4px; font-family: inherit; font-style: italic; font-size: 14px; font-weight: 500; cursor: pointer; margin-right: 8px;">Export to clipboard</button>
+      <button id="clearLog" style="background: transparent; border: 1px solid var(--rule-warm); color: var(--ink-3); padding: 10px 20px; border-radius: 4px; font-family: inherit; font-style: italic; font-size: 14px; font-weight: 500; cursor: pointer;">Clear all</button>
     </div>
   </section>
 </div>
 
 <!-- ============ PRINCIPLES ============ -->
-<div class="phase-panel" data-phase="6">
+<div class="phase-panel" data-phase="6" data-dest="plan" data-sub="rules">
   <section>
     <div class="phase-card" style="--accent: var(--sage);">
       <div class="month-range" style="color: var(--sage-dark);">THE GOVERNING PRINCIPLES</div>
@@ -1992,27 +2640,85 @@ footer .ornament-sm { height: 1px; background: var(--line); margin: 14px 0; text
   <div class="quote"><p>One year of patient, deliberate work. The body follows.</p></div>
 </div>
 
-<footer>
-  <div class="signoff">— made with care for a body learning what it can do.</div>
-  <div class="ornament-sm">✦  ·  ✦  ·  ✦</div>
-  <div>Jess · 5'4" · 160 → 125 · 2026</div>
-</footer>
+
+<!-- ============ LEDGER · footer register ============ -->
+<nav class="lg-tabbar" id="lgTabbar" role="tablist" aria-label="Sections">
+  <button type="button" class="lg-tab" data-dest="today" role="tab">Today</button>
+  <button type="button" class="lg-tab" data-dest="plan"  role="tab">Plan</button>
+  <button type="button" class="lg-tab" data-dest="food"  role="tab">Food</button>
+  <button type="button" class="lg-tab" data-dest="log"   role="tab">Log</button>
+</nav>
+
 
 <script>
 // ============ NAV ============
-const pills = document.querySelectorAll('.phase-pill');
-const panels = document.querySelectorAll('.phase-panel');
-pills.forEach(pill => {
-  pill.addEventListener('click', () => {
-    const target = pill.dataset.phase;
-    pills.forEach(p => p.classList.remove('active'));
-    panels.forEach(p => p.classList.remove('active'));
-    pill.classList.add('active');
-    document.querySelector(`.phase-panel[data-phase="${target}"]`).classList.add('active');
-    window.scrollTo({ top: document.querySelector('.phase-nav').offsetTop - 12, behavior: 'smooth' });
-    if (target === '8') renderLogSummary();
-  });
-});
+// ============ NAV · ledger destinations ============
+// Two deliberate deletions from the old .phase-pill handler:
+//   1. window.scrollTo({top: .phase-nav.offsetTop}) — it jumped ~1400px down the
+//      document on every tap, which scrolled the Today card off screen and left
+//      no way back to it. That was the real bug behind "I have to scroll twice."
+//   2. behavior:'smooth' — a tab switch has to feel instant, not animated.
+// Added: per-destination scroll memory, which is Apple's stated reason a tab bar
+// exists ("preserving the current navigation state within each section").
+(function ledgerNav(){
+  const bar = document.getElementById('lgTabbar');
+  if (!bar) return;
+  const tabs    = [...bar.querySelectorAll('.lg-tab')];
+  const panels  = [...document.querySelectorAll('.phase-panel')];
+  const subnavs = [...document.querySelectorAll('.lg-subnav')];
+  const scrollMem = { today:0, plan:0, food:0, log:0 };
+  const subOf     = { plan:'workouts', food:'nutrition' };
+  let current = null;
+
+  function paint(){
+    // CSS keys off this attribute rather than card.hidden — gymMode already owns
+    // `hidden`, and two owners for one flag is how the card vanishes for good.
+    document.body.dataset.dest = current;
+    tabs.forEach(t => {
+      const on = t.dataset.dest === current;
+      t.classList.toggle('is-on', on);
+      t.setAttribute('aria-selected', on ? 'true' : 'false');
+      if (on) t.setAttribute('aria-current', 'page'); else t.removeAttribute('aria-current');
+    });
+    subnavs.forEach(n => {
+      n.hidden = n.dataset.for !== current;
+      n.querySelectorAll('.lg-subtab').forEach(b =>
+        b.classList.toggle('is-on', b.dataset.sub === subOf[n.dataset.for]));
+    });
+    panels.forEach(pl => {
+      const sub = pl.dataset.sub;
+      pl.classList.toggle('active', pl.dataset.dest === current && (!sub || sub === subOf[current]));
+    });
+  }
+  function go(dest){
+    if (dest === current) { window.scrollTo(0,0); scrollMem[dest] = 0; return; }
+    if (current) scrollMem[current] = window.scrollY;
+    current = dest; paint();
+    if (dest === 'log' && typeof renderLogSummary === 'function') renderLogSummary();
+    requestAnimationFrame(() => window.scrollTo(0, scrollMem[dest] || 0));
+  }
+  function goSub(dest, sub){ subOf[dest] = sub; paint(); window.scrollTo(0,0); scrollMem[dest] = 0; }
+  tabs.forEach(t => t.addEventListener('click', () => go(t.dataset.dest)));
+  subnavs.forEach(n => n.querySelectorAll('.lg-subtab').forEach(b =>
+    b.addEventListener('click', () => goSub(n.dataset.for, b.dataset.sub))));
+  go('today');
+  window.__lgGo = go;
+})();
+
+// Safari does not resize the layout viewport for the keyboard, so a fixed bottom
+// bar stays pinned where the screen bottom used to be — floating over the set
+// table while she types. visualViewport is the only thing that sees the change.
+(function ledgerKeyboard(){
+  const vv = window.visualViewport; if (!vv) return;
+  const root = document.documentElement;
+  let tallest = vv.height;
+  function sync(){
+    if (vv.height > tallest) tallest = vv.height;
+    root.classList.toggle('lg-kbd', (tallest - vv.height) > 150);  // rules out URL-bar collapse
+  }
+  vv.addEventListener('resize', sync);
+  window.addEventListener('orientationchange', () => { setTimeout(() => { tallest = vv.height; sync(); }, 300); });
+})();
 
 // ============ WORKOUT TOGGLES ============
 document.querySelectorAll('.workout-header').forEach(header => {
@@ -2176,7 +2882,7 @@ function mergeData(local, remote) {
       }
     });
     merged.sort((a, b) => new Date(a.date) - new Date(b.date));
-    combined[exId] = merged.slice(-30);
+    combined[exId] = merged.slice(-400); // must match logExercise, or a Sheets sync re-truncates
   });
   return combined;
 }
@@ -2210,7 +2916,7 @@ async function logExercise(exId, weight, reps) {
   const entry = { date: new Date().toISOString(), weight, reps };
   if (!logCache[exId]) logCache[exId] = [];
   logCache[exId].push(entry);
-  logCache[exId] = logCache[exId].slice(-30);
+  logCache[exId] = logCache[exId].slice(-400); // per-SET entries: 400 ~= 133 weeks of history
   saveLocal(logCache);
   renderLastFor(exId);
   if (sheetsUrl) {
@@ -2401,6 +3107,7 @@ document.getElementById('exportLog')?.addEventListener('click', () => {
     setSyncStatus('unset');
   }
   renderAllLast();
+  if (window.__gymRender) window.__gymRender();
 })();
 
 // ============ PWA · register service worker ============
@@ -2411,6 +3118,322 @@ if ('serviceWorker' in navigator) {
       .catch(err => console.warn('Service worker registration failed:', err));
   });
 }
+
+// ============ TODAY · gym mode ============
+// Reads the plan straight out of the field-guide markup below, so the workouts
+// stay single-sourced. Sessions are DERIVED from the existing flat log by
+// grouping on local calendar day — no storage-format change, so Sheets sync and
+// every previously logged set keep working.
+(function gymMode(){
+  const card = document.getElementById('todayCard');
+  if (!card) return;
+
+  const DOW = ['SUNDAY','MONDAY','TUESDAY','WEDNESDAY','THURSDAY','FRIDAY','SATURDAY'];
+  const SHORT = { SUNDAY:'Su', MONDAY:'M', TUESDAY:'T', WEDNESDAY:'W', THURSDAY:'Th', FRIDAY:'F', SATURDAY:'Sa' };
+  const REST_SECONDS = 90;
+  const esc = s => String(s == null ? '' : s)
+    .replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+  const plan = [...document.querySelectorAll('.workout')].map(w => {
+    const parts = w.querySelector('.workout-day').textContent.trim().split('·');
+    return {
+      letter: parts[0].trim(),
+      day: (parts[1] || '').trim(),
+      nameHtml: w.querySelector('.workout-name').innerHTML,
+      exercises: [...w.querySelectorAll('[data-ex-id]')].map(e => ({
+        id: e.dataset.exId,
+        name: e.querySelector('.ex-name').textContent.trim(),
+        cue: (e.querySelector('.ex-cue') ? e.querySelector('.ex-cue').textContent.trim() : ''),
+        rxText: e.querySelector('.ex-prescription').textContent.trim(),
+        loadPh: (e.querySelector('[data-weight-for]') || {}).placeholder || 'lb',
+        mode: e.dataset.mode || 'load'
+      }))
+    };
+  });
+  if (!plan.length) return;
+
+  // "4 × 8" · "3 × 10/leg" · "4 × 8–10" · "3 × 20s/side" · "3 × max sec"
+  function parseRx(t){
+    const m = t.match(/^(\d+)\s*[×x]\s*(.+)$/);
+    if (!m) return { sets: 3, low: null, high: null, perSide: false, unit: 'reps' };
+    const rest = m[2];
+    const nums = (rest.match(/\d+/g) || []).map(Number);
+    const ranged = /[–—-]/.test(rest) && nums.length >= 2;
+    const timed = /sec|s\/|steps/i.test(rest);
+    return {
+      sets: parseInt(m[1], 10),
+      low: nums.length ? nums[0] : null,
+      high: ranged ? nums[1] : (nums.length ? nums[0] : null),
+      perSide: /\/(side|leg)/i.test(rest),
+      unit: timed ? (/steps/i.test(rest) ? 'steps' : 'sec') : 'reps'
+    };
+  }
+
+  // entries are stored as toISOString() (UTC) — parse back to LOCAL day so an
+  // evening lift doesn't get filed under tomorrow
+  const localDay = iso => { const d = new Date(iso); return isNaN(d) ? String(iso).slice(0,10) : d.toLocaleDateString('en-CA'); };
+  const todayKey = () => new Date().toLocaleDateString('en-CA');
+
+  function sessionsFor(id){
+    const map = new Map();
+    ((typeof logCache === 'object' && logCache[id]) || []).forEach(e => {
+      const d = localDay(e.date);
+      if (!map.has(d)) map.set(d, []);
+      map.get(d).push(e);
+    });
+    return [...map.entries()].sort((a,b) => a[0] < b[0] ? -1 : 1).map(([date, sets]) => ({ date, sets }));
+  }
+  const setsToday   = id => { const s = sessionsFor(id).find(x => x.date === todayKey()); return s ? s.sets : []; };
+  const lastSession = id => { const s = sessionsFor(id).filter(x => x.date !== todayKey()); return s.length ? s[s.length-1] : null; };
+  const isDone      = e  => setsToday(e.id).length >= parseRx(e.rxText).sets;
+
+  // Double progression: fill the rep range at a given load, then add load.
+  // A move is bodyweight if the field guide's own placeholder says so ("BW",
+  // "sec") or the prescription is timed. Everything else is loaded, and a
+  // loaded lift must never silently record 0 lb.
+  const isBodyweight = (ex, rx) => /^(BW|sec)$/i.test(ex.loadPh) || rx.unit !== 'reps';
+
+  // Double progression: fill the rep range at a load, then add load.
+  function guidance(id, rx, bw, recovery){
+    const fallbackReps = rx.low == null ? '' : rx.low;
+    const last = lastSession(id);
+    // Mobility and yoga are not progressively overloaded. Range and breath,
+    // not load or reps — otherwise a 45s hold escalates to 46s forever.
+    if (recovery) {
+      return last
+        ? { weight:'', reps: fallbackReps, why: 'Held this on ' + formatDate(last.sets[0].date) + ' \u2014 same again. Range, not load.' }
+        : { weight:'', reps: fallbackReps, why: 'No load, no score \u2014 go to the first honest resistance and breathe there.' };
+    }
+    if (!last) return { weight: '', reps: fallbackReps, why: 'First time \u2014 pick a load you could stop about 2 reps short of failure on.' };
+    const w = Number(last.sets[last.sets.length - 1].weight);
+    const reps = last.sets.map(x => Number(x.reps)).filter(r => !isNaN(r));
+    if (isNaN(w) || !reps.length) return { weight: '', reps: fallbackReps, why: 'Last session couldn\u2019t be read \u2014 log what you lift today.' };
+    const when = formatDate(last.sets[0].date);
+    const shown = w === 0 ? 'bodyweight' : w + ' lb';
+    const cleared = rx.high != null && reps.length >= rx.sets && reps.every(r => r >= rx.high);
+    if (cleared) {
+      if (bw || w === 0) return { weight: '', reps: rx.high + 1, why: 'Cleared ' + rx.high + ' every set on ' + when + ' \u2014 add a rep.' };
+      const inc = w < 20 ? 2.5 : 5;
+      return { weight: Math.round((w + inc) * 10) / 10, reps: rx.low,
+               why: 'Cleared ' + rx.sets + ' \u00d7 ' + rx.high + ' at ' + shown + ' on ' + when + ' \u2014 up ' + inc + ' lb.' };
+    }
+    const best = Math.max.apply(null, reps);
+    return { weight: w === 0 ? '' : w, reps: rx.high == null ? reps[reps.length - 1] : rx.high,
+             why: 'Held ' + shown + ' on ' + when + ' (best set ' + best + ') \u2014 stay there and earn ' + (rx.high == null ? 'more' : rx.high) + '.' };
+  }
+
+  // ---- screen stays awake; the phone is out the whole session ----
+  let wakeLock = null;
+  async function keepAwake(){
+    try {
+      if ('wakeLock' in navigator && !wakeLock) {
+        wakeLock = await navigator.wakeLock.request('screen');
+        wakeLock.addEventListener('release', () => { wakeLock = null; });
+      }
+    } catch (e) { /* denied or unsupported — not worth interrupting a workout */ }
+  }
+  document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') keepAwake(); });
+
+  // ---- rest timer ----
+  let restEnd = 0, restTimer = null;
+  function stopRest(){ restEnd = 0; if (restTimer) { clearInterval(restTimer); restTimer = null; } paintRest(); }
+  function startRest(){ restEnd = Date.now() + REST_SECONDS * 1000; if (restTimer) clearInterval(restTimer); restTimer = setInterval(paintRest, 250); paintRest(); }
+  function paintRest(){
+    const el = document.getElementById('nowRest');
+    if (!el) return;
+    if (!restEnd) { el.innerHTML = ''; el.classList.remove('ready'); return; }
+    const left = Math.max(0, Math.ceil((restEnd - Date.now()) / 1000));
+    const pct  = Math.max(0, Math.min(100, (left / REST_SECONDS) * 100));
+    if (left === 0) {
+      el.classList.add('ready');
+      el.innerHTML = '<span>rested</span><span class="track"><i style="width:100%"></i></span>' +
+                     '<button type="button" data-rest="clear">clear</button>';
+      if (restTimer) { clearInterval(restTimer); restTimer = null; }
+    } else {
+      el.classList.remove('ready');
+      el.innerHTML = '<span>rest ' + Math.floor(left / 60) + ':' + String(left % 60).padStart(2, '0') + '</span>' +
+                     '<span class="track"><i style="width:' + pct + '%"></i></span>' +
+                     '<button type="button" data-rest="skip">skip</button>';
+    }
+    const b = el.querySelector('[data-rest]');
+    if (b) b.onclick = stopRest;
+  }
+
+  // ---- state ----
+  let dayIdx = 0, exIdx = 0;
+  const planIdxForDay = name => plan.findIndex(p => p.day === name);
+  function firstIncomplete(d){
+    const i = plan[d].exercises.findIndex(e => !isDone(e));
+    return i >= 0 ? i : plan[d].exercises.length - 1;
+  }
+
+  function render(){
+    const w = plan[dayIdx];
+    const total = w.exercises.length;
+    const done = w.exercises.filter(isDone).length;
+
+    document.getElementById('todayDay').textContent = w.letter + ' · ' + w.day;
+    document.getElementById('todayTitle').innerHTML = w.nameHtml;
+    document.getElementById('todayCount').textContent = done + ' of ' + total + ' done';
+    let segs = '';
+    w.exercises.forEach((e, i) => {
+      segs += '<i class="' + (isDone(e) ? 'on' : (i === exIdx ? 'here' : '')) + '"></i>';
+    });
+    document.getElementById('todayProgress').innerHTML = segs;
+
+    const daysEl = document.getElementById('todayDays');
+    daysEl.innerHTML = '';
+    plan.forEach((p, i) => {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.textContent = SHORT[p.day] || p.day.slice(0, 1);
+      b.className = (i === dayIdx ? 'on ' : '') + (p.exercises.every(isDone) ? 'done' : '');
+      b.onclick = () => { keepAwake(); dayIdx = i; exIdx = firstIncomplete(i); stopRest(); render(); };
+      daysEl.appendChild(b);
+    });
+
+    const ex = w.exercises[exIdx];
+    const rx = parseRx(ex.rxText);
+    const st = setsToday(ex.id);
+    const complete = st.length >= rx.sets;
+    const bw = isBodyweight(ex, rx);
+    const isRecovery = ex.mode === 'recovery';
+    const g = guidance(ex.id, rx, bw, isRecovery);
+    // What she logged THIS session beats anything derived from history —
+    // that was the bug: after set 1 the field reset to empty and set 2 became BW.
+    const lastToday = st.length ? st[st.length - 1] : null;
+    const prefillW = bw ? '' : (lastToday && Number(lastToday.weight) > 0 ? Number(lastToday.weight) : g.weight);
+    const prefillR = lastToday ? lastToday.reps : g.reps;
+    // only surface today's individual sets when they actually differ
+    const uniqW = [...new Set(st.map(x => Number(x.weight)))];
+    const varied = st.length > 1 && (uniqW.length > 1 || new Set(st.map(x => Number(x.reps))).size > 1);
+    const next = w.exercises[exIdx + 1];
+
+    // the signature element: every logged set writes a row; the live row holds
+    // the inputs; remaining sets sit as ruled, empty lines waiting to be filled.
+    let rows = '';
+    const totalRows = Math.max(rx.sets, st.length + (complete ? 1 : 0));
+    for (let i = 0; i < totalRows; i++) {
+      const rec = st[i];
+      if (rec) {
+        rows += '<tr class="is-done' + (i === st.length - 1 ? ' just-wrote' : '') + '"><td>' + (i + 1) + '</td>' +
+                (bw ? '<td></td>' : '<td>' + (Number(rec.weight) === 0 ? 'BW' : esc(rec.weight)) + '</td>') +
+                '<td>' + esc(rec.reps) + '</td><td>\u2713</td></tr>';
+      } else if (i === st.length) {
+        rows += '<tr class="is-live"><td>' + (i + 1) + '</td>' +
+                (bw ? '<td></td>' :
+                  '<td><input id="nowW" type="number" inputmode="decimal" enterkeyhint="next" aria-label="weight in pounds" placeholder="\u2013" value="' + esc(prefillW) + '"></td>') +
+                '<td><input id="nowR" type="number" inputmode="numeric" enterkeyhint="done" aria-label="' + rx.unit + '" placeholder="\u2013" value="' + esc(prefillR) + '"></td>' +
+                '<td></td></tr>';
+      } else {
+        rows += '<tr class="is-todo"><td>' + (i + 1) + '</td>' +
+                '<td></td><td></td><td></td></tr>';
+      }
+    }
+
+    // a weight of 0 means bodyweight — never show her "0 lb"
+    const showLoad = v => (v === 0 || v === '0') ? 'BW' : v;
+    function labelForButton(){ return complete ? 'Log an extra set' : 'Log set'; }
+    const sessionDone = w.exercises.every(isDone);
+
+    document.getElementById('todayBody').innerHTML =
+      (sessionDone
+        ? '<div class="lg-done-banner">SESSION COMPLETE \u00b7 all ' + total + ' exercises recorded</div>'
+        : '') +
+      '<div class="lg-ex">' +
+        '<h3 class="lg-name">' + esc(ex.name) + '</h3>' +
+        // the objective, stated once
+        '<div class="lg-obj">' + esc(ex.rxText) + (rx.perSide ? ' each side' : '') +
+          (!bw && prefillW !== '' ? ' <b>@ ' + esc(prefillW) + ' lb</b>' : '') + '</div>' +
+        (ex.cue ? '<p class="lg-cue">' + esc(ex.cue) + '</p>' : '') +
+        '<table class="lg-table"><thead><tr>' +
+          '<th>set</th><th>' + (bw ? '' : 'lb') + '</th><th>' + rx.unit + '</th><th></th>' +
+        '</tr></thead><tbody>' + rows + '</tbody></table>' +
+        '<div class="lg-why">' + esc(g.why) + '</div>' +
+        '<button type="button" class="lg-log' + (complete ? ' done' : '') + '" id="nowLog">' +
+          (complete ? 'Record an extra set' : 'Record set') + '</button>' +
+        '<div class="lg-rest" id="nowRest"></div>' +
+        '<div class="lg-nav">' +
+          (exIdx > 0 ? '<button type="button" id="nowPrev">\u2190 prev</button>' : '') +
+          (st.length ? '<button type="button" id="nowUndo">undo last</button>' : '') +
+          (exIdx < total - 1 ? '<button type="button" id="nowNext">skip \u2192</button>' : '') +
+        '</div>' +
+      '</div>' +
+      '<div class="lg-next">UP NEXT<b>' +
+        (next ? esc(next.name) + ' \u00b7 ' + esc(next.rxText) : 'nothing \u2014 that\u2019s the session') +
+      '</b></div>';
+
+    const prevBtn = document.getElementById('nowPrev');
+    const nextBtn = document.getElementById('nowNext');
+    if (prevBtn) prevBtn.onclick = () => { if (exIdx > 0) { exIdx--; stopRest(); render(); } };
+    if (nextBtn) nextBtn.onclick = () => { if (exIdx < total - 1) { exIdx++; stopRest(); render(); } };
+
+    const wIn = document.getElementById('nowW');   // absent on bodyweight moves
+    const rIn = document.getElementById('nowR');
+    const logBtn = document.getElementById('nowLog');
+
+    function commitSet(){
+      keepAwake();
+      // weight is OPTIONAL — a dead hang or a Copenhagen plank has no load.
+      // blank means bodyweight, recorded as 0 and displayed as "BW".
+      const raw = wIn ? wIn.value.trim() : '';
+      const wv = bw ? 0 : (raw === '' ? NaN : parseFloat(raw));
+      const rv = parseInt(rIn.value, 10);
+      if (isNaN(rv) || isNaN(wv)) {
+        // do NOT re-render here: that would wipe whatever she has typed
+        logBtn.classList.add('warn');
+        logBtn.textContent = isNaN(wv) ? 'Enter the weight' : 'Enter ' + rx.unit + ' to log this set';
+        const focusEl = isNaN(wv) ? wIn : rIn;
+        if (focusEl) focusEl.focus();
+        clearTimeout(commitSet._t);
+        commitSet._t = setTimeout(() => {
+          logBtn.classList.remove('warn');
+          logBtn.textContent = labelForButton();
+        }, 1600);
+        return;
+      }
+      // fire-and-forget: logExercise saves to localStorage synchronously, then
+      // POSTs to Sheets. Awaiting it froze the whole card on bad gym signal.
+      Promise.resolve(logExercise(ex.id, wv, rv)).catch(() => {});
+      const wEl = document.querySelector('[data-weight-for="' + ex.id + '"]');
+      const rEl = document.querySelector('[data-reps-for="' + ex.id + '"]');
+      if (wEl) wEl.value = '';
+      if (rEl) rEl.value = '';
+      if (setsToday(ex.id).length >= rx.sets && exIdx < total - 1) exIdx++;
+      render();
+      if (!isRecovery) startRest();   // no countdown between stretches
+    }
+
+    logBtn.onclick = commitSet;
+    // enterkeyhint="done" promised a working return key — deliver it
+    rIn.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); commitSet(); } });
+    if (wIn) wIn.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); rIn.focus(); } });
+
+    const undoBtn = document.getElementById('nowUndo');
+    if (undoBtn) undoBtn.onclick = () => {
+      const entries = logCache[ex.id] || [];
+      if (!entries.length) return;
+      entries.pop();                 // drop the most recent set
+      saveLocal(logCache);
+      renderLastFor(ex.id);
+      stopRest();
+      render();
+    };
+
+    paintRest();
+  }
+
+  // let the Sheets sync refresh the card once remote data lands
+  window.__gymRender = render;
+
+  const todayIdx = planIdxForDay(DOW[new Date().getDay()]);
+  dayIdx = todayIdx >= 0 ? todayIdx : 0;
+  exIdx = firstIncomplete(dayIdx);
+  card.hidden = false;
+  render();
+  card.addEventListener('click', keepAwake, { once: true });
+})();
+
 </script>
 
 </body>
