@@ -1,0 +1,27 @@
+<!-- @dsCard group="Components" viewport="700x520" name="Data" subtitle="SetTable, DayStrip, MacroGrid, MealRow, RefCard, FilterChips, Checklist" -->
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="../../styles.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>html,body{margin:0}body{background:var(--surface-page);padding:18px 20px}.col{display:flex;flex-direction:column;gap:16px}.row{display:flex;gap:14px;align-items:center;flex-wrap:wrap}</style></head>
+<body><div id="root"></div>
+<script type="text/babel">
+const { SetTable, DayStrip, MacroGrid, MealRow, RefCard, FilterChips, Checklist, Card } = window.BrightStudioDesignSystem_8199fe;
+function Demo(){
+const [cur,setCur]=React.useState(1);const [day,setDay]=React.useState(6);const [f,setF]=React.useState('All');
+const [ck,setCk]=React.useState([{label:'Artwork approved',done:true},{label:'Protein hit',done:true},{label:'Walked after dinner'}]);
+return(<div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:20}}>
+<div className="col">
+<DayStrip value={day} done={[0,1,2,3]} onChange={setDay} />
+<SetTable sets={[{reps:'1',done:true},{},{},{}]} current={cur} onSelect={setCur} />
+<FilterChips items={['All','10 min','High iron','Rescue']} value={f} onChange={setF} />
+</div>
+<div className="col">
+<MacroGrid items={[{label:'Protein',value:'48 g'},{label:'Iron',value:'5.1 mg',accent:true},{label:'Vit C',value:'170 mg',accent:true}]} />
+<RefCard title="Iron rule" cite="Morck, Lynch & Cook 1983, AJCN 37:416">Coffee an hour before the meal is free. An hour after costs you about 39%.</RefCard>
+<Card tone="flat" style={{padding:0}}><MealRow time="07:30" tag="40 G · IRON" name="Turkey hash" alts="salmon hash · warm oats" options={[{key:'A',text:'Turkey, spinach & red pepper hash'},{key:'B',text:'Salmon + sweet potato hash'}]} /></Card>
+<Checklist items={ck} onToggle={(i)=>setCk(ck.map((c,j)=>j===i?{...c,done:!c.done}:c))} />
+</div></div>)}
+ReactDOM.createRoot(document.getElementById('root')).render(<Demo />);
+</script></body></html>

@@ -1,0 +1,81 @@
+<!-- @dsCard group="App" viewport="1180x980" name="Year Strong app" subtitle="Onboarding, Today, Food, Recipe, Log, Notes, Phase and Reference — click-through, light and dark" -->
+<!doctype html><html lang="en" data-mode="light"><head><meta charset="utf-8"><title>Year Strong — app UI kit</title>
+<link rel="stylesheet" href="../../styles.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>html,body{margin:0}
+body{background:var(--surface-page);padding:26px 24px 60px;font:var(--type-body);color:var(--text-body)}
+.top{max-width:1180px;margin:0 auto 20px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.rail{max-width:1180px;margin:0 auto;display:flex;gap:24px;align-items:flex-start;flex-wrap:wrap}
+.slot{display:flex;flex-direction:column;gap:10px}
+.slot > span{font:var(--type-label);letter-spacing:var(--track-label);text-transform:uppercase;color:var(--text-muted)}
+.modebtn{width:46px;height:30px;border:2.5px solid var(--border-strong);border-radius:999px;background:var(--surface-sunken);position:relative;cursor:pointer;padding:0}
+.modebtn::after{content:"";position:absolute;top:2px;left:2px;width:21px;height:21px;border-radius:999px;background:var(--pink);border:2px solid var(--border-strong);transition:transform var(--dur-base) var(--ease-bounce)}
+[data-mode="dark"] .modebtn::after{transform:translateX(16px)}
+</style></head><body><div id="root"></div>
+<script type="text/babel" src="Shell.jsx"></script>
+<script type="text/babel" src="TodayScreen.jsx"></script>
+<script type="text/babel" src="FoodScreen.jsx"></script>
+<script type="text/babel" src="RecipeScreen.jsx"></script>
+<script type="text/babel" src="LogScreen.jsx"></script>
+<script type="text/babel" src="NotesScreen.jsx"></script>
+<script type="text/babel" src="PhaseScreen.jsx"></script>
+<script type="text/babel" src="ReferenceScreen.jsx"></script>
+<script type="text/babel" src="OnboardingScreen.jsx"></script>
+<script type="text/babel">
+const { Eyebrow } = window.BrightStudioDesignSystem_8199fe;
+
+function App(){
+  const [mode,setMode]=React.useState('light');
+  const [onboarded,setOnboarded]=React.useState(false);
+  const [tab,setTab]=React.useState('today');
+  const [push,setPush]=React.useState(null);   // 'recipe' | 'phase' | 'reference'
+  React.useEffect(()=>{document.documentElement.dataset.mode=mode},[mode]);
+
+  const screen = () => {
+    if(push==='recipe')    return <RecipeScreen onBack={()=>setPush(null)} />;
+    if(push==='phase')     return <PhaseScreen onBack={()=>setPush(null)} />;
+    if(push==='reference') return <ReferenceScreen onBack={()=>setPush(null)} />;
+    if(tab==='today') return <TodayScreen onOpenPhase={()=>setPush('phase')} />;
+    if(tab==='food')  return <FoodScreen onOpenRecipe={()=>setPush('recipe')} onOpenReference={()=>setPush('reference')} />;
+    if(tab==='log')   return <LogScreen />;
+    return <NotesScreen />;
+  };
+
+  return (<>
+    <div className="top">
+      <span style={{font:'var(--type-title)',color:'var(--text-strong)'}}>Year Strong</span>
+      <Eyebrow>App UI kit · tap through it</Eyebrow>
+      <span style={{marginLeft:'auto',display:'flex',alignItems:'center',gap:10}}>
+        <Eyebrow>{mode==='dark'?'DARK':'LIGHT'}</Eyebrow>
+        <button className="modebtn" aria-label="Toggle dark mode" onClick={()=>setMode(mode==='dark'?'light':'dark')} />
+      </span>
+    </div>
+    <div className="rail">
+      <div className="slot">
+        <span>{onboarded ? 'Onboarding · done' : 'Onboarding'}</span>
+        <Phone hideTabs>
+          {onboarded ? (
+            <div className="ys-screen" style={{display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',textAlign:'center',gap:14}}>
+              <img src="../../assets/logo/icon-sage-render.png" width="112" height="112" alt="" style={{borderRadius:'23.5%'}} />
+              <h2 style={{fontSize:'var(--text-2xl)',margin:0}}>Week 1, day 1.</h2>
+              <p style={{font:'var(--type-body)',margin:0}}>Your targets are set. The plan starts Monday at six.</p>
+              <p className="ys-aside" style={{margin:0}}>Four good workouts a week for fifty weeks beats five perfect ones for twelve.</p>
+              <button className="ys-btn ys-btn--plain" onClick={()=>setOnboarded(false)}>Run setup again</button>
+            </div>
+          ) : <OnboardingScreen onDone={()=>setOnboarded(true)} />}
+        </Phone>
+      </div>
+      <div className="slot"><span>{push ? push : tab}</span>
+        <Phone tab={tab} onTab={(t)=>{setTab(t);setPush(null)}}>
+          {screen()}
+        </Phone>
+      </div>
+    </div>
+  </>);
+}
+const mount=()=>ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+if(window.BrightStudioDesignSystem_8199fe) mount(); else window.addEventListener('load',mount);
+</script></body></html>

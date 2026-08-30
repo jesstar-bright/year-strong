@@ -1,0 +1,19 @@
+:root{
+  --space-1:4px;--space-2:8px;--space-3:12px;--space-4:16px;--space-5:20px;
+  --space-6:24px;--space-7:32px;--space-8:44px;--space-9:64px;
+
+  --gutter:var(--space-6);
+  --screen-x:24px;            /* horizontal padding inside a phone screen */
+  --page-max:920px;
+  --prose-max:64ch;
+
+  /* iOS metrics */
+  --tap-min:44px;             /* Apple HIG minimum */
+  --row-h:56px;               /* list row */
+  --control-sm:34px;
+  --control-md:44px;
+  --control-lg:62px;          /* the primary CTA */
+  --tabbar-h:56px;
+  --safe-bottom:24px;         /* home-indicator inset */
+  --statusbar-h:44px;
+}

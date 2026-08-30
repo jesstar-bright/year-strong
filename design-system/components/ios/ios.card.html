@@ -1,0 +1,31 @@
+<!-- @dsCard group="Components" viewport="700x560" name="iOS patterns" subtitle="TabBar, NavBar, LargeTitle, ListGroup, SegmentedControl, Stepper, Switch, SearchField, Menu, Sheet, ActionSheet, Alert" -->
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="../../styles.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>html,body{margin:0}body{background:var(--surface-page);padding:18px 20px}.col{display:flex;flex-direction:column;gap:16px}.row{display:flex;gap:14px;align-items:center;flex-wrap:wrap}</style></head>
+<body><div id="root"></div>
+<script type="text/babel">
+const { TabBar, NavBar, LargeTitle, ListGroup, SegmentedControl, Stepper, Switch, SearchField, Menu, Button } = window.BrightStudioDesignSystem_8199fe;
+function Demo(){
+const [tab,setTab]=React.useState('today');const [seg,setSeg]=React.useState('Week');
+const [reps,setReps]=React.useState(8);const [on,setOn]=React.useState(true);const [q,setQ]=React.useState('');
+const [sort,setSort]=React.useState('recent');
+return(<div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:20}}>
+<div className="col">
+<div style={{border:'2.5px solid var(--border-strong)',borderRadius:'var(--radius-lg)',overflow:'hidden',background:'var(--surface-card)'}}>
+<NavBar back="Food" title="Steak & eggs" action={<Button variant="plain" size="sm">Save</Button>} />
+<LargeTitle>Today</LargeTitle>
+<TabBar value={tab} onChange={setTab} items={[{value:'today',label:'TODAY'},{value:'food',label:'FOOD'},{value:'notes',label:'NOTES',tone:'ref'}]} />
+</div>
+<SegmentedControl items={['Week','Month','Year']} value={seg} onChange={setSeg} />
+<SearchField placeholder="Search recipes" value={q} onChange={setQ} />
+<div className="row"><Stepper value={reps} onChange={setReps} /><Switch checked={on} label="Rest timer" onChange={setOn} /></div>
+</div>
+<div className="col">
+<ListGroup label="Program" rows={[{label:'Phase',value:'Months 1—3'},{label:'Protein target',value:'120 g'},{label:'Lift days',value:'5 / week'},{label:'Reminders'}]} />
+<Menu value={sort} onSelect={setSort} items={[{value:'recent',label:'Most recent'},{value:'heavy',label:'Heaviest first'},{value:'az',label:'A–Z'},{label:'Delete entry',danger:true}]} />
+</div></div>)}
+ReactDOM.createRoot(document.getElementById('root')).render(<Demo />);
+</script></body></html>

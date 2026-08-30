@@ -1,0 +1,46 @@
+/* ── Year Strong type ──────────────────────────────────────────────────
+   Gluten for anything that shouts, Nunito for anything you read,
+   Space Mono for anything you scan (labels, reps, macros, dates). */
+:root{
+  --font-display:"Gluten","Comic Sans MS",cursive;
+  --font-body:"Nunito",-apple-system,system-ui,sans-serif;
+  --font-mono:"Space Mono",ui-monospace,monospace;
+
+  --text-2xs:11px; /* @kind font */
+  --text-xs:13px;  /* @kind font */
+  --text-sm:15px;  /* @kind font */
+  --text-md:17px;  /* @kind font */
+  --text-lg:19px;  /* @kind font */
+  --text-xl:23px;  /* @kind font */
+  --text-2xl:29px; /* @kind font */
+  --text-3xl:36px; /* @kind font */
+  --text-4xl:46px; /* @kind font */
+  --text-5xl:58px; /* @kind font */
+
+  --weight-regular:400; /* @kind font */
+  --weight-semi:600;    /* @kind font */
+  --weight-bold:700;    /* @kind font */
+  --weight-x:800;       /* @kind font */
+  --weight-black:900;   /* @kind font */
+
+  --leading-tight:.92;  /* @kind font */
+  --leading-snug:1.15;  /* @kind font */
+  --leading-normal:1.55;/* @kind font */
+  --leading-read:1.62;  /* @kind font */
+
+  --track-display:-.02em; /* @kind font */
+  --track-normal:0;       /* @kind font */
+  --track-label:.18em;    /* @kind font */
+  --track-wide:.12em;     /* @kind font */
+
+  /* composed roles */
+  --type-hero:var(--weight-black) var(--text-4xl)/var(--leading-tight) var(--font-display);
+  --type-title:var(--weight-black) var(--text-2xl)/1 var(--font-display);
+  --type-heading:var(--weight-black) var(--text-lg)/1.1 var(--font-display);
+  --type-body:var(--weight-regular) var(--text-md)/var(--leading-read) var(--font-body);
+  --type-small:var(--weight-regular) var(--text-sm)/var(--leading-normal) var(--font-body);
+  --type-strong:var(--weight-x) var(--text-md)/1.3 var(--font-body);
+  --type-label:var(--weight-bold) var(--text-2xs)/1 var(--font-mono);
+  --type-metric:var(--weight-bold) var(--text-md)/1 var(--font-mono);
+  --type-aside:italic var(--weight-regular) var(--text-sm)/1.5 var(--font-body);
+}

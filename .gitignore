@@ -1,0 +1,7 @@
+# Mood-board inputs fed to the design tool — screenshots, stock templates,
+# generated source images. Kept on disk for reference, never committed:
+# 8.3M in a public repo is permanent, and git history cannot be un-published.
+design-system/uploads/
+
+# macOS
+.DS_Store

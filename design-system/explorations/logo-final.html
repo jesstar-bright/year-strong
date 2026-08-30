@@ -1,0 +1,63 @@
+<!doctype html><html lang="en" data-mode="light"><head><meta charset="utf-8"><title>Year Strong — the mark</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gluten:wght@800;900&family=Nunito:ital,wght@0,400;0,600;0,700;0,800&family=Space+Mono:wght@400;700&display=swap">
+<style>
+:root{--paper:#F7F5F0;--card:#FCFBF9;--chip:#EFEDE7;--ink:#1A1A18;--ink2:#5A564F;--line2:#E2DFD8;--pink:#FF2E93;--pink-ink:#C4156A;--shadow:rgba(26,26,24,1)}
+html[data-mode="dark"]{--paper:#141413;--card:#1E1E1C;--chip:#2A2A27;--ink:#F5F4F0;--ink2:#B3AFA6;--line2:#333330;--pink:#FF3D9B;--pink-ink:#FF8CC0;--shadow:rgba(245,244,240,.9)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 16px/1.6 Nunito,sans-serif;padding:34px 32px 90px}
+.wrap{max-width:1120px;margin:0 auto}
+.bar{display:flex;align-items:center;gap:12px}
+.eyebrow{font:700 11px/1 'Space Mono',monospace;letter-spacing:.2em;text-transform:uppercase;color:var(--ink2)}
+h1{font-family:Gluten,cursive;font-weight:900;font-size:44px;letter-spacing:-.02em;line-height:1;margin:12px 0 4px}
+h2{font-family:Gluten,cursive;font-weight:900;font-size:26px;margin:52px 0 4px}
+h3{font-family:Gluten,cursive;font-weight:900;font-size:18px;margin:0 0 2px}
+p{max-width:70ch}
+.note{font-size:14px;color:var(--ink2);margin:0}
+.mode{margin-left:auto;display:flex;align-items:center;gap:10px}
+.mode button{width:46px;height:30px;border:2.5px solid var(--ink);border-radius:999px;background:var(--chip);position:relative;cursor:pointer;padding:0}
+.mode button::after{content:"";position:absolute;top:2px;left:2px;width:21px;height:21px;border-radius:999px;background:var(--pink);border:2px solid var(--ink);transition:transform .24s cubic-bezier(.34,1.56,.64,1)}
+html[data-mode="dark"] .mode button::after{transform:translateX(16px)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:22px;margin-top:20px}
+.card{background:var(--card);border:2.5px solid var(--ink);border-radius:22px;padding:22px;box-shadow:4px 5px 0 var(--shadow)}
+.icons{display:flex;align-items:flex-end;gap:18px;margin-bottom:16px}
+.icons img{border-radius:22%;display:block}
+.lock{display:flex;align-items:center;gap:20px}
+.word{font-family:Gluten,cursive;font-weight:900;letter-spacing:-.03em;line-height:.9}
+.mk.dk{display:none}
+html[data-mode="dark"] .mk.lt{display:none}
+html[data-mode="dark"] .mk.dk{display:block}
+.stage{border:2px dashed var(--line2);border-radius:18px;padding:26px;display:grid;place-items:center;margin-bottom:14px}
+</style></head><body><div class="wrap">
+<div class="bar"><span class="eyebrow">Year Strong · the mark</span><span class="mode"><span class="eyebrow" id="ml">Light</span><button id="mt" aria-label="Toggle dark mode"></button></span></div>
+<h1>Recoloured, eye removed.</h1>
+<p style="margin-top:8px">Your generated tiger, knocked off the navy and remapped to the brand. The lone eye glyph is gone. Three colour fields below — all 1024px, squircle-masked, ready for the App Store.</p>
+
+<h2>App icon</h2>
+<div class="grid">
+<div class="card"><div class="icons"><img src="../assets/logo/icon-pink.png" width="132" height="132" alt="Pink field icon"><img src="../assets/logo/icon-pink.png" width="76" height="76" alt=""><img src="../assets/logo/icon-pink.png" width="44" height="44" alt=""></div><h3>Pink field</h3><p class="note">Ink tiger on #FF2E93. Loudest on a home screen. The stripes start to fill in below ~60px.</p></div>
+<div class="card"><div class="icons"><img src="../assets/logo/icon-ink.png" width="132" height="132" alt="Ink field icon"><img src="../assets/logo/icon-ink.png" width="76" height="76" alt=""><img src="../assets/logo/icon-ink.png" width="44" height="44" alt=""></div><h3>Ink field <span style="font-family:Nunito;font-weight:700;font-size:12px;color:var(--pink-ink)">← my pick</span></h3><p class="note">Pink tiger on #1A1A18. Holds its shape smallest, and the pink reads as a signal rather than a shout.</p></div>
+<div class="card"><div class="icons"><img src="../assets/logo/icon-paper.png" width="132" height="132" alt="Paper field icon"><img src="../assets/logo/icon-paper.png" width="76" height="76" alt=""><img src="../assets/logo/icon-paper.png" width="44" height="44" alt=""></div><h3>Paper field</h3><p class="note">Ink tiger on #F7F5F0. Matches the app's light mode exactly. Weakest at small sizes — it disappears on a white wallpaper.</p></div>
+</div>
+
+<h2>Lockups</h2>
+<div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(400px,1fr))">
+<div class="card"><div class="stage"><div class="lock"><img class="mk lt" src="../assets/logo/mark-ink.png" width="120" alt=""><img class="mk dk" src="../assets/logo/mark-paper.png" width="120" alt=""><div><div class="word" style="font-size:44px">Year</div><div class="word" style="font-size:44px;color:var(--pink-ink)">Strong</div></div></div></div><h3>Horizontal</h3><p class="note">Mark left, stacked wordmark right. For headers, letterhead, the top of a PDF.</p></div>
+<div class="card"><div class="stage"><div style="text-align:center"><img class="mk lt" src="../assets/logo/mark-ink.png" width="150" alt=""><img class="mk dk" src="../assets/logo/mark-paper.png" width="150" alt="" style="margin:0 auto"><div class="word" style="font-size:38px;margin-top:6px">Year <span style="color:var(--pink-ink)">Strong</span></div></div></div><h3>Stacked</h3><p class="note">Mark over a single line. Splash screen, shirt, sticker.</p></div>
+</div>
+
+<h2>Files</h2>
+<div class="card">
+<p style="margin:0 0 10px"><code style="font-family:'Space Mono',monospace;font-size:14px">assets/logo/</code></p>
+<ul style="margin:0;padding-left:20px;display:grid;gap:6px;font-size:15px">
+<li><b>icon-pink.png</b> · <b>icon-ink.png</b> · <b>icon-paper.png</b> — 1024×1024, squircle-masked</li>
+<li><b>mark-ink.png</b> · <b>mark-pink.png</b> · <b>mark-paper.png</b> — 702×702, transparent background</li>
+</ul>
+<p class="note" style="margin-top:14px"><b>One caveat:</b> these are raster, recoloured from a JPEG — the edges carry a little softness from the original render and the stripes have a gradient baked in. Good enough for the app, a deck, and the App Store listing. Before anything printed or embroidered, get the tiger traced to vector and flatten the gradient to one flat pink.</p>
+</div>
+</div>
+<script>
+const r=document.documentElement,b=document.getElementById('mt'),l=document.getElementById('ml');
+const set=(m)=>{r.dataset.mode=m;l.textContent=m==='dark'?'Dark':'Light';try{localStorage.setItem('ys-mode',m)}catch(e){}};
+try{const s=localStorage.getItem('ys-mode');if(s)set(s)}catch(e){}
+b.addEventListener('click',()=>set(r.dataset.mode==='dark'?'light':'dark'));
+</script></body></html>

@@ -1,0 +1,88 @@
+/* ── Year Strong colour ────────────────────────────────────────────────
+   Three colours do everything. Pink = do it now. Sage = already happened.
+   Ink on near-white paper for everything else. Never pure #FFF or #000. */
+:root{
+  /* paper — warm-neutral, NOT cream. The brand reads clean, not vintage. */
+  --paper:#F7F5F0;
+  --card:#FCFBF9;
+  --chip:#EFEDE7;
+  --line:#CBC7BE;
+  --line-soft:#E2DFD8;
+
+  /* ink */
+  --ink:#1A1A18;
+  --ink-2:#5A564F;
+  --ink-3:#8A857C;
+
+  /* pink — the action colour */
+  --pink:#FF2E93;
+  --pink-ink:#C4156A;   /* text-safe pink, 4.9:1 on paper */
+  --pink-soft:#FFBFDC;
+  --pink-wash:#FFEBF4;
+
+  /* sage — the information colour */
+  --sage:#2F5D50;
+  --sage-mid:#4E8A76;
+  --sage-soft:#7FB39C;
+  --sage-wash:#E7EFEA;
+
+  /* ── semantic ──────────────────────────────────────────────────────── */
+  --surface-page:var(--paper);
+  --surface-card:var(--card);
+  --surface-sunken:var(--chip);
+  --surface-ref:var(--sage-wash);
+
+  --text-body:var(--ink-2);
+  --text-strong:var(--ink);
+  --text-muted:var(--ink-3);
+  --text-accent:var(--pink-ink);
+  --text-ref:var(--sage);
+  --text-on-accent:#1A1A18;
+
+  --border-strong:var(--ink);
+  --border-soft:var(--line-soft);
+  --border-ref:var(--sage);
+
+  --cta-bg:var(--pink);
+  --cta-text:#1A1A18;
+
+  --state-done:var(--sage);
+  --state-done-wash:var(--sage-wash);
+  --state-active:var(--pink);
+  --state-warn:#B4741A;
+  --state-warn-wash:#FBEFD9;
+
+  --focus-ring:var(--pink-ink);
+  --ios-veil:rgba(26,26,24,.42);
+}
+[data-mode="dark"]{
+  --paper:#141413;
+  --card:#1E1E1C;
+  --chip:#2A2A27;
+  --line:#454540;
+  --line-soft:#333330;
+
+  --ink:#F5F4F0;
+  --ink-2:#B3AFA6;
+  --ink-3:#837E76;
+
+  --pink:#FF3D9B;
+  --pink-ink:#FF8CC0;
+  --pink-soft:#FFBFDC;
+  --pink-wash:#2B1A22;
+
+  --sage:#4E8A76;
+  --sage-mid:#4E8A76;
+  --sage-soft:#8FCDB2;
+  --sage-wash:#1F2C27;
+
+  --text-ref:var(--sage-soft);
+  --border-ref:var(--sage-mid);
+  /* dark CTA is soft pink — hot pink at 6am is too much */
+  --cta-bg:var(--pink-soft);
+  --cta-text:#1A1A18;
+  --state-warn:#E0AE55;
+  --state-warn-wash:#2E2517;
+  --focus-ring:var(--pink-soft);
+  --ios-veil:rgba(0,0,0,.55);
+}

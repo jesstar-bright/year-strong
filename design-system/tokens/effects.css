@@ -1,0 +1,27 @@
+:root{
+  --radius-xs:6px;
+  --radius-sm:10px;
+  --radius-md:16px;
+  --radius-lg:20px;
+  --radius-xl:30px;
+  --radius-sheet:22px;        /* iOS sheet corner */
+  --radius-pill:999px;
+  --radius-squircle:23.5%;    /* app-icon mask */
+
+  --stroke-hair:1.5px;
+  --stroke-pen:2.5px;         /* the default: every card, button and rule */
+  --stroke-rule:2px;
+
+  --shadow-ink:rgba(26,26,24,1);
+  --shadow-sticker-sm:2px 3px 0 var(--shadow-ink);
+  --shadow-sticker:4px 5px 0 var(--shadow-ink);
+  --shadow-sticker-lg:6px 8px 0 var(--shadow-ink);
+  --shadow-sheet:0 -8px 32px -12px rgba(26,26,24,.30);
+  --press-shift:3px;          /* @kind spacing */
+
+  --blur-veil:blur(12px);     /* @kind other */
+}
+[data-mode="dark"]{
+  --shadow-ink:rgba(245,244,240,.9);
+  --shadow-sheet:0 -8px 32px -8px rgba(0,0,0,.7);
+}

@@ -1,0 +1,114 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Year Strong — B4 Warm Loud · Food</title><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gluten:wght@800;900&family=Caveat:wght@600;700&family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,400&family=Space+Mono:wght@400;700&display=swap">
+<style>
+:root{--paper:#FFF8EE;--card:#FFFFFF;--wash:#FDF0DC;--ink:#2B211B;--ink2:#7A675B;--lead:#F2622B;--ref:#2F5D50;--good:#FFC93C;--warn:#FF7EA8;--line:#E7D9C4}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:400 17px/1.62 Nunito,sans-serif}
+.wrap{max-width:920px;margin:0 auto;padding:40px 32px 90px}
+.eyebrow{font:700 11px/1 'Space Mono',monospace;letter-spacing:.22em;text-transform:uppercase;color:var(--ink2)}
+.disp{font-family:Gluten,cursive;font-weight:900;letter-spacing:-.02em;line-height:.92}
+.hand{font-family:Caveat,cursive;font-weight:700;line-height:1.2;color:var(--ink2)}
+.card{background:var(--card);border:2.5px solid var(--ink);border-radius:22px;padding:24px;}
+.soft{background:var(--wash);border:2.5px solid var(--line);border-radius:22px;padding:22px}
+.stick{display:inline-flex;align-items:center;padding:7px 15px;border:2.5px solid var(--ink);border-radius:999px;box-shadow:3px 4px 0 var(--ink);font-family:Gluten,cursive;font-weight:800;font-size:13px}
+.btn{border:2.5px solid var(--ink);border-radius:999px;background:var(--lead);color:#FFF8EE;font-family:Gluten,cursive;font-weight:800;cursor:pointer;box-shadow:3px 4px 0 var(--ink)}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{font:700 12px/1 Nunito,sans-serif;padding:8px 14px;border:2.5px solid var(--ink);border-radius:999px;background:transparent;cursor:pointer}
+.chip[data-on]{background:var(--lead);color:#FFF8EE;box-shadow:2px 3px 0 var(--ink)}
+.meal{display:grid;grid-template-columns:92px 1fr;gap:18px;padding:20px 0;border-bottom:2.5px solid var(--line)}
+.opt{display:flex;gap:10px;padding:5px 0}
+.opt b{flex:none;font:700 12px/1.5 'Space Mono',monospace;color:var(--lead)}
+.macros{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.macro{background:var(--wash);border:2.5px solid var(--line);border-radius:13px;padding:12px 14px}
+.macro span{display:block;font:700 10px/1 'Space Mono',monospace;letter-spacing:.16em;text-transform:uppercase;color:var(--ink2)}
+.macro b{font-family:Gluten,cursive;font-weight:900;font-size:26px;line-height:1.15;letter-spacing:-.01em}
+ul.ing{list-style:none;padding:0;margin:0;display:grid;gap:9px}
+ul.ing li{display:flex;gap:11px;align-items:flex-start}
+ul.ing li::before{content:"";flex:none;width:16px;height:16px;margin-top:6px;border:2.5px solid var(--ink);border-radius:5px}
+ol.met{padding-left:0;margin:0;list-style:none;counter-reset:s;display:grid;gap:13px}
+ol.met li{display:flex;gap:13px;counter-increment:s}
+ol.met li::before{content:counter(s);flex:none;width:26px;height:26px;border:2.5px solid var(--ink);border-radius:999px;display:grid;place-items:center;font:700 12px/1 'Space Mono',monospace;background:var(--wash)}
+h3.sub{font-family:Gluten,cursive;font-weight:900;font-size:21px;letter-spacing:-.01em;margin:0 0 12px}
+.note{border-left:2.5px solid var(--ref);padding:2px 0 2px 16px;margin:20px 0 0;font-size:16px}
+.tabbar{position:sticky;top:0;z-index:5;display:flex;gap:6px;padding:12px 0;background:linear-gradient(var(--paper) 72%,transparent);margin-bottom:6px}
+.tab{font:800 13px/1 Nunito,sans-serif;padding:10px 18px;border:2.5px solid transparent;border-radius:999px;cursor:pointer;color:var(--ink2)}
+.tab[data-on]{background:var(--card);border-color:var(--ink);color:var(--ink);}
+</style></head><body><div class="wrap">
+<div class="tabbar"><span class="tab">Today</span><span class="tab" data-on>Food</span><span class="tab">Recipes</span><span class="tab">Log</span><span class="tab">Notes</span></div>
+
+<span class="eyebrow">B4 Warm Loud · Daily nutrition · rev 29 Aug 2026</span>
+<h1 class="disp" style="font-size:52px;margin:12px 0 6px">Eat for healing.<br><span style="color:var(--lead)">Protein is the rule.</span></h1>
+<p class="hand" style="font-size:25px;margin:0 0 20px">now fat quality and iron are too</p>
+<p style="max-width:64ch;margin:0 0 26px">Built around your tolerated foods: salmon, shrimp, turkey, lean beef, white fish, rice, potatoes, oats, Truvani. No cow whey, no tomatoes, no wheat, no nuts, no soy.</p>
+
+<div class="macros" style="margin-bottom:30px">
+<div class="macro"><span>Protein</span><b>120 g</b></div>
+<div class="macro"><span>Meals</span><b>3 × 40</b></div>
+<div class="macro"><span>Plate order</span><b>Starch last</b></div>
+<div class="macro"><span>After dinner</span><b>Walk 10</b></div>
+</div>
+
+<div class="chips" style="margin-bottom:24px"><button class="chip" data-on>All</button><button class="chip">10 min</button><button class="chip">High iron</button><button class="chip">Breakfast</button><button class="chip">Lunch</button><button class="chip">Dinner</button><button class="chip">Rescue</button></div>
+
+<div class="card" style="padding-top:4px;padding-bottom:4px">
+<div class="meal"><div><div class="disp" style="font-size:20px">07:30</div><span class="eyebrow">40 g · iron</span></div>
+<div><b style="font-size:19px">Turkey hash</b> <i style="color:var(--ink2)">· salmon hash · turkey bowl · warm oats</i>
+<div style="margin-top:8px"><div class="opt"><b>A</b><span>Turkey, spinach &amp; red pepper hash with pepitas</span></div><div class="opt"><b>B</b><span>Salmon + sweet potato hash with spinach</span></div><div class="opt"><b>C</b><span>Ground turkey + rice + zucchini bowl</span></div></div>
+<p class="hand" style="font-size:21px;margin:8px 0 0">coffee after this meal, not with it</p></div></div>
+<div class="meal"><div><div class="disp" style="font-size:20px">12:30</div><span class="eyebrow">40 g</span></div>
+<div><b style="font-size:19px">Steak &amp; pepper bowl</b> <i style="color:var(--ink2)">· salmon · shrimp · wraps</i>
+<div style="margin-top:8px"><div class="opt"><b>A</b><span>Monday steak &amp; pepper bowl, from Sunday's batch</span></div><div class="opt"><b>B</b><span>Lemon-dill salmon, smashed potatoes, spinach</span></div><div class="opt"><b>C</b><span>Garlic shrimp with rice, peppers, zucchini</span></div></div></div></div>
+<div class="meal" style="border:none"><div><div class="disp" style="font-size:20px">19:00</div><span class="eyebrow">40 g</span></div>
+<div><b style="font-size:19px">Sunday batch skillet</b> <i style="color:var(--ink2)">· steak · ginger shrimp · meatballs</i>
+<div style="margin-top:8px"><div class="opt"><b>A</b><span>Sunday steak &amp; pepper batch skillet — cook triple</span></div><div class="opt"><b>B</b><span>Sirloin + roasted baby potatoes + garlicky greens</span></div></div>
+<p class="hand" style="font-size:21px;margin:8px 0 0">then walk ten minutes — this is the meal where it pays most</p></div></div>
+</div>
+
+<hr style="border:0;border-top:2.5px solid var(--line);margin:44px 0">
+
+<span class="eyebrow">Recipe · B1 · Monday, from Sunday's steak</span>
+<h2 class="disp" style="font-size:40px;margin:12px 0 8px">Steak &amp; eggs with charred<br>red pepper chimichurri</h2>
+<div style="display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-bottom:18px">
+<span class="eyebrow">07:30 · 12 min · serves 1 · one pan</span>
+<span class="stick" style="background:var(--good)">high iron</span><span class="stick" style="background:var(--warn)">10 min</span>
+</div>
+<p style="max-width:64ch">The steak is already cooked and sitting in the fridge, so this is a reheat and two eggs. Haem iron from beef plus the iron in the yolks, landing next to a whole charred red pepper — 150&nbsp;mg of vitamin C in the same pan. It is the highest-absorption breakfast in the file and it takes twelve minutes.</p>
+
+<div class="macros" style="margin:22px 0">
+<div class="macro"><span>Protein</span><b>48 g</b></div><div class="macro"><span>Calories</span><b>610</b></div><div class="macro"><span>Carbs</span><b>38 g</b></div><div class="macro"><span>Fat</span><b>30 g</b></div>
+</div>
+<div class="macros" style="margin:0 0 26px">
+<div class="macro"><span>Effort</span><b>Low</b></div><div class="macro" style="background:#FFE9D6"><span>Iron</span><b>5.1 mg</b></div><div class="macro" style="background:#FFE9D6"><span>Vit C</span><b>170 mg</b></div><div class="macro"><span>Fibre</span><b>7 g</b></div>
+</div>
+
+<div class="soft" style="margin-bottom:16px"><h3 class="sub">Batch chain · consumes</h3><p style="margin:0;max-width:62ch">Dinner D1's steak <i>and</i> its potatoes. Cook 1&nbsp;lb sirloin Sunday and boil extra potatoes; 4&nbsp;oz steak plus a handful of potatoes come here Monday morning, and the last 4&nbsp;oz goes to Lunch L1.</p></div>
+<div class="soft" style="background:#FFE9D6;border-color:var(--ref);margin-bottom:30px"><h3 class="sub">Iron rule</h3><p style="margin:0;max-width:62ch">Egg iron is non-haem and yolk phosvitin binds it hard, so the pepper is the working ingredient, not a garnish. Coffee <i>before</i> this meal is free; coffee within an hour <i>after</i> it costs you ~39%.</p><p style="margin:8px 0 0;font-size:13px;color:var(--ink2)"><i>Morck, Lynch &amp; Cook 1983, AJCN 37:416</i></p></div>
+
+<div style="display:grid;grid-template-columns:1fr 1.25fr;gap:34px;align-items:start">
+<div><h3 class="sub">Ingredients</h3>
+<ul class="ing">
+<li>4 oz cooked sirloin, sliced thin across the grain</li>
+<li>2 large eggs</li>
+<li>1 whole red bell pepper, quartered <i style="color:var(--ink2)">~150 mg vit C</i></li>
+<li>¼ cup flat-leaf parsley, chopped fine</li>
+<li>1 garlic clove, minced</li>
+<li>2 tsp olive oil + 1 tsp for the pan</li>
+<li>1 tbsp red wine vinegar, chilli flakes, salt</li>
+<li>150 g cooled boiled potatoes, halved</li>
+</ul></div>
+<div><h3 class="sub">Method</h3>
+<ol class="met">
+<li>Dry skillet on high. Char the pepper quarters skin-down 4 min until blackened in patches. Pull out and slice.</li>
+<li>Chimichurri: parsley, garlic, vinegar, olive oil, chilli, salt. Stir in a mug. Thirty seconds.</li>
+<li>Same pan, 1 tsp oil, medium-high. Potatoes cut-side down, 4 min undisturbed, until they take colour.</li>
+<li>Lay the sliced steak in for 45 seconds a side — you are warming it, not cooking it again.</li>
+<li>Push aside, crack the eggs in, lid on 2 min for set whites and runny yolks.</li>
+<li>Plate: peppers, steak, eggs. Chimichurri over everything.</li>
+</ol>
+<div class="note"><b>Why the vinegar earns its place.</b> Vinegar with a carbohydrate meal lowers the glucose and insulin response — pooled standardised effects of −0.60 and −1.30. Honest limit: it blunts the spike, it does not move fasting insulin. Here the acid is already in the sauce, so it is free.</div>
+</div></div>
+
+<div style="display:flex;gap:12px;margin-top:34px;align-items:center">
+<button class="btn" style="height:52px;padding:0 30px;font-size:17px">Log this meal</button>
+<button class="chip" style="height:52px;padding:0 24px;font-size:14px">Add to Monday</button>
+<span class="hand" style="font-size:22px;margin-left:6px">↖ two taps and it's done</span>
+</div>
+</div></body></html>

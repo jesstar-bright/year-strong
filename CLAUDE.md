@@ -39,7 +39,30 @@ Panels carry `data-dest` and optionally `data-sub`; `ledgerNav` toggles
 and G (Sunday) are recovery/yoga** and carry `data-mode="recovery"`, which
 suppresses progressive-overload advice and the rest timer.
 
+## The design system
+
+A full brand system lives in `design-system/` (added 2026-08-30). Read
+`design-system/readme.md` before any UI or asset work — it is the index and
+carries the voice rules. There is also a `year-strong-design` skill that points
+at it.
+
+- `tokens/*.css` — colour, type, spacing, motion. `styles.css` imports all of them.
+- `components/components.css` — every `.ys-*` class, works on **plain markup**.
+- `ui_kits/yearstrong/` — reference renders of every screen.
+- `guidelines/*.card.html` — the reasoning behind each token.
+
+**Ignore the `.jsx` files.** They are a future-React reference and export to a
+browser global; this app is one static HTML file with no build step.
+
+**This system supersedes "The Ledger" below — the migration has not happened
+yet.** Until it does, the repo carries two design languages: `index.html` is
+still Ledger (Zilla Slab, brick red), while `design-system/` is the new brand
+(warm paper, Gluten, pink). Do not mix them in one screen.
+
 ## The design language: "The Ledger"
+
+**Superseded by the design system above — still live in `index.html`.**
+
 
 A hand-kept training ledger read like a game HUD. Deliberately NOT the
 cream + serif + terracotta look, which is a documented AI-design default.
