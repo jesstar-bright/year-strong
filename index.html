@@ -684,6 +684,58 @@ html.lg-kbd .lg-tabbar { display:none; }
 #exportLog, #clearLog, #connectSheets, #disconnectSheets { min-height:44px !important; }
 .setup-steps ol li a { display:inline-block; min-height:44px; line-height:44px; }
 
+
+/* ══ LEDGER · the food register ═══════════════════════════
+   .meal was never in the propagation block's shadow-removal list, so it still
+   floats as a card. These make meals ruled rows instead. */
+.lg-meal { padding:15px 0; border-bottom:1px solid var(--lg-rule); }
+.lg-meal:last-child { border-bottom:none; }
+.lg-meal-hd { display:flex; justify-content:space-between; align-items:baseline; gap:10px;
+  font-family:'IBM Plex Mono',monospace; font-size:11px; font-weight:500;
+  letter-spacing:.09em; text-transform:uppercase; color:var(--lg-pencil); }
+.lg-meal-hd b { color:var(--lg-ink); font-weight:600; }
+.lg-meal-name { font-family:'Zilla Slab',Georgia,serif; font-size:19px; font-weight:600;
+  line-height:1.2; margin:7px 0 0; color:var(--lg-ink); }
+.lg-meal-name em { font-style:normal; color:var(--lg-pencil); font-weight:400; }
+.lg-opt { margin-top:9px; font-size:14px; line-height:1.7; color:var(--ink-2); }
+.lg-opt b { font-family:'IBM Plex Mono',monospace; font-size:11.5px; letter-spacing:.05em;
+  text-transform:uppercase; color:var(--lg-ink); font-weight:600; }
+.lg-foot { margin-top:9px; font-family:'IBM Plex Mono',monospace; font-size:11.5px;
+  line-height:1.55; color:var(--lg-pencil); }
+
+.lg-reg { width:100%; border-collapse:collapse; font-variant-numeric:tabular-nums; }
+.lg-reg th { font-family:'IBM Plex Mono',monospace; font-size:10.5px; font-weight:500;
+  letter-spacing:.09em; text-transform:uppercase; color:var(--lg-pencil);
+  text-align:left; padding:0 0 6px; border-bottom:1px solid var(--lg-ink); }
+.lg-reg th:last-child { text-align:right; }
+.lg-reg td { font-size:14.5px; padding:11px 0; border-bottom:1px solid var(--lg-rule);
+  color:var(--lg-ink); vertical-align:top; line-height:1.4; }
+.lg-reg td:last-child { text-align:right; white-space:nowrap; font-family:'IBM Plex Mono',monospace;
+  font-size:12.5px; color:var(--lg-pencil); padding-left:12px; }
+.lg-reg td em { display:block; font-style:normal; font-size:12px; color:var(--lg-pencil); margin-top:3px; }
+.lg-reg tr:last-child td { border-bottom:none; }
+
+
+/* ══ LEDGER · recipes panel ═══════════════════════════════ */
+/* --amber predates the repaint and was still a warm ochre; recipe tags read
+   it as text at 2.62:1. Repointed to a ledger-legible ink. */
+:root { --amber: #6B5A17; --amber-soft: #EFEDE3; }
+.recipe-tag { border-radius:0; font-family:'IBM Plex Mono',monospace; font-size:10.5px;
+  letter-spacing:.09em; font-weight:600; padding:4px 8px; }
+.recipe-tag.fish  { color:#5A4C13; background:var(--amber-soft); }
+.recipe-tag.meat  { color:var(--accent-text); background:var(--accent-soft); }
+.recipe-tag.plant { color:var(--green-text); background:var(--green-soft); }
+
+/* filter pills become ruled register tabs, matching .lg-days and .lg-subtab */
+.recipe-filter { border-bottom:1px solid var(--lg-rule); gap:0; }
+.recipe-filter-pill { flex:0 0 auto; border-radius:0; background:none; border:none;
+  border-bottom:2px solid transparent; margin-bottom:-1px; min-height:46px; padding:0 14px;
+  font-family:'IBM Plex Mono',monospace; font-size:11.5px; font-weight:500;
+  letter-spacing:.06em; text-transform:uppercase; color:var(--lg-pencil); }
+.recipe-filter-pill:hover { color:var(--lg-ink); border-color:transparent; }
+.recipe-filter-pill.active { background:none; color:var(--lg-ink); font-weight:600;
+  border-bottom-color:var(--lg-ink); }
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
 }
@@ -725,7 +777,7 @@ html.lg-kbd .lg-tabbar { display:none; }
       <h2>Show up five times a week. <em>Build the patterns.</em></h2>
       <p class="lede">Five strength days, Mon–Fri. Weekends are tennis, golf, hiking — already moving. The deficit is mostly handled by the medication; your job is to lift consistently, hit protein, and log every set. By week 12: ~10 lb down, stronger across the board, building actual hip and core control.</p>
       <div class="phase-stats">
-        <div class="phase-stat"><div class="label">Protein</div><div class="value">120–130 g/day</div></div>
+        <div class="phase-stat"><div class="label">Protein</div><div class="value">120 g/day</div></div>
         <div class="phase-stat"><div class="label">Calories</div><div class="value">soft target</div></div>
         <div class="phase-stat"><div class="label">Lift Days</div><div class="value">5×/week M–F</div></div>
         <div class="phase-stat"><div class="label">Weekends</div><div class="value">Tennis · golf · hike</div></div>
@@ -1701,7 +1753,7 @@ html.lg-kbd .lg-tabbar { display:none; }
       <h2>Push the cut. <em>Strength climbs.</em></h2>
       <p class="lede">You weigh ~150, the split is automatic, and lifts have climbed 20–30% since Phase 1. Tirzepatide dose may have escalated. Time to add real progressive overload and a HIIT session on weekends if energy allows. By week 24: ~140 lb, 1 strict pull-up.</p>
       <div class="phase-stats">
-        <div class="phase-stat"><div class="label">Protein</div><div class="value">120–130 g/day</div></div>
+        <div class="phase-stat"><div class="label">Protein</div><div class="value">120 g/day</div></div>
         <div class="phase-stat"><div class="label">Lift Days</div><div class="value">5×/week</div></div>
         <div class="phase-stat"><div class="label">Weekend cardio</div><div class="value">+1 HIIT</div></div>
         <div class="phase-stat"><div class="label">Pull-up</div><div class="value">band-assisted</div></div>
@@ -1784,749 +1836,857 @@ html.lg-kbd .lg-tabbar { display:none; }
 <!-- ============ NUTRITION ============ -->
 <div class="phase-panel" data-phase="5" data-dest="food" data-sub="nutrition">
   <section>
-    <div class="phase-card" style="--accent: var(--sage);">
-      <div class="month-range" style="color: var(--sage-dark);">DAILY NUTRITION · HISTAMINE-FRIENDLY</div>
-      <h2>Eat for healing. <em>Protein is the rule.</em></h2>
-      <p class="lede">Built around your tolerated foods: fresh salmon, shrimp, turkey, lean beef, white fish, white rice, potatoes, sweet potatoes, oats, and Truvani protein. No eggs, no cow whey, no tomatoes, no fermented foods, no wheat, no tree nuts, no legumes. Per your medical consultant: 120–130 g protein daily.</p>
+    <div class="phase-card">
+      <div class="month-range">DAILY NUTRITION · REVISED 29 AUG 2026</div>
+      <h2>Eat for healing. <em>Protein is the rule. Now fat quality and iron are too.</em></h2>
+      <p class="lede">Built around your tolerated foods: fresh salmon, shrimp, turkey, lean beef, white fish, white rice, potatoes, sweet potatoes, oats, and Truvani protein. No cow whey, no tomatoes, no fermented foods, no wheat, no nuts, no soy. Four things changed at your last appointment: protein is a flat 120 g, fats swap from saturated to unsaturated, iron gets a real push, and insulin gets managed by how you build a plate.</p>
+      <div class="phase-stats">
+        <div class="phase-stat"><div class="label">Protein</div><div class="value">120 g/day</div></div>
+        <div class="phase-stat"><div class="label">Meals</div><div class="value">3 × 40 g</div></div>
+        <div class="phase-stat"><div class="label">Plate order</div><div class="value">Starch last</div></div>
+        <div class="phase-stat"><div class="label">After dinner</div><div class="value">Walk 10 min</div></div>
+      </div>
     </div>
   </section>
 
   <section>
+    <div class="note-box">
+      <div class="note-label">What's working</div>
+      <div class="note-text">Inflammation has come down since you pulled the food-sensitivity items. That's the elimination doing its job — not a coincidence, and not finished. Keep the removals in place.<br><br>There's a second thing quietly working in your favour. Carrying less weight lowers a hormone called hepcidin, and hepcidin is the switch that blocks iron absorption in your gut. As it falls, your body gets better at pulling iron out of food. That's exactly why the plan below is more red meat and better pairing rather than a pill.</div>
+    </div>
+
     <div class="med-box">
-      <div class="note-label">Tirzepatide + protein</div>
-      <div class="note-text">The medication will lower appetite below your calorie need on some days. Don't chase calories — chase the 120–130g protein floor and let calories land. On low-appetite days: lean on the Truvani shake, small frequent salmon or shrimp portions, and oat-based smoothies. Hydration: 2.5 L minimum. Sodium adequate (the meds dehydrate).</div>
+      <div class="note-label">Tirzepatide · protein · iron</div>
+      <div class="note-text">The medication will lower appetite below your calorie need on some days. Don't chase calories — chase the 120 g protein floor and let calories land. Eating less total food also means eating less total iron; GLP-1 therapy cuts energy intake 16–39%, and that is the real reason iron needs attention now.<br><br>Worth knowing what isn't established: the tirzepatide trials never measured iron at all. Nobody can tell you the drug depletes it. Reduced intake is the exposure, not the drug.<br><br>Low-appetite days: lean on the Truvani shake, small salmon or shrimp portions, oat smoothies. Hydration 2.5 L minimum. Sodium adequate.</div>
     </div>
   </section>
 
   <section>
-    <div class="section-label">The 4-Meal Day · 120–130g protein</div>
+    <div class="section-label">Back in · one at a time</div>
+    <div class="note-box">
+      <div class="note-label">Eggs, chickpeas, black beans, lentils</div>
+      <div class="note-text">Your doctor asked for more eggs and legumes for the iron, and you've decided to bring them back. Eggs do double duty — they're the cheapest way to reach 40 g at breakfast and they carry iron.<br><br><strong>Still out: kidney beans.</strong> And nuts stay out entirely — pepitas and sunflower seed butter remain the substitutes. Soy is out too, so no tofu or edamame.<br><br>Because your inflammation came down while these were removed, reintroduce <em>one food at a time with a few days between</em>. If something flares, that gap is the only thing that tells you which food did it. Add eggs first — they're the biggest protein win.</div>
+    </div>
+  </section>
 
-    <div class="meal">
-      <div class="meal-time">07:30 · BREAKFAST</div>
-      <div class="meal-title">Greek yogurt bowl <em>· salmon hash · turkey bowl · or warm oats</em></div>
-      <div class="meal-protein">32–41 g protein</div>
-      <div class="meal-options"><strong>Option A:</strong> Greek lactose-free yogurt + pumpkin seeds + berries + turkey sausage<br><strong>Option B:</strong> Salmon + sweet potato hash with spinach (savory breakfast)<br><strong>Option C:</strong> Ground turkey + rice + zucchini breakfast bowl<br><strong>Option D:</strong> Truvani protein oats + blueberries (for cold mornings, smaller portion)<br><em style="display:block; margin-top:6px; color:var(--ink-3); font-size:11px;">Full recipes in Recipes tab →</em></div>
+  <section>
+    <div class="section-label">The 3-Meal Day · 120 g</div>
+
+    <div class="lg-meal">
+      <div class="lg-meal-hd"><span>07:30 · Breakfast</span><b>40 g · iron meal</b></div>
+      <div class="lg-meal-name">Turkey hash <em>· salmon hash · turkey bowl · warm oats</em></div>
+      <div class="lg-opt"><b>A</b> Turkey, spinach &amp; red pepper hash with pepitas — the iron breakfast<br><b>B</b> Salmon + sweet potato hash with spinach<br><b>C</b> Ground turkey + rice + zucchini bowl<br><b>D</b> Truvani protein oats + blueberries, smaller portion</div>
+      <div class="lg-foot">Coffee after this meal, not with it. See the iron rules.</div>
     </div>
 
-    <div class="meal">
-      <div class="meal-time">12:30 · LUNCH</div>
-      <div class="meal-title">Lemon-dill salmon <em>· shrimp · turkey · tofu · or wraps · or shake-only</em></div>
-      <div class="meal-protein">36–60+ g protein</div>
-      <div class="meal-options"><strong>Option A:</strong> Lemon-dill salmon, smashed potatoes, sautéed spinach<br><strong>Option B:</strong> Garlic shrimp with rice + bell peppers + zucchini<br><strong>Option C:</strong> Turkey patty + cucumber salad + sweet potato<br><strong>Option D:</strong> Turkey, cucumber &amp; dill wrap on cassava (office-friendly)<br><strong>Option E:</strong> Lemon-dill salmon &amp; avocado wrap (built from last night's salmon)<br><strong>Option F:</strong> Garlic-ginger tofu fajita wrap (the plant day)<br><strong>Option G:</strong> Double-shake lunch — Truvani + Equip Beef, spaced 30 min (for low-appetite days, ~64g protein liquid)<br><em style="display:block; margin-top:6px; color:var(--ink-3); font-size:11px;">Full recipes in Recipes tab →</em></div>
+    <div class="lg-meal">
+      <div class="lg-meal-hd"><span>12:30 · Lunch</span><b>40 g</b></div>
+      <div class="lg-meal-name">Steak &amp; pepper bowl <em>· salmon · shrimp · turkey · wraps</em></div>
+      <div class="lg-opt"><b>A</b> Monday steak &amp; pepper bowl, built from Sunday's batch<br><b>B</b> Lemon-dill salmon, smashed potatoes, sautéed spinach<br><b>C</b> Garlic shrimp with rice + bell peppers + zucchini<br><b>D</b> Turkey, cucumber &amp; dill wrap on cassava<br><b>E</b> Salmon &amp; avocado wrap, from last night's dinner<br><b>F</b> Double-shake lunch, spaced 30 min — low-appetite days</div>
+      <div class="lg-foot">Full method → Recipes</div>
     </div>
 
-    <div class="meal">
-      <div class="meal-time">16:00 · SNACK</div>
-      <div class="meal-title">Truvani shake <em>or beef protein</em></div>
-      <div class="meal-protein">22–34 g protein</div>
-      <div class="meal-options"><strong>Option A:</strong> Truvani + Fairlife lactose-free + ½ frozen banana + cinnamon<br><strong>Option B:</strong> Equip Beef Protein shake + Fairlife lactose-free milk<br><strong>Option C:</strong> Apple + sunflower seed butter + collagen water<br><em style="display:block; margin-top:6px; color:var(--ink-3); font-size:11px;">Fairlife or Kirkland lactose-free milk for the protein and calcium without the lactose.</em></div>
+    <div class="lg-meal">
+      <div class="lg-meal-hd"><span>19:00 · Dinner</span><b>40 g</b></div>
+      <div class="lg-meal-name">Sunday batch skillet <em>· steak · ginger shrimp · turkey meatballs</em></div>
+      <div class="lg-opt"><b>A</b> Sunday steak &amp; pepper batch skillet — cook triple, this is the week's engine<br><b>B</b> Sirloin + roasted baby potatoes + garlicky greens<br><b>C</b> Ginger shrimp stir-fry with rice + peppers + carrots<br><b>D</b> Turkey meatballs over rice with sautéed spinach</div>
+      <div class="lg-foot">Then walk ten minutes. This is the meal where it pays most.</div>
     </div>
 
-    <div class="meal">
-      <div class="meal-time">19:30 · DINNER</div>
-      <div class="meal-title">Pan-seared steak <em>· ginger shrimp · or turkey meatballs</em></div>
-      <div class="meal-protein">38–42 g protein</div>
-      <div class="meal-options"><strong>Option A:</strong> Sirloin steak + roasted baby potatoes + garlicky greens<br><strong>Option B:</strong> Ginger shrimp stir-fry with rice + bell peppers + carrots<br><strong>Option C:</strong> Turkey meatballs over rice with sautéed spinach<br><em style="display:block; margin-top:6px; color:var(--ink-3); font-size:11px;">Full recipes in Recipes tab →</em></div>
+    <div class="lg-meal">
+      <div class="lg-meal-hd"><span>Any time · Insurance</span><b>22–34 g</b></div>
+      <div class="lg-meal-name">Truvani shake <em>— only when a meal didn't happen</em></div>
+      <div class="lg-opt">You eat three meals and you don't snack. This isn't a fourth meal — it's what closes the gap on a day the medication took your appetite and a real meal never landed.<br><b>A</b> Truvani + lactose-free milk + ½ frozen banana + cinnamon<br><b>B</b> Equip Beef Protein + lactose-free milk</div>
+      <div class="lg-foot">Take milk-based shakes away from your iron meals — calcium and iron compete at the same sitting.</div>
     </div>
+  </section>
+
+  <section>
+    <div class="section-label">The plate order · for the insulin</div>
+    <div class="note-box">
+      <div class="note-label">Same food. Different order.</div>
+      <div class="note-text">Your insulin is still high. The cheapest lever you have doesn't change what's on the plate, only the order. <strong>Vegetables and protein first. Starch last.</strong> Ten minutes between them if the meal allows; if not, just make the rice the last thing your fork touches.<br><br>In 16 adults with type 2 diabetes eating an identical meal three ways, carbohydrate-last produced a 53% lower glucose rise and about 25% less insulin than carbohydrate-first (Shukla, <em>BMJ Open Diab Res Care</em> 2017).<br><br>Two honest caveats. When the same group tested it free-living for 16 weeks, HbA1c didn't move. And part of how it works is by slowing stomach emptying — which is exactly what tirzepatide already does, so you may be getting less of this than someone not on the medication.<br><br>Do it anyway, for a different reason: eating the protein first is how you actually finish it on a day your appetite is gone. Protein you finish is muscle you keep.</div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-label">The ten-minute walk</div>
+    <div class="principle"><div class="principle-num">01.</div><div class="principle-body"><h4>After dinner, every night</h4><p>In 41 adults with type 2 diabetes, ten minutes of walking after each meal lowered post-meal glucose about 12% versus the same total walking done once a day — and about 22% after the evening meal, the carbohydrate-heaviest one (Reynolds, <em>Diabetologia</em> 2016). The overall figure only just cleared significance; the dinner result is the solid one. Which is convenient, because dinner is the easy one to build a habit around.</p></div></div>
+    <div class="principle"><div class="principle-num">02.</div><div class="principle-body"><h4>Two minutes beats zero</h4><p>Short light walking breaks through a sitting day lower both glucose and insulin, and beat standing on both (Buffey, <em>Sports Medicine</em> 2022). The trials cluster around 2 minutes every 20, or 5 every 30. Quality was rated fair-to-good and the authors flagged possible publication bias — so treat the direction as solid and the exact number as soft.</p></div></div>
+    <div class="principle"><div class="principle-num">03.</div><div class="principle-body"><h4>The desk version</h4><p>Three minutes of half-squats, calf raises and glute squeezes every half hour matched walking on every glucose and insulin measure, and beat it on triglycerides (Dempsey, <em>Diabetes Care</em> 2016). For meeting days when a walk isn't happening.</p></div></div>
+  </section>
+
+  <section>
+    <div class="section-label">Fats · swap the source, not the amount</div>
+    <div class="principle"><div class="principle-num">→</div><div class="principle-body"><h4>In: avocado, olive oil, omega oils</h4><p>Olive oil is already your default cooking fat — keep it there. Half an avocado on the wrap, mashed on the plate, sliced over the hash. Fatty fish twice a week carries the omega-3s in food form, and salmon is already in the rotation.</p></div></div>
+    <div class="principle"><div class="principle-num">→</div><div class="principle-body"><h4>Out: saturated and trans</h4><p>Saturated is the real target — fatty cuts, cream, butter, and most of what makes packaged food taste the way it does. Trans fat shows up on a label as "partially hydrogenated"; industrial trans fat has been largely out of the US supply since 2018, so this one is a label check, not a daily worry.</p></div></div>
+    <div class="principle"><div class="principle-num">→</div><div class="principle-body"><h4>The three to actually reduce</h4><p>Fast food, packaged food, ice cream. Named directly at your appointment. This is the hard one, because fast food wins when a meal feels boring or effortful. The fix isn't willpower — it's Sunday's batch skillet already cooked in the fridge.</p></div></div>
+  </section>
+
+  <section>
+    <div class="section-label">Iron · pair it or lose it</div>
+    <div class="note-box">
+      <div class="note-label">Why pairing beats portions</div>
+      <div class="note-text">Iron comes in two forms that behave completely differently. The haem iron in red meat absorbs at roughly 15–35% and barely cares what else is on the plate. The non-haem iron in spinach and beans absorbs at roughly 2–20%, and that range is decided almost entirely by what you eat and drink alongside it.<br><br>Which means red meat is doing most of the real work, and the plant sources need help to count for anything.</div>
+    </div>
+
+    <table class="lg-reg">
+      <thead><tr><th>Pair with</th><th>Effect</th></tr></thead>
+      <tbody>
+        <tr><td>Red bell pepper, strawberries, kiwi <em>~50 mg vitamin C with the meal</em></td><td>Helps a lot</td></tr>
+        <tr><td>Meat on the same plate as the greens <em>the "meat factor"</em></td><td>Helps</td></tr>
+        <tr><td>Lemon juice <em>~10 mg a tablespoon — flavour, not a strategy</em></td><td>Barely</td></tr>
+        <tr><td>Coffee or black tea with the meal</td><td>Blocks hard</td></tr>
+        <tr><td>Milk or a milk-based shake at the same sitting</td><td>Blocks some</td></tr>
+      </tbody>
+    </table>
+
+    <div class="principle"><div class="principle-num">01.</div><div class="principle-body"><h4>Vitamin C with every plant-iron meal</h4><p>About 50 mg alongside it — roughly half a red bell pepper, which already lives in your rotation. Ascorbic acid pulls non-haem absorption up sharply and helps override the blockers in the same meal. A squeeze of lemon is not enough.</p></div></div>
+    <div class="principle"><div class="principle-num">02.</div><div class="principle-body"><h4>Coffee and tea an hour away</h4><p>Polyphenols are the strongest blocker on the list — single-meal studies put black tea's inhibition of non-haem iron in the 79–94% range and coffee in a similar band. Your breakfast is now the iron breakfast, so coffee moves to <em>after</em> it. The 2 PM cutoff still stands.</p></div></div>
+    <div class="principle"><div class="principle-num">03.</div><div class="principle-body"><h4>Milk shakes at a different sitting</h4><p>Calcium and iron compete in the same meal. Honest version: this shows up clearly in single-meal studies but has been hard to demonstrate as an effect on iron status over months. Don't reorganise your life around it — just don't drink the shake alongside the steak.</p></div></div>
+    <div class="principle"><div class="principle-num">04.</div><div class="principle-body"><h4>Meat lifts the plants beside it</h4><p>Animal muscle improves absorption of the non-haem iron sitting next to it. Beef with spinach beats spinach alone by more than the arithmetic suggests. Build iron meals as meat-plus-greens, not either one solo.</p></div></div>
+    <div class="principle"><div class="principle-num">05.</div><div class="principle-body"><h4>About spinach, honestly</h4><p>Spinach's reputation outruns its performance — absorption has been measured as low as about 2%. Keep it for the folate, the volume, and because it makes a plate look finished. Don't count on it to move your labs.</p></div></div>
+  </section>
+
+  <section>
+    <div class="section-label">Labs · what to ask for</div>
+    <div class="med-box">
+      <div class="note-label">Ferritin needs company</div>
+      <div class="note-text">Ferritin rises with inflammation all on its own. In a controlled infection study it nearly <strong>doubled in three days and returned to baseline by day seven</strong> — in people whose actual iron stores could not have changed. So as your inflammation settles, a ferritin number can move without your iron moving.<br><br>Your doctor picked the better marker. Transferrin saturation is iron actually in transit, and under inflammation it falls at the same time ferritin rises — which is what makes the pair diagnostic.<br><br><strong>Ask for ferritin, transferrin saturation and CRP drawn together, and compare them against your pre-treatment values.</strong> One more thing worth knowing before a "normal" result reassures anyone: the standard cutoff is under review, and by newer physiologically-derived thresholds roughly a third of women test deficient where the old threshold says a fifth do.</div>
+    </div>
+    <div class="principle"><div class="principle-num">!</div><div class="principle-body"><h4>Iron pills are not yours to start</h4><p>Supplemental iron without confirmed deficiency can do real harm — your body has no active way to get rid of an excess. Your labs, your doctor, her call. This page is about food.</p></div></div>
+    <div class="principle"><div class="principle-num">?</div><div class="principle-body"><h4>One question to bring</h4><p>Are you on a reflux medication — omeprazole, pantoprazole, esomeprazole, or an over-the-counter version? They're commonly added alongside GLP-1s, and they're an established cause of poor iron absorption. That may matter more to your iron than the tirzepatide does.</p></div></div>
   </section>
 
   <section>
     <div class="section-label">The Rules</div>
-    <div class="principle"><div class="principle-num">01.</div><div class="principle-body"><h4>Fresh-cooked over leftovers</h4><p>Histamines build in stored food. Cook portion-size, eat fresh. If you must save: freeze immediately, never refrigerate &gt;24h.</p></div></div>
-    <div class="principle"><div class="principle-num">02.</div><div class="principle-body"><h4>Protein at every meal — 30g floor</h4><p>30+ g × 4 meals = 120g daily. Tirzepatide doesn't care if you lose fat or muscle. Protein + lifting decides which.</p></div></div>
-    <div class="principle"><div class="principle-num">03.</div><div class="principle-body"><h4>Hydration is non-negotiable</h4><p>2.5 L water minimum. The medication suppresses thirst. Set phone alarms if you have to. Electrolytes on lift days.</p></div></div>
-    <div class="principle"><div class="principle-num">04.</div><div class="principle-body"><h4>Avoid the panel reactives</h4><p>Eggs, cow whey, tree nuts, kidney beans, peanuts, yeast, wheat, tomatoes, hemp, pea. No vinegars (fermented). Distilled white vinegar OK. Coconut aminos for soy sauce sub.</p></div></div>
-    <div class="principle"><div class="principle-num">05.</div><div class="principle-body"><h4>Veg volume saves the cut</h4><p>2 cups minimum at lunch and dinner — spinach, zucchini, bell peppers, cucumbers, carrots. Fiber + bulk = full on fewer calories.</p></div></div>
-    <div class="principle"><div class="principle-num">06.</div><div class="principle-body"><h4>The Truvani shake is insurance</h4><p>Low-appetite days: this is how you hit protein without forcing food. Drink it cold, drink it slow.</p></div></div>
-    <div class="principle"><div class="principle-num">07.</div><div class="principle-body"><h4>Coffee fine until 2 PM</h4><p>Sleep is non-negotiable for fat loss and recovery. Late caffeine destroys deep sleep. ADHD meds aren't a reason to push it.</p></div></div>
+    <div class="principle"><div class="principle-num">01.</div><div class="principle-body"><h4>Protein at every meal — 40 g floor</h4><p>40 g × 3 meals = 120 g. Tirzepatide doesn't care whether you lose fat or muscle. Protein and lifting decide which.</p></div></div>
+    <div class="principle"><div class="principle-num">02.</div><div class="principle-body"><h4>Vegetables and protein first, starch last</h4><p>The rice, the potatoes, the oats go at the end of the meal. Same plate, calmer afternoon.</p></div></div>
+    <div class="principle"><div class="principle-num">03.</div><div class="principle-body"><h4>Walk ten minutes after dinner</h4><p>Highest return per minute available to you. Two minutes beats zero.</p></div></div>
+    <div class="principle"><div class="principle-num">04.</div><div class="principle-body"><h4>Fat quality, not fat fear</h4><p>Avocado, olive oil, omega oils in. Saturated out. You're not cutting fat, you're changing which one.</p></div></div>
+    <div class="principle"><div class="principle-num">05.</div><div class="principle-body"><h4>Iron gets paired, not just eaten</h4><p>Red meat is the workhorse. Vitamin C alongside the plants. Coffee an hour away.</p></div></div>
+    <div class="principle"><div class="principle-num">06.</div><div class="principle-body"><h4>Cook once, eat twice, then freeze</h4><p>Batch cooking is how fast food loses. But histamine still builds in storage: fridge for 24 hours, freezer the same night you cook — not three days later when you notice it's still there.</p></div></div>
+    <div class="principle"><div class="principle-num">07.</div><div class="principle-body"><h4>Fast food, packaged food, ice cream</h4><p>The three named at your appointment. Beat them with a full fridge, not with resolve.</p></div></div>
+    <div class="principle"><div class="principle-num">08.</div><div class="principle-body"><h4>Hydration is non-negotiable</h4><p>2.5 L minimum. The medication suppresses thirst. Phone alarms if you have to. Electrolytes on lift days.</p></div></div>
+    <div class="principle"><div class="principle-num">09.</div><div class="principle-body"><h4>Hold the removals</h4><p>Cow whey, nuts, soy, wheat, tomatoes, fermented foods, yeast, kidney beans. Inflammation came down because these went away. Eggs and the other legumes are coming back one at a time — everything on this list stays out.</p></div></div>
+    <div class="principle"><div class="principle-num">10.</div><div class="principle-body"><h4>Veg volume saves the cut</h4><p>2 cups minimum at lunch and dinner. Red and yellow peppers earn their place twice now — volume and vitamin C.</p></div></div>
+    <div class="principle"><div class="principle-num">11.</div><div class="principle-body"><h4>Coffee after breakfast, done by 2 PM</h4><p>Two rules in one. Not with the iron meal, and not late enough to cost you sleep.</p></div></div>
   </section>
 
   <section>
-    <div class="section-label">Weekly Grocery List</div>
-    <div style="background: var(--card); border: 1px solid var(--rule); border-radius: 8px; padding: 6px 18px;">
-      <div class="macro-row"><div class="macro-name">Fresh salmon fillets</div><div class="macro-value">1.5–2 lb</div></div>
-      <div class="macro-row"><div class="macro-name">Fresh shrimp <em>peeled</em></div><div class="macro-value">1 lb</div></div>
-      <div class="macro-row"><div class="macro-name">Ground turkey 93%</div><div class="macro-value">1.5 lb</div></div>
-      <div class="macro-row"><div class="macro-name">Sirloin or flank steak</div><div class="macro-value">1 lb</div></div>
-      <div class="macro-row"><div class="macro-name">Applegate turkey breakfast sausage <em>uncured</em></div><div class="macro-value">1 pack</div></div>
-      <div class="macro-row"><div class="macro-name">Green Valley or Lactaid plain Greek yogurt</div><div class="macro-value">1 tub</div></div>
-      <div class="macro-row"><div class="macro-name">Raw pumpkin seeds <em>pepitas, unsalted</em></div><div class="macro-value">1 bag</div></div>
-      <div class="macro-row"><div class="macro-name">Extra-firm tofu <em>for fajita wrap</em></div><div class="macro-value">1 block</div></div>
-      <div class="macro-row"><div class="macro-name">Hummus <em>or sunflower seed butter if avoiding legumes</em></div><div class="macro-value">1 tub</div></div>
-      <div class="macro-row"><div class="macro-name">Truvani plant protein</div><div class="macro-value">1 tub/mo</div></div>
-      <div class="macro-row"><div class="macro-name">Equip Beef Protein</div><div class="macro-value">backup tub</div></div>
-      <div class="macro-row"><div class="macro-name">Collagen peptides</div><div class="macro-value">1 tub/mo</div></div>
-      <div class="macro-row"><div class="macro-name">Spinach (baby)</div><div class="macro-value">2 bags</div></div>
-      <div class="macro-row"><div class="macro-name">Zucchini, bell peppers, cucumber, carrots</div><div class="macro-value">5–6 lb</div></div>
-      <div class="macro-row"><div class="macro-name">Blueberries, apples, pears</div><div class="macro-value">3 lb</div></div>
-      <div class="macro-row"><div class="macro-name">Baby potatoes, sweet potatoes</div><div class="macro-value">3 lb</div></div>
-      <div class="macro-row"><div class="macro-name">White rice, rolled oats</div><div class="macro-value">staples</div></div>
-      <div class="macro-row"><div class="macro-name">Fairlife or Kirkland lactose-free milk</div><div class="macro-value">2 cartons</div></div>
-      <div class="macro-row"><div class="macro-name">Sunflower seed butter</div><div class="macro-value">1 jar</div></div>
-      <div class="macro-row"><div class="macro-name">Siete cassava tortillas <em>burrito size, for wraps</em></div><div class="macro-value">1 pack</div></div>
-      <div class="macro-row"><div class="macro-name">Olive oil, avocado, coconut aminos</div><div class="macro-value">pantry</div></div>
-      <div class="macro-row"><div class="macro-name">Garlic, ginger, lemon, lime, fresh herbs <em>+ cilantro for fajitas</em></div><div class="macro-value">weekly</div></div>
-      <div class="macro-row"><div class="macro-name">Red onion, ground cumin <em>for fajita veggies</em></div><div class="macro-value">pantry</div></div>
-    </div>
+    <div class="section-label">Weekly grocery register</div>
+    <table class="lg-reg">
+      <thead><tr><th>Item</th><th>Qty</th></tr></thead>
+      <tbody>
+        <tr><td>Sirloin, flank or ground beef 90% <em>the iron workhorse — buy more than you used to</em></td><td>2–2.5 lb</td></tr>
+        <tr><td>Fresh salmon fillets</td><td>1.5–2 lb</td></tr>
+        <tr><td>Fresh shrimp <em>peeled</em></td><td>1 lb</td></tr>
+        <tr><td>Ground turkey 93%</td><td>1.5 lb</td></tr>
+        <tr><td>Eggs <em>protein at breakfast, and non-haem iron</em></td><td>2 dozen</td></tr>
+        <tr><td>Chickpeas, black beans, lentils <em>no kidney beans</em></td><td>3–4 cans / 1 bag</td></tr>
+        <tr><td>Applegate turkey breakfast sausage <em>uncured</em></td><td>1 pack</td></tr>
+        <tr><td>Red &amp; yellow bell peppers <em>vitamin C for the iron meals</em></td><td>6–8</td></tr>
+        <tr><td>Spinach <em>baby</em></td><td>2 bags</td></tr>
+        <tr><td>Zucchini, cucumber, carrots</td><td>4–5 lb</td></tr>
+        <tr><td>Avocados</td><td>4–5</td></tr>
+        <tr><td>Strawberries or kiwi <em>vitamin C, low sugar load</em></td><td>1 lb</td></tr>
+        <tr><td>Blueberries, apples, pears</td><td>2 lb</td></tr>
+        <tr><td>Baby potatoes, sweet potatoes</td><td>3 lb</td></tr>
+        <tr><td>White rice, rolled oats</td><td>staples</td></tr>
+        <tr><td>Raw pumpkin seeds <em>pepitas, unsalted</em></td><td>1 bag</td></tr>
+        <tr><td>Truvani plant protein</td><td>1 tub/mo</td></tr>
+        <tr><td>Equip Beef Protein <em>backup</em></td><td>1 tub</td></tr>
+        <tr><td>Collagen peptides</td><td>1 tub/mo</td></tr>
+        <tr><td>Lactose-free milk <em>Fairlife or Kirkland</em></td><td>2 cartons</td></tr>
+        <tr><td>Sunflower seed butter</td><td>1 jar</td></tr>
+        <tr><td>Siete cassava tortillas <em>burrito size</em></td><td>1 pack</td></tr>
+        <tr><td>Extra-virgin olive oil <em>default cooking fat</em></td><td>restock</td></tr>
+        <tr><td>Coconut aminos, ground cumin, smoked paprika</td><td>pantry</td></tr>
+        <tr><td>Garlic, ginger, lemon, lime, red onion, fresh herbs</td><td>weekly</td></tr>
+      </tbody>
+    </table>
+    <div class="lg-foot">Every method, timing and macro → Recipes</div>
   </section>
 </div>
 
 <!-- ============ RECIPES ============ -->
-<div class="phase-panel" data-phase="7" data-dest="food" data-sub="recipes">
+<!-- ══ LEDGER · recipe register additions ══════════════════
+     Two new classes only. Everything else reuses .recipe-* which the
+     propagation block already restyles. Small bold mono labels use the
+     AA-safe --accent-text/--green-text, not --lg-live/--lg-done, so the
+     "0 contrast failures" state holds. -->
+<style>
+.lg-rx-meta { display:flex; background:var(--sub); border-bottom:1px solid var(--line); }
+.lg-rx-meta > div { flex:1 1 0; min-width:0; padding:10px 12px; text-align:center;
+  border-left:1px solid var(--line); font-family:'IBM Plex Mono',monospace;
+  font-size:10px; font-weight:500; letter-spacing:.08em; text-transform:uppercase;
+  color:var(--ink-3-text); font-variant-numeric:tabular-nums; }
+.lg-rx-meta > div:first-child { border-left:none; }
+.lg-rx-meta b { display:block; margin-top:3px; font-size:12px; font-weight:600;
+  letter-spacing:.04em; color:var(--ink); }
+
+.lg-rx-rule { padding:13px 22px 13px 19px; border-bottom:1px solid var(--line);
+  border-left:3px solid var(--line-2); font-size:13.5px; line-height:1.5; color:var(--ink-2); }
+.lg-rx-rule b { display:block; margin-bottom:3px; font-family:'IBM Plex Mono',monospace;
+  font-size:10px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:var(--ink); }
+.lg-rx-rule.iron  { border-left-color:var(--lg-live); }
+.lg-rx-rule.iron b  { color:var(--accent-text); }
+.lg-rx-rule.chain { border-left-color:var(--lg-done); }
+.lg-rx-rule.chain b { color:var(--green-text); }
+.lg-rx-rule.order { border-left-color:var(--lg-ink); }
+
+</style>
+
+<!-- ============ PANEL HEADER (replaces the histamine framing) ============ -->
   <section>
-    <div class="phase-card" style="--accent: var(--ochre);">
-      <div class="month-range" style="color: var(--ochre);">THE RECIPES · HISTAMINE-FRIENDLY</div>
-      <h2>Cook the year. <em>Twelve fresh dinners that belong to you.</em></h2>
-      <p class="lede">Every meal in your template, with full ingredients, the method, and a little of the why woven through. Free of dairy, eggs, fermented foods, wheat, tree nuts, kidney beans, peas, and tomatoes — built around what your body has told you it tolerates. Fresh-cooked, simple, satisfying.</p>
+    <div class="phase-card">
+      <div class="month-range">THE RECIPES · IRON &amp; INSULIN</div>
+      <h2>Cook the year. <em>Twelve meals that hit 120&nbsp;g and raise your ferritin.</em></h2>
+      <p class="lede">Rebuilt 29 Aug 2026 around the panel: 120&nbsp;g protein a day across three meals, red meat and eggs and beans for iron, olive oil and avocado instead of butter, and every plant-iron meal paired with enough vitamin C to actually absorb it. No dairy, no nuts, no added sugar. Each card tells you the effort before the ingredients — and where its leftovers go tomorrow.</p>
     </div>
   </section>
 
   <div class="recipe-filter">
     <button class="recipe-filter-pill active" data-filter="all">All</button>
+    <button class="recipe-filter-pill" data-filter="tag:10min">10 min</button>
+    <button class="recipe-filter-pill" data-filter="tag:iron">High iron</button>
     <button class="recipe-filter-pill" data-filter="breakfast">Breakfast</button>
     <button class="recipe-filter-pill" data-filter="lunch">Lunch</button>
-    <button class="recipe-filter-pill" data-filter="snack">Snack</button>
     <button class="recipe-filter-pill" data-filter="dinner">Dinner</button>
+    <button class="recipe-filter-pill" data-filter="rescue">Rescue</button>
   </div>
 
   <section>
 
-    <!-- BREAKFAST -->
-    <div class="recipe-group-label" data-group="breakfast">Breakfast · 32–41g protein</div>
+    <!-- ══ BREAKFAST ══ -->
+    <div class="recipe-group-label" data-group="breakfast">Breakfast · 40–48 g protein</div>
 
-    <div class="recipe-card" data-meal="breakfast">
+    <!-- B1 -->
+    <div class="recipe-card" data-meal="breakfast" data-tags="10min iron">
       <div class="recipe-head">
-        <span class="recipe-tag meat">A · Bowl</span>
-        <div class="recipe-name">Greek yogurt bowl with pumpkin seeds, berries &amp; turkey sausage</div>
-        <div class="recipe-meal">07:30 · 6 min · serves 1</div>
+        <span class="recipe-tag meat">B1 · Monday, from Sunday's steak</span>
+        <div class="recipe-name">Steak &amp; eggs with charred red pepper chimichurri</div>
+        <div class="recipe-meal">07:30 · 12 min · serves 1 · one pan</div>
       </div>
-      <div class="recipe-why">this is the breakfast you actually want to eat. Greek yogurt hits the satisfaction spot oatmeal can't — sweet without being heavy, dense protein in a small volume that works with appetite suppression. Pumpkin seeds bring the crunch plus zinc and magnesium that support recovery from the lifting. The turkey sausage on the side is protein insurance for the rest of the morning.</div>
+      <div class="recipe-why">The steak is already cooked and sitting in the fridge, so this is a reheat and two eggs. Haem iron from beef plus the iron in the yolks, landing next to a whole charred red pepper — 150&nbsp;mg of vitamin C in the same pan. Sunday's potatoes go in the same pan. It is the highest-absorption breakfast in the file and it takes twelve minutes.</div>
       <div class="recipe-macros">
-        <div class="recipe-macro protein"><div class="k">Protein</div><div class="v">34 g</div></div>
-        <div class="recipe-macro"><div class="k">Cal</div><div class="v">390</div></div>
-        <div class="recipe-macro"><div class="k">Carbs</div><div class="v">22 g</div></div>
-        <div class="recipe-macro"><div class="k">Fat</div><div class="v">18 g</div></div>
+        <div class="recipe-macro protein"><div class="k">Protein</div><div class="v">48 g</div></div>
+        <div class="recipe-macro"><div class="k">Cal</div><div class="v">610</div></div>
+        <div class="recipe-macro"><div class="k">Carbs</div><div class="v">38 g</div></div>
+        <div class="recipe-macro"><div class="k">Fat</div><div class="v">30 g</div></div>
       </div>
+      <div class="lg-rx-meta">
+        <div>Effort<b>Low</b></div>
+        <div>Iron<b>5.1 mg</b></div>
+        <div>Vit C<b>170 mg</b></div>
+        <div>Fibre<b>7 g</b></div>
+      </div>
+      <div class="lg-rx-rule chain"><b>Batch chain · consumes</b>Dinner D1's steak <em>and</em> its potatoes. Cook 1&nbsp;lb sirloin Sunday and boil extra potatoes; 4&nbsp;oz steak + a handful of potatoes come here Monday morning, and the last 4&nbsp;oz goes to Lunch L1.</div>
+      <div class="lg-rx-rule iron"><b>Iron rule</b>Egg iron is non-haem and yolk phosvitin binds it hard, so the pepper is the working ingredient, not a garnish. Coffee <em>before</em> this meal is free; coffee within an hour <em>after</em> it costs you ~39%. <em>Morck 1983, AJCN</em></div>
       <div class="recipe-section">
         <div class="recipe-section-label">Ingredients</div>
         <ul class="recipe-ingredients">
-          <li>1 cup Green Valley or Lactaid plain Greek lactose-free yogurt</li>
-          <li>2 tbsp raw pumpkin seeds <em>pepitas, unsalted</em></li>
-          <li>½ cup mixed berries <em>blueberries, raspberries</em></li>
-          <li>2 Applegate Naturals turkey breakfast sausage links <em>uncured, no nitrates</em></li>
-          <li>Pinch cinnamon</li>
-          <li>1 tsp honey or maple, optional</li>
+          <li>4 oz cooked sirloin from Sunday, sliced thin across the grain</li>
+          <li>2 large eggs</li>
+          <li>1 whole red bell pepper, quartered <em>~150 mg vitamin C — the point of the dish</em></li>
+          <li>¼ cup flat-leaf parsley, chopped fine <em>another 20 mg vit C</em></li>
+          <li>1 garlic clove, minced</li>
+          <li>2 tsp extra-virgin olive oil + 1 tsp for the pan</li>
+          <li>1 tbsp red wine vinegar, chilli flakes, salt</li>
+          <li>150 g cooled boiled potatoes from Sunday, halved</li>
         </ul>
       </div>
       <div class="recipe-section">
         <div class="recipe-section-label">Method</div>
         <ol class="recipe-steps">
-          <li>Heat sausages in a dry skillet over medium, 4–5 minutes, turning, until browned through. (Applegate links are pre-cooked, so you're just heating and crisping the outside.)</li>
-          <li>Scoop yogurt into a bowl. Top with berries and pumpkin seeds.</li>
-          <li>Cinnamon over the top. Honey drizzle if you want sweetness.</li>
-          <li>Eat the sausages alongside — or slice and stir into the yogurt for protein-dense bites.</li>
+          <li>Dry skillet on high. Char the pepper quarters skin-down 4 min until blackened in patches. Pull them out and slice.</li>
+          <li>Chimichurri: parsley, garlic, vinegar, 2 tsp olive oil, chilli, salt. Stir in a mug. Thirty seconds.</li>
+          <li>Same pan, 1 tsp oil, medium-high. Potatoes cut-side down, 4 min, undisturbed, until they take colour. Push them to the edge.</li>
+          <li>Lay the sliced steak in for 45 seconds a side — you are warming it, not cooking it again.</li>
+          <li>Push aside, crack the eggs in, lid on 2 min for set whites and runny yolks.</li>
+          <li>Plate: peppers, steak, eggs. Chimichurri over everything.</li>
         </ol>
       </div>
-      <div class="recipe-note"><strong>Brand note:</strong> Applegate Naturals turkey breakfast sausage is the cleanest grocery-store option — uncured, no nitrates or preservatives, no added sugar. Wellshire and Niman Ranch also clean if Applegate is out. Avoid Jimmy Dean / Johnsonville / most store-brand — those have nitrates and fillers.</div>
+      <div class="recipe-note"><strong>Why the vinegar earns its place:</strong> vinegar with a carbohydrate meal lowers the glucose and insulin response — pooled across trials, standardised effects of −0.60 and −1.30 respectively (<em>Shishehbor 2017, Diabetes Res Clin Pract</em>). Honest limit: it blunts the spike, it does not move fasting insulin or HOMA-IR. Here the acid is already in the sauce, so it is free. Do not skip it to save a step.</div>
     </div>
 
-    <div class="recipe-card" data-meal="breakfast">
+    <!-- B2 -->
+    <div class="recipe-card" data-meal="breakfast" data-tags="omega3">
       <div class="recipe-head">
-        <span class="recipe-tag fish">B · Savory</span>
-        <div class="recipe-name">Salmon &amp; sweet potato hash with spinach</div>
+        <span class="recipe-tag fish">B2 · Savoury</span>
+        <div class="recipe-name">Salmon, sweet potato &amp; spinach hash with a lemon-cracked egg</div>
         <div class="recipe-meal">07:30 · 18 min · serves 1</div>
       </div>
-      <div class="recipe-why">fresh salmon is gentle on digestion in a way smoked or aged fish isn't, the sweet potato gives steady energy that holds through a morning of meetings, and the spinach brings the iron and the green that makes a plate feel complete.</div>
-      <div class="recipe-macros">
-        <div class="recipe-macro protein"><div class="k">Protein</div><div class="v">35 g</div></div>
-        <div class="recipe-macro"><div class="k">Cal</div><div class="v">450</div></div>
-        <div class="recipe-macro"><div class="k">Carbs</div><div class="v">32 g</div></div>
-        <div class="recipe-macro"><div class="k">Fat</div><div class="v">18 g</div></div>
-      </div>
-      <div class="recipe-section">
-        <div class="recipe-section-label">Ingredients</div>
-        <ul class="recipe-ingredients">
-          <li>4 oz fresh salmon, skin off, cubed ½"</li>
-          <li>1 small sweet potato, peeled, diced ½"</li>
-          <li>2 cups baby spinach</li>
-          <li>2 garlic cloves, minced</li>
-          <li>1 tbsp olive oil</li>
-          <li>Salt, black pepper, smoked paprika</li>
-          <li>Lemon wedge</li>
-        </ul>
-      </div>
-      <div class="recipe-section">
-        <div class="recipe-section-label">Method</div>
-        <ol class="recipe-steps">
-          <li>Heat ½ tbsp olive oil in nonstick over medium-high. Add sweet potato + salt. Cook 8 min, stirring, until tender and edges caramelized.</li>
-          <li>Push potatoes to one side. Add remaining oil + salmon cubes + paprika. Cook 3 min undisturbed, then toss 1 min — just cooked through.</li>
-          <li>Add garlic + spinach. Toss until spinach wilts, ~1 min.</li>
-          <li>Squeeze lemon over the top. Black pepper. Plate.</li>
-        </ol>
-      </div>
-      <div class="recipe-note"><strong>Best savory breakfast you'll have:</strong> high protein, anti-inflammatory, no fermented anything. Caramelized sweet potato is the move.</div>
-    </div>
-
-    <div class="recipe-card" data-meal="breakfast">
-      <div class="recipe-head">
-        <span class="recipe-tag meat">C · Savory</span>
-        <div class="recipe-name">Ground turkey &amp; rice breakfast bowl</div>
-        <div class="recipe-meal">07:30 · 15 min · serves 1</div>
-      </div>
-      <div class="recipe-why">Asian breakfasts have this figured out — rice for sustained energy, lean protein for satiety, fresh ginger for digestion, and zucchini for volume without weight. Nothing fermented, nothing aged, nothing that asks your body to work hard before noon.</div>
-      <div class="recipe-macros">
-        <div class="recipe-macro protein"><div class="k">Protein</div><div class="v">32 g</div></div>
-        <div class="recipe-macro"><div class="k">Cal</div><div class="v">420</div></div>
-        <div class="recipe-macro"><div class="k">Carbs</div><div class="v">38 g</div></div>
-        <div class="recipe-macro"><div class="k">Fat</div><div class="v">14 g</div></div>
-      </div>
-      <div class="recipe-section">
-        <div class="recipe-section-label">Ingredients</div>
-        <ul class="recipe-ingredients">
-          <li>4 oz ground turkey 93%</li>
-          <li>½ cup cooked white rice <em>made fresh or from morning batch</em></li>
-          <li>1 cup zucchini, sliced</li>
-          <li>1 tsp grated ginger</li>
-          <li>1 garlic clove, minced</li>
-          <li>1 tsp olive oil</li>
-          <li>1 tsp coconut aminos</li>
-          <li>Sliced cucumber, salt</li>
-        </ul>
-      </div>
-      <div class="recipe-section">
-        <div class="recipe-section-label">Method</div>
-        <ol class="recipe-steps">
-          <li>Heat olive oil in nonstick over medium-high. Add turkey, break apart, salt. Brown 4 min.</li>
-          <li>Add zucchini, ginger, garlic. Cook 3 min until zucchini softens.</li>
-          <li>Off heat, stir in coconut aminos.</li>
-          <li>Plate over warm rice. Top with sliced cucumber.</li>
-        </ol>
-      </div>
-      <div class="recipe-note"><strong>Asian breakfast logic:</strong> the Korean/Japanese model of savory breakfasts (rice + protein + veg) is exactly your panel-friendly profile. Coconut aminos replaces soy sauce.</div>
-    </div>
-
-    <div class="recipe-card" data-meal="breakfast">
-      <div class="recipe-head">
-        <span class="recipe-tag plant">D · For cold mornings</span>
-        <div class="recipe-name">Truvani protein oats with blueberries</div>
-        <div class="recipe-meal">07:30 · 8 min · serves 1 · when you want something hot &amp; slow</div>
-      </div>
-      <div class="recipe-why">if a winter morning calls for something warm and bowl-shaped instead of cold yogurt. Oats land soft, Truvani protein keeps it on target, sunflower seed butter gives the satisfying fat. Use a smaller portion than the standard recipe — ¼ cup oats instead of ½ — if the bigger version felt like too much food before.</div>
-      <div class="recipe-macros">
-        <div class="recipe-macro protein"><div class="k">Protein</div><div class="v">41 g</div></div>
-        <div class="recipe-macro"><div class="k">Cal</div><div class="v">430</div></div>
-        <div class="recipe-macro"><div class="k">Carbs</div><div class="v">42 g</div></div>
-        <div class="recipe-macro"><div class="k">Fat</div><div class="v">10 g</div></div>
-      </div>
-      <div class="recipe-section">
-        <div class="recipe-section-label">Ingredients</div>
-        <ul class="recipe-ingredients">
-          <li>¼–½ cup rolled oats <em>start with ¼ if appetite is suppressed</em></li>
-          <li>1 cup Fairlife or Kirkland lactose-free milk (or ½ cup milk + ½ cup water)</li>
-          <li>1 scoop Truvani plant protein</li>
-          <li>1 scoop collagen peptides</li>
-          <li>½ cup fresh blueberries</li>
-          <li>1 tbsp sunflower seed butter</li>
-          <li>Cinnamon, pinch of salt</li>
-        </ul>
-      </div>
-      <div class="recipe-section">
-        <div class="recipe-section-label">Method</div>
-        <ol class="recipe-steps">
-          <li>Cook oats in lactose-free milk + pinch of salt, low heat, 5 min until creamy.</li>
-          <li>Pull off heat. Let cool 1 min — adding protein to boiling oats clumps it.</li>
-          <li>Stir in Truvani and collagen. A splash more milk if too thick.</li>
-          <li>Top with blueberries, sunflower seed butter, cinnamon.</li>
-        </ol>
-      </div>
-      <div class="recipe-note"><strong>Honest read:</strong> the original full version felt like a lot. The ¼-cup oat version still hits 36g protein with about ⅔ the volume — easier to finish when appetite is down.</div>
-    </div>
-
-    <!-- LUNCH -->
-    <div class="recipe-group-label" data-group="lunch">Lunch · 36–42g protein</div>
-
-    <div class="recipe-card" data-meal="lunch">
-      <div class="recipe-head">
-        <span class="recipe-tag fish">A · Salmon</span>
-        <div class="recipe-name">Lemon-dill salmon, smashed potatoes, spinach</div>
-        <div class="recipe-meal">12:30 · 35 min · serves 1</div>
-      </div>
-      <div class="recipe-why">fresh salmon is gentle on digestion in a way smoked or aged fish isn't, the potatoes give you steady satisfying energy that answers end-of-day tiredness, and the big pile of spinach brings the fiber and the green that makes a plate feel complete.</div>
+      <div class="recipe-why">This one survived the rebuild almost intact — it was already the best breakfast in the old set. Two changes: an egg on top to get it over 40&nbsp;g, and half a lemon squeezed over the spinach at the end rather than a wedge on the side, because the vitamin C has to be in the mouthful with the iron, not next to it on the plate.</div>
       <div class="recipe-macros">
         <div class="recipe-macro protein"><div class="k">Protein</div><div class="v">40 g</div></div>
         <div class="recipe-macro"><div class="k">Cal</div><div class="v">520</div></div>
-        <div class="recipe-macro"><div class="k">Carbs</div><div class="v">35 g</div></div>
-        <div class="recipe-macro"><div class="k">Fat</div><div class="v">22 g</div></div>
+        <div class="recipe-macro"><div class="k">Carbs</div><div class="v">30 g</div></div>
+        <div class="recipe-macro"><div class="k">Fat</div><div class="v">26 g</div></div>
       </div>
+      <div class="lg-rx-meta">
+        <div>Effort<b>Med</b></div>
+        <div>Iron<b>2.6 mg</b></div>
+        <div>Vit C<b>70 mg</b></div>
+        <div>Omega-3<b>2.0 g</b></div>
+      </div>
+      <div class="lg-rx-rule order"><b>Eat in this order</b>Spinach and salmon first, sweet potato last. Same food, same plate — the order alone flattens the glucose peak.</div>
       <div class="recipe-section">
         <div class="recipe-section-label">Ingredients</div>
         <ul class="recipe-ingredients">
-          <li>5 oz fresh salmon fillet, skin on</li>
-          <li>8 oz baby gold or red potatoes</li>
-          <li>2 cups baby spinach</li>
+          <li>5 oz fresh salmon, skin off, cubed ½"</li>
+          <li>1 small sweet potato (~130 g), diced ½"</li>
+          <li>1 large egg</li>
+          <li>3 cups baby spinach <em>it collapses to almost nothing — use more than feels right</em></li>
           <li>2 garlic cloves, minced</li>
-          <li>2 tbsp olive oil, divided</li>
-          <li>1 lemon — zest + juice</li>
-          <li>1 tbsp fresh dill, chopped</li>
-          <li>Salt, black pepper</li>
+          <li>1 tbsp extra-virgin olive oil</li>
+          <li>½ lemon, juiced over at the end</li>
+          <li>Salt, black pepper, smoked paprika</li>
         </ul>
       </div>
       <div class="recipe-section">
         <div class="recipe-section-label">Method</div>
         <ol class="recipe-steps">
-          <li>Boil potatoes in salted water 12–15 min until fork-tender. Drain.</li>
-          <li>Meanwhile, heat oven to 400°F. Drained potatoes on a sheet pan, smash each with a glass to ½" thick. Drizzle 1 tbsp olive oil, salt. Roast 15 min until crisp edges.</li>
-          <li>Pat salmon dry. Salt + pepper. Heat remaining olive oil in nonstick over medium-high. Salmon skin-side-down 4 min — don't move it. Flip, 2 min more. Pull.</li>
-          <li>Same pan, add garlic + spinach. Toss 1 min until wilted.</li>
-          <li>Plate. Squeeze lemon over salmon. Sprinkle dill + lemon zest.</li>
+          <li>Half the oil in a nonstick over medium-high. Sweet potato + salt, 8 min, stirring, until the edges caramelise.</li>
+          <li>Push aside. Remaining oil, salmon, paprika. 3 min undisturbed, then toss 1 min.</li>
+          <li>Garlic + all the spinach. Toss until wilted, ~1 min.</li>
+          <li>Make a well, crack the egg in, lid on 2 min.</li>
+          <li>Off heat, squeeze the whole half-lemon over the greens. Black pepper.</li>
         </ol>
       </div>
-      <div class="recipe-note"><strong>The 3-card classic.</strong> Crisp skin = pan must be hot, salmon must be dry. Don't peek for the first 4 minutes.</div>
+      <div class="recipe-note"><strong>Coffee timing — and it is not symmetrical.</strong> Coffee an hour <em>before</em> a meal had no measurable effect on iron absorption; coffee an hour <em>after</em> inhibited exactly as much as drinking it with the meal (−39%; tea −64%). So drink it on the way to the kitchen, not with the plate. <em>Morck 1983, AJCN 37:416</em></div>
     </div>
 
-    <div class="recipe-card" data-meal="lunch">
+    <!-- B3 -->
+    <div class="recipe-card" data-meal="breakfast" data-tags="10min iron">
       <div class="recipe-head">
-        <span class="recipe-tag fish">B · Shrimp</span>
-        <div class="recipe-name">Garlic shrimp with rice &amp; sautéed peppers</div>
-        <div class="recipe-meal">12:30 · 20 min · serves 1</div>
+        <span class="recipe-tag plant">B3 · The iron card</span>
+        <div class="recipe-name">Smoky red pepper, chickpea &amp; egg skillet</div>
+        <div class="recipe-meal">07:30 · 12 min · serves 1 · one pan, tinned everything</div>
       </div>
-      <div class="recipe-why">shrimp is one of the most digestible proteins on your panel — no histamine load, quick cook, easy on the gut. White rice is a comfort carb that your body knows what to do with. The peppers bring sweetness and Vitamin C without any of the tomato family showing up.</div>
+      <div class="recipe-why">Everything the panel asked for in one pan: eggs, chickpeas, spinach, beef, and a whole red pepper to make the plant iron count. 7.5&nbsp;mg of iron in a breakfast, which is more than most days used to deliver in total. It is also a tin, a bag of spinach and a pepper — nothing that requires a plan.</div>
       <div class="recipe-macros">
-        <div class="recipe-macro protein"><div class="k">Protein</div><div class="v">38 g</div></div>
-        <div class="recipe-macro"><div class="k">Cal</div><div class="v">470</div></div>
-        <div class="recipe-macro"><div class="k">Carbs</div><div class="v">48 g</div></div>
-        <div class="recipe-macro"><div class="k">Fat</div><div class="v">14 g</div></div>
+        <div class="recipe-macro protein"><div class="k">Protein</div><div class="v">44 g</div></div>
+        <div class="recipe-macro"><div class="k">Cal</div><div class="v">540</div></div>
+        <div class="recipe-macro"><div class="k">Carbs</div><div class="v">38 g</div></div>
+        <div class="recipe-macro"><div class="k">Fat</div><div class="v">26 g</div></div>
       </div>
+      <div class="lg-rx-meta">
+        <div>Effort<b>Low</b></div>
+        <div>Iron<b>7.5 mg</b></div>
+        <div>Vit C<b>175 mg</b></div>
+        <div>Fibre<b>11 g</b></div>
+      </div>
+      <div class="lg-rx-rule iron"><b>Iron rule · the whole design</b>Chickpea iron is non-haem and phytate-bound — 25&nbsp;mg of phytate-phosphorus cuts absorption 64%. Two things in this pan undo that: the pepper's vitamin C, and the 2&nbsp;oz of beef, which raised non-haem absorption 180% versus the same protein from egg. Rinse the chickpeas hard; the canning liquid carries the phytate. <em>Hallberg 1989 · Hurrell 2006, J Nutr</em></div>
+      <div class="lg-rx-rule order"><b>Eat in this order</b>Spinach and eggs first, chickpeas last. 38&nbsp;g of carbohydrate is the most in any breakfast here and the order is what makes it safe.</div>
       <div class="recipe-section">
         <div class="recipe-section-label">Ingredients</div>
         <ul class="recipe-ingredients">
-          <li>6 oz fresh shrimp, peeled &amp; deveined</li>
-          <li>½ cup white rice, cooked</li>
-          <li>1 red bell pepper, sliced</li>
-          <li>1 yellow bell pepper, sliced</li>
-          <li>1 cup zucchini, sliced</li>
-          <li>4 garlic cloves, minced</li>
-          <li>1 tbsp olive oil</li>
-          <li>½ lemon, juiced</li>
-          <li>1 tbsp fresh parsley, chopped</li>
-          <li>Salt, red pepper flakes</li>
+          <li>3 large eggs</li>
+          <li>2 oz 90% ground beef <em>or 2 oz of Sunday's steak, chopped</em></li>
+          <li>¾ cup chickpeas, drained and rinsed hard</li>
+          <li>1 whole red bell pepper, sliced</li>
+          <li>2 cups baby spinach</li>
+          <li>2 garlic cloves</li>
+          <li>1 tbsp extra-virgin olive oil</li>
+          <li>1 tsp smoked paprika, ½ tsp cumin, chilli flakes, salt</li>
+          <li>½ lemon</li>
         </ul>
       </div>
       <div class="recipe-section">
         <div class="recipe-section-label">Method</div>
         <ol class="recipe-steps">
-          <li>Pat shrimp very dry — wet shrimp steams instead of sears.</li>
-          <li>Heat ½ tbsp olive oil in nonstick over medium-high. Add peppers + zucchini + salt. Cook 5 min until tender-crisp. Move to plate.</li>
-          <li>Same pan, remaining oil + garlic. 30 seconds. Add shrimp in single layer + red pepper flakes. 2 min one side, 1 min other — opaque and pink.</li>
-          <li>Off heat, squeeze lemon. Toss parsley.</li>
-          <li>Plate rice, top with vegetables, shrimp over the top with all the garlic-oil from the pan.</li>
+          <li>Oil in a nonstick over medium-high. Beef, broken up, salt, 3 min until browned.</li>
+          <li>Pepper + garlic + paprika + cumin. 4 min, until the pepper slackens and the spices bloom.</li>
+          <li>Chickpeas in, press some of them flat with the back of the spoon so they crisp. 2 min.</li>
+          <li>Spinach on top, toss until gone.</li>
+          <li>Three wells, crack an egg into each, lid on 3 min.</li>
+          <li>Lemon over the whole pan off the heat.</li>
         </ol>
       </div>
-      <div class="recipe-note"><strong>Shrimp pro tip:</strong> if frozen, thaw in a bowl of cold water 15 min, then pat very dry with paper towels. Wet shrimp = rubber shrimp.</div>
+      <div class="recipe-note"><strong>Make it twice as fast:</strong> brown a full pound of ground beef on Sunday and keep it in a container. Then this is a 7-minute breakfast for the rest of the week and it also seeds Rescue R1.</div>
     </div>
 
-    <div class="recipe-card" data-meal="lunch">
-      <div class="recipe-head">
-        <span class="recipe-tag meat">C · Turkey</span>
-        <div class="recipe-name">Turkey patty with cucumber salad &amp; sweet potato</div>
-        <div class="recipe-meal">12:30 · 25 min · serves 1</div>
-      </div>
-      <div class="recipe-why">lean turkey is body-friendly protein that doesn't sit heavy, cucumber is the most hydrating salad ingredient on the planet, and the sweet potato lands warm and sweet without anything you'd second-guess at 1pm.</div>
-      <div class="recipe-macros">
-        <div class="recipe-macro protein"><div class="k">Protein</div><div class="v">38 g</div></div>
-        <div class="recipe-macro"><div class="k">Cal</div><div class="v">480</div></div>
-        <div class="recipe-macro"><div class="k">Carbs</div><div class="v">36 g</div></div>
-        <div class="recipe-macro"><div class="k">Fat</div><div class="v">20 g</div></div>
-      </div>
-      <div class="recipe-section">
-        <div class="recipe-section-label">Ingredients</div>
-        <ul class="recipe-ingredients">
-          <li>6 oz ground turkey 93%</li>
-          <li>1 small sweet potato (~6 oz)</li>
-          <li>1 large cucumber, sliced thin</li>
-          <li>1 carrot, julienned or shaved</li>
-          <li>2 tbsp fresh dill or parsley, chopped</li>
-          <li>1 garlic clove, minced</li>
-          <li>1 tbsp olive oil, plus more for cooking</li>
-          <li>1 tbsp distilled white vinegar <em>safe — non-fermented</em></li>
-          <li>1 tsp lemon juice</li>
-          <li>Salt, black pepper</li>
-        </ul>
-      </div>
-      <div class="recipe-section">
-        <div class="recipe-section-label">Method</div>
-        <ol class="recipe-steps">
-          <li>Heat oven to 425°F. Pierce sweet potato all over. Roast 30 min — or microwave 6 min if time-pressed.</li>
-          <li>While potato cooks: mix ground turkey with minced garlic, salt, pepper, half the herbs. Form one 6 oz patty, ¾" thick.</li>
-          <li>Cucumber salad: toss cucumber + carrot with olive oil, vinegar, lemon, remaining herbs, salt.</li>
-          <li>Heat 1 tsp olive oil in pan over medium-high. Patty 4 min one side, flip, 3 min other — 165°F internal.</li>
-          <li>Plate: split sweet potato, top with a drizzle of olive oil + salt. Patty alongside. Cucumber salad next to it.</li>
-        </ol>
-      </div>
-      <div class="recipe-note"><strong>Make a 4-pack:</strong> double the turkey for 4 patties, freeze 3 raw between parchment. Cook from frozen as needed — ~12 min total.</div>
-    </div>
+    <!-- ══ LUNCH ══ -->
+    <div class="recipe-group-label" data-group="lunch">Lunch · 40–47 g protein</div>
 
-    <div class="recipe-card" data-meal="lunch">
+    <!-- L1 -->
+    <div class="recipe-card" data-meal="lunch" data-tags="10min iron">
       <div class="recipe-head">
-        <span class="recipe-tag meat">D · Wrap, grab-and-go</span>
-        <div class="recipe-name">Turkey, cucumber &amp; dill wrap on cassava</div>
-        <div class="recipe-meal">12:30 · 10 min · serves 1 · made night-before or AM-of</div>
+        <span class="recipe-tag meat">L1 · Cold, no cooking</span>
+        <div class="recipe-name">Cold steak &amp; white bean salad, lemon and a lot of parsley</div>
+        <div class="recipe-meal">12:30 · 7 min · serves 1 · assembled the night before</div>
       </div>
-      <div class="recipe-why">this is the office lunch that doesn't ask anything of you at noon. Built around a cooked-then-cooled turkey patty, it sits in the fridge or your bag for hours and stays good. Siete cassava tortillas are grain-free and panel-safe — the wheat wrap workaround that actually tastes like a real wrap.</div>
+      <div class="recipe-why">The desk lunch that requires nothing at noon. Cold sliced steak over cannellini beans, raw red pepper, and enough parsley that it reads as a herb salad rather than a bean salad. 47&nbsp;g of protein and 6.4&nbsp;mg of iron in a container you built in seven minutes while the kettle boiled.</div>
       <div class="recipe-macros">
-        <div class="recipe-macro protein"><div class="k">Protein</div><div class="v">38 g</div></div>
-        <div class="recipe-macro"><div class="k">Cal</div><div class="v">490</div></div>
-        <div class="recipe-macro"><div class="k">Carbs</div><div class="v">36 g</div></div>
-        <div class="recipe-macro"><div class="k">Fat</div><div class="v">22 g</div></div>
-      </div>
-      <div class="recipe-section">
-        <div class="recipe-section-label">Ingredients</div>
-        <ul class="recipe-ingredients">
-          <li>1 cooked turkey patty (~5 oz), cold or room temp <em>or 5 oz sliced cooked turkey</em></li>
-          <li>1 large Siete cassava tortillas <em>burrito size</em></li>
-          <li>½ avocado, mashed with salt &amp; pepper</li>
-          <li>½ cup baby spinach</li>
-          <li>½ cucumber, sliced thin lengthwise</li>
-          <li>2 tbsp shredded carrot <em>optional, for crunch</em></li>
-          <li>1 tbsp fresh dill, chopped</li>
-          <li>Salt, pepper, squeeze of lemon</li>
-        </ul>
-      </div>
-      <div class="recipe-section">
-        <div class="recipe-section-label">Method</div>
-        <ol class="recipe-steps">
-          <li>Warm the tortilla 15 seconds in a dry pan — makes it pliable, less likely to crack when rolling.</li>
-          <li>Spread mashed avocado across the center third of the tortilla. Salt, pepper, lemon.</li>
-          <li>Layer spinach, then sliced turkey (or crumbled patty), then cucumber and carrot. Scatter fresh dill.</li>
-          <li>Fold sides in, then roll from the bottom up tight like a burrito.</li>
-          <li>Wrap in parchment or foil. Slice diagonally if you want. Eat within 24 hours.</li>
-        </ol>
-      </div>
-      <div class="recipe-note"><strong>Grab-and-go logistics:</strong> cook the turkey patty Sunday night with the meatballs. Assemble the wrap before bed, wrap tight in parchment, refrigerate. Grab on your way to BambooHR. Eats well at the desk — no heating, no mess.</div>
-    </div>
-
-    <div class="recipe-card" data-meal="lunch">
-      <div class="recipe-head">
-        <span class="recipe-tag fish">E · Wrap, grab-and-go</span>
-        <div class="recipe-name">Lemon-dill salmon &amp; avocado wrap</div>
-        <div class="recipe-meal">12:30 · 10 min · serves 1 · made night-before or AM-of</div>
-      </div>
-      <div class="recipe-why">if you cooked salmon for dinner, this is what tomorrow's lunch is built from. Flaked cold salmon with avocado on a cassava wrap is one of the most satiating cold lunches you can make — high protein, healthy fats, fresh-tasting even at 1pm. No reheating, no smell at the office.</div>
-      <div class="recipe-macros">
-        <div class="recipe-macro protein"><div class="k">Protein</div><div class="v">36 g</div></div>
-        <div class="recipe-macro"><div class="k">Cal</div><div class="v">510</div></div>
+        <div class="recipe-macro protein"><div class="k">Protein</div><div class="v">47 g</div></div>
+        <div class="recipe-macro"><div class="k">Cal</div><div class="v">560</div></div>
         <div class="recipe-macro"><div class="k">Carbs</div><div class="v">32 g</div></div>
         <div class="recipe-macro"><div class="k">Fat</div><div class="v">26 g</div></div>
       </div>
+      <div class="lg-rx-meta">
+        <div>Effort<b>Low</b></div>
+        <div>Iron<b>6.4 mg</b></div>
+        <div>Vit C<b>95 mg</b></div>
+        <div>Fibre<b>10 g</b></div>
+      </div>
+      <div class="lg-rx-rule chain"><b>Batch chain · consumes</b>The last third of Dinner D1's 1&nbsp;lb sirloin. D1 Sunday night → B1 Monday breakfast → L1 Monday or Tuesday lunch. One cook, three meals.</div>
+      <div class="lg-rx-rule iron"><b>Iron rule</b>Raw pepper, not roasted — vitamin C is heat-labile. The lemon goes on at the desk, not the night before. And the 3&nbsp;pm coffee is the one to move: an hour clear <em>after</em> the last bite. Before lunch it costs nothing.</div>
       <div class="recipe-section">
         <div class="recipe-section-label">Ingredients</div>
         <ul class="recipe-ingredients">
-          <li>5 oz cooked salmon, cold, flaked <em>from last night's dinner</em></li>
-          <li>1 large Siete cassava tortilla</li>
-          <li>½ avocado, mashed</li>
-          <li>½ cup baby spinach</li>
-          <li>¼ cucumber, sliced thin</li>
-          <li>1 tbsp fresh dill, chopped</li>
-          <li>Juice of ½ lemon</li>
-          <li>Salt, pepper</li>
+          <li>4 oz cooked sirloin, cold, sliced thin</li>
+          <li>¾ cup cannellini or butter beans, rinsed</li>
+          <li>½ red bell pepper, raw, diced <em>~76 mg vit C</em></li>
+          <li>1 cup rocket or baby spinach</li>
+          <li>½ cup flat-leaf parsley, roughly torn</li>
+          <li>¼ red onion, sliced paper-thin</li>
+          <li>1 tbsp extra-virgin olive oil, ½ lemon, salt, black pepper</li>
         </ul>
       </div>
       <div class="recipe-section">
         <div class="recipe-section-label">Method</div>
         <ol class="recipe-steps">
-          <li>Warm the tortilla 15 seconds in a dry pan to make it pliable.</li>
-          <li>In a small bowl, mix flaked salmon with lemon juice, dill, salt, pepper.</li>
-          <li>Spread mashed avocado across the center third of the tortilla.</li>
-          <li>Layer spinach, then the salmon mixture, then cucumber.</li>
-          <li>Fold sides in, roll tight from the bottom. Wrap in parchment.</li>
-          <li>Refrigerate up to 12 hours, or grab and go straight away. Eat within 24h of assembly.</li>
+          <li>Night before: beans, pepper, onion, parsley, olive oil, salt into the container. Steak sliced on top. Lid.</li>
+          <li>Keep the greens and the lemon half separate — greens go limp, and the vitamin C in cut lemon degrades overnight.</li>
+          <li>At the desk: tip the greens in, squeeze the lemon, shake the container, eat out of it.</li>
         </ol>
       </div>
-      <div class="recipe-note"><strong>The Sunday-night logic:</strong> cook an extra salmon fillet whenever you make Dinner A. Cool it in the fridge overnight. By Tuesday lunch, you've got the makings of this wrap with zero new cooking effort.</div>
+      <div class="recipe-note"><strong>Beans are not a compromise here.</strong> Pulses have the strongest evidence of any single food group for lowering fasting glucose and insulin — and cannellini at ~3.2&nbsp;mg iron a serving is doing the ferritin job at the same time.</div>
     </div>
 
-    <div class="recipe-card" data-meal="lunch">
+    <!-- L2 -->
+    <div class="recipe-card" data-meal="lunch" data-tags="10min omega3">
       <div class="recipe-head">
-        <span class="recipe-tag plant">F · Wrap, grab-and-go</span>
-        <div class="recipe-name">Garlic-ginger tofu fajita wrap</div>
-        <div class="recipe-meal">12:30 · 20 min · serves 1 · made night-before or AM-of</div>
+        <span class="recipe-tag fish">L2 · Wrap, grab-and-go</span>
+        <div class="recipe-name">Lemon-dill salmon &amp; avocado wrap on chickpea flour</div>
+        <div class="recipe-meal">12:30 · 8 min · serves 1 · made night-before</div>
       </div>
-      <div class="recipe-why">this is your plant-day wrap when you want something different from the salmon-or-turkey rotation. Fresh tofu is one of the cleanest plant proteins on your panel — non-fermented soy is well-tolerated where miso, tempeh, and soy sauce aren't. The garlic-ginger-coconut-aminos finish gives it real fajita flavor without anything fermented or aged.</div>
+      <div class="recipe-why">The old version of this card was right about everything except the wrapper. Cassava tortilla is close to pure starch — it was the highest-glycaemic object in the whole file. Siete's chickpea flour tortilla swaps in with no change to the taste and brings protein, fibre and iron instead of just starch.</div>
       <div class="recipe-macros">
-        <div class="recipe-macro protein"><div class="k">Protein</div><div class="v">37 g</div></div>
-        <div class="recipe-macro"><div class="k">Cal</div><div class="v">480</div></div>
-        <div class="recipe-macro"><div class="k">Carbs</div><div class="v">38 g</div></div>
-        <div class="recipe-macro"><div class="k">Fat</div><div class="v">24 g</div></div>
+        <div class="recipe-macro protein"><div class="k">Protein</div><div class="v">40 g</div></div>
+        <div class="recipe-macro"><div class="k">Cal</div><div class="v">520</div></div>
+        <div class="recipe-macro"><div class="k">Carbs</div><div class="v">26 g</div></div>
+        <div class="recipe-macro"><div class="k">Fat</div><div class="v">30 g</div></div>
       </div>
+      <div class="lg-rx-meta">
+        <div>Effort<b>Low</b></div>
+        <div>Iron<b>2.2 mg</b></div>
+        <div>Vit C<b>85 mg</b></div>
+        <div>Omega-3<b>2.4 g</b></div>
+      </div>
+      <div class="lg-rx-rule chain"><b>Batch chain · consumes</b>The second fillet from Dinner D2. Cook two, eat one, flake the other cold into this the next day. Zero new cooking.</div>
       <div class="recipe-section">
         <div class="recipe-section-label">Ingredients</div>
         <ul class="recipe-ingredients">
-          <li>6 oz extra-firm tofu, pressed <em>see step 1</em></li>
-          <li>1 large Siete cassava tortilla</li>
-          <li>2 tbsp hummus <em>or sunflower seed butter — see note below</em></li>
-          <li>½ red bell pepper, sliced thin</li>
-          <li>½ yellow or orange bell pepper, sliced thin</li>
-          <li>¼ red onion, sliced thin</li>
-          <li>½ cup baby spinach</li>
-          <li>1 tbsp olive oil, split</li>
-          <li>2 garlic cloves, minced</li>
-          <li>1 tsp fresh ginger, grated</li>
-          <li>1 tbsp coconut aminos</li>
-          <li>1 tbsp cornstarch or tapioca starch <em>for crispy edges</em></li>
-          <li>½ tsp ground cumin · salt · black pepper</li>
-          <li>Fresh cilantro + lime wedge to finish</li>
+          <li>5 oz cold cooked salmon from D2, flaked</li>
+          <li>1 Siete chickpea flour tortilla <em>not the cassava one — that swap is the whole point</em></li>
+          <li>½ avocado, mashed with salt and lemon</li>
+          <li>½ red bell pepper, cut into thin strips</li>
+          <li>Handful of rocket</li>
+          <li>1 tbsp fresh dill, ½ lemon, black pepper</li>
         </ul>
       </div>
       <div class="recipe-section">
         <div class="recipe-section-label">Method</div>
         <ol class="recipe-steps">
-          <li>Press the tofu: wrap in a clean towel, set a heavy pan on top, 15 minutes. (Or use a tofu press if you have one.) <em>Pressed tofu pan-fries crisp; soggy tofu steams and falls apart.</em></li>
-          <li>While tofu presses, slice peppers and onion. Heat ½ tbsp olive oil in skillet over medium-high. Sauté peppers + onion + pinch of cumin + salt, 5 minutes until tender with charred edges. Remove to plate.</li>
-          <li>Cube pressed tofu into ½" pieces. Toss in a bowl with cornstarch, remaining cumin, salt, pepper.</li>
-          <li>Heat remaining ½ tbsp olive oil in the same pan over medium-high. Add tofu in single layer. Don't touch for 2 minutes. Flip, cook 2 min more. Repeat for all sides — about 8 minutes total — until golden and crispy.</li>
-          <li>Add garlic and ginger to the pan, stir 30 seconds. Pour in coconut aminos. Toss tofu to coat. Off heat.</li>
-          <li>Warm the tortilla 15 seconds in a dry pan to make it pliable.</li>
-          <li>Spread hummus across center third of tortilla. Layer spinach, fajita veggies, then tofu. Scatter cilantro, squeeze lime.</li>
-          <li>Fold sides in, roll tight from the bottom. Wrap in parchment if heading to the office.</li>
+          <li>Mash the avocado with lemon, salt and the dill. This is the binder — no mayonnaise, no yogurt.</li>
+          <li>Warm the tortilla 20 seconds in a dry pan so it rolls without cracking.</li>
+          <li>Avocado down the middle, salmon, pepper strips, rocket. Roll tight, wrap in parchment, twist the ends.</li>
+          <li>Fridge overnight. Eats cold at the desk, no smell, no reheating.</li>
         </ol>
       </div>
-      <div class="recipe-note"><strong>A small note on the hummus:</strong> chickpeas are in the same legume family as pea, kidney bean, and pinto bean — all flagged on your panel. They weren't directly tested, so they may be fine — but if you start noticing low-grade reactions after this one, sunflower seed butter or a thick layer of mashed avocado swap in cleanly without changing the wrap much. Shelby would have a good read on whether to test-and-see or skip.</div>
+      <div class="recipe-note"><strong>Avocado and olive oil are the assignment.</strong> The fat here is monounsaturated by design — this card replaces every butter, cream and cheese-based lunch that used to be in the rotation.</div>
     </div>
 
-    <!-- SNACK -->
-    <div class="recipe-group-label" data-group="snack">Snack · 22–34g protein</div>
-
-    <div class="recipe-card" data-meal="snack">
+    <!-- L3 -->
+    <div class="recipe-card" data-meal="lunch" data-tags="10min iron">
       <div class="recipe-head">
-        <span class="recipe-tag plant">A · Shake</span>
-        <div class="recipe-name">Truvani shake with banana &amp; cinnamon</div>
-        <div class="recipe-meal">16:00 · 3 min · serves 1</div>
+        <span class="recipe-tag fish">L3 · Store-cupboard</span>
+        <div class="recipe-name">Tuna, chickpea &amp; roast pepper bowl over cooled potato</div>
+        <div class="recipe-meal">12:30 · 8 min · serves 1 · nothing fresh required except the pepper</div>
       </div>
-      <div class="recipe-why">this is the snack that lands 34g of protein in about a minute, even when appetite is gone. Cold, sweet, easy to sip. The banana brings just enough sugar to sit alongside the protein, the cinnamon settles blood sugar, the high-protein Fairlife goes down smooth.</div>
+      <div class="recipe-why">The lunch that exists when you did not shop. Two tins and a pepper. The potato is boiled the night before and eaten cold, which is not a texture compromise — cold potato in a sharp dressing is a Mediterranean dish, and cooling cooked starch buys you a small extra reduction in the glucose response on top.</div>
       <div class="recipe-macros">
-        <div class="recipe-macro protein"><div class="k">Protein</div><div class="v">34 g</div></div>
-        <div class="recipe-macro"><div class="k">Cal</div><div class="v">270</div></div>
-        <div class="recipe-macro"><div class="k">Carbs</div><div class="v">22 g</div></div>
-        <div class="recipe-macro"><div class="k">Fat</div><div class="v">5 g</div></div>
-      </div>
-      <div class="recipe-section">
-        <div class="recipe-section-label">Ingredients</div>
-        <ul class="recipe-ingredients">
-          <li>1 scoop Truvani plant protein</li>
-          <li>1 scoop collagen peptides <em>+10g, no flavor</em></li>
-          <li>1 cup Fairlife or Kirkland lactose-free milk</li>
-          <li>½ frozen banana</li>
-          <li>1 tsp sunflower seed butter <em>optional</em></li>
-          <li>Big pinch cinnamon</li>
-          <li>3–4 ice cubes</li>
-        </ul>
-      </div>
-      <div class="recipe-section">
-        <div class="recipe-section-label">Method</div>
-        <ol class="recipe-steps">
-          <li>Combine in blender or shake bottle. Blend 30 seconds.</li>
-          <li>Drink on the way to Lifetime — pre-lift fuel.</li>
-        </ol>
-      </div>
-      <div class="recipe-note"><strong>Tirzepatide low-appetite day?</strong> This is the go-to. Cold, easy to sip, lands 34g protein in 3 min. Make it slowly throughout 30 min if needed.</div>
-    </div>
-
-    <div class="recipe-card" data-meal="snack">
-      <div class="recipe-head">
-        <span class="recipe-tag meat">B · Beef</span>
-        <div class="recipe-name">Equip Beef Protein shake</div>
-        <div class="recipe-meal">16:00 · 2 min · serves 1</div>
-      </div>
-      <div class="recipe-why">for the days you want animal protein but can't bring yourself to cook one more thing. Equip is grass-fed beef isolate — same complete amino profile as whey without the cow whey reaction. Tastes like chocolate milk, no funny aftertaste.</div>
-      <div class="recipe-macros">
-        <div class="recipe-macro protein"><div class="k">Protein</div><div class="v">32 g</div></div>
-        <div class="recipe-macro"><div class="k">Cal</div><div class="v">190</div></div>
-        <div class="recipe-macro"><div class="k">Carbs</div><div class="v">12 g</div></div>
-        <div class="recipe-macro"><div class="k">Fat</div><div class="v">1 g</div></div>
-      </div>
-      <div class="recipe-section">
-        <div class="recipe-section-label">Ingredients</div>
-        <ul class="recipe-ingredients">
-          <li>1 scoop Equip Beef Protein <em>chocolate or vanilla</em></li>
-          <li>1 cup Fairlife or Kirkland lactose-free milk</li>
-          <li>Cinnamon</li>
-          <li>Ice</li>
-        </ul>
-      </div>
-      <div class="recipe-section">
-        <div class="recipe-section-label">Method</div>
-        <ol class="recipe-steps">
-          <li>Shake or blend.</li>
-          <li>That's it.</li>
-        </ol>
-      </div>
-      <div class="recipe-note"><strong>The animal protein alternative:</strong> if you want a protein source that isn't plant-based, Equip is grass-fed beef isolate. Tastes like chocolate milk. Tested safe on your panel.</div>
-    </div>
-
-    <div class="recipe-card" data-meal="snack">
-      <div class="recipe-head">
-        <span class="recipe-tag plant">C · Whole food</span>
-        <div class="recipe-name">Apple with sunflower seed butter &amp; collagen water</div>
-        <div class="recipe-meal">16:00 · 3 min · serves 1</div>
-      </div>
-      <div class="recipe-why">this is the snack for the days when even a shake feels like too much. The apple brings crunch and fiber, sunflower seed butter brings the satisfying fat, collagen in lemon water sneaks in 20g of protein that tastes like flavored water.</div>
-      <div class="recipe-macros">
-        <div class="recipe-macro protein"><div class="k">Protein</div><div class="v">22 g</div></div>
-        <div class="recipe-macro"><div class="k">Cal</div><div class="v">290</div></div>
-        <div class="recipe-macro"><div class="k">Carbs</div><div class="v">36 g</div></div>
-        <div class="recipe-macro"><div class="k">Fat</div><div class="v">11 g</div></div>
-      </div>
-      <div class="recipe-section">
-        <div class="recipe-section-label">Ingredients</div>
-        <ul class="recipe-ingredients">
-          <li>1 medium apple, sliced</li>
-          <li>2 tbsp sunflower seed butter</li>
-          <li>2 scoops collagen peptides <em>20g protein</em></li>
-          <li>10 oz cold water + lemon</li>
-          <li>Cinnamon for dipping</li>
-        </ul>
-      </div>
-      <div class="recipe-section">
-        <div class="recipe-section-label">Method</div>
-        <ol class="recipe-steps">
-          <li>Slice apple, dust with cinnamon.</li>
-          <li>Whisk collagen into lemon water until dissolved.</li>
-          <li>Dip apple slices in sunflower seed butter. Sip collagen water alongside.</li>
-        </ol>
-      </div>
-      <div class="recipe-note"><strong>The no-shake option:</strong> for days when even thinking about a smoothie feels like too much. Collagen has no flavor in lemon water — sips like flavored water.</div>
-    </div>
-
-    <!-- DINNER -->
-    <div class="recipe-group-label" data-group="dinner">Dinner · 38–42g protein</div>
-
-    <div class="recipe-card" data-meal="dinner">
-      <div class="recipe-head">
-        <span class="recipe-tag meat">A · Steak</span>
-        <div class="recipe-name">Pan-seared steak with roasted potatoes &amp; greens</div>
-        <div class="recipe-meal">19:30 · 30 min · serves 1</div>
-      </div>
-      <div class="recipe-why">lean red meat is body-friendly in a way that surprises people — high in iron, B-vitamins, and creatine, all of which support the lifting work you're doing. Smashed potatoes are pure comfort, the greens close the loop with fiber and folate.</div>
-      <div class="recipe-macros">
-        <div class="recipe-macro protein"><div class="k">Protein</div><div class="v">42 g</div></div>
+        <div class="recipe-macro protein"><div class="k">Protein</div><div class="v">45 g</div></div>
         <div class="recipe-macro"><div class="k">Cal</div><div class="v">540</div></div>
         <div class="recipe-macro"><div class="k">Carbs</div><div class="v">34 g</div></div>
         <div class="recipe-macro"><div class="k">Fat</div><div class="v">24 g</div></div>
       </div>
+      <div class="lg-rx-meta">
+        <div>Effort<b>Low</b></div>
+        <div>Iron<b>5.3 mg</b></div>
+        <div>Vit C<b>100 mg</b></div>
+        <div>Fibre<b>11 g</b></div>
+      </div>
+      <div class="lg-rx-rule iron"><b>Iron rule</b>Animal muscle tissue raises non-haem absorption from the same meal — beef by 180%, poultry by 100%, versus an equivalent non-meat protein. The tuna is pulling the chickpea iron up as well as adding its own. Fresh raw pepper on top rather than jarred; jarred roast peppers have lost most of their vitamin C. <em>Hurrell 2006, J Nutr 136:2808</em></div>
       <div class="recipe-section">
         <div class="recipe-section-label">Ingredients</div>
         <ul class="recipe-ingredients">
-          <li>5 oz sirloin or flank steak, ¾" thick</li>
-          <li>8 oz baby potatoes, halved</li>
-          <li>2 cups baby spinach (or zucchini)</li>
-          <li>3 garlic cloves, 2 minced, 1 smashed</li>
-          <li>2 tbsp olive oil, divided</li>
-          <li>1 sprig fresh rosemary or thyme</li>
-          <li>Flaky salt, black pepper</li>
-          <li>Lemon wedge</li>
+          <li>1 tin (5 oz drained) tuna in olive oil, oil and all</li>
+          <li>¾ cup chickpeas, rinsed</li>
+          <li>1 small potato, boiled the night before and refrigerated, cut into chunks</li>
+          <li>1 red bell pepper, half raw and diced, half charred and sliced</li>
+          <li>¼ cup parsley, 2 tbsp capers</li>
+          <li>1 tbsp red wine vinegar, ½ lemon, black pepper</li>
         </ul>
       </div>
       <div class="recipe-section">
         <div class="recipe-section-label">Method</div>
         <ol class="recipe-steps">
-          <li>Heat oven to 425°F. Toss potatoes with 1 tbsp olive oil, salt, smashed garlic. Roast 25 min, flipping at 15 min.</li>
-          <li>Pull steak from fridge — salt both sides — let sit 15 min while potatoes cook (room temp steak sears better).</li>
-          <li>Heat remaining oil in cast iron or heavy pan over medium-high until shimmering. Lay steak in, don't move it. 3 min per side for medium-rare (130°F internal). Add rosemary + smashed garlic for last min — baste with the oil.</li>
-          <li>Rest steak 5 min. While resting: sauté minced garlic + spinach in the same pan, 1 min.</li>
-          <li>Slice steak against the grain. Plate with potatoes, greens. Flaky salt + lemon.</li>
+          <li>Boil the potato whenever you next have a pan on — cook once, chill overnight. That chill is the ingredient.</li>
+          <li>Tip the tuna in with its oil. Chickpeas, potato, both kinds of pepper, capers, parsley.</li>
+          <li>Vinegar and lemon, toss, black pepper. Eat cold or at room temperature.</li>
         </ol>
       </div>
-      <div class="recipe-note"><strong>Resting is non-negotiable.</strong> Cut into a steak right off heat, juices run out. Wait 5 min — they redistribute.</div>
+      <div class="recipe-note"><strong>Honest size of the cook-and-cool effect.</strong> Chilling cooked starch does raise resistant starch and did lower the glucose response by ~18% in one 15-person rice study (<em>Sonia 2015</em>) — but it adds only about a gram of resistant starch per serving, and retrograded starch is the <em>least</em> well-supported type in head-to-head reviews. Treat it as a free bonus, not a strategy. The real reason this card works is 45&nbsp;g of protein and 11&nbsp;g of fibre. Reheating does not undo it, so warm it if you would rather.</div>
     </div>
 
-    <div class="recipe-card" data-meal="dinner">
+    <!-- ══ DINNER ══ -->
+    <div class="recipe-group-label" data-group="dinner">Dinner · 40–50 g protein · the batch engine</div>
+
+    <!-- D1 -->
+    <div class="recipe-card" data-meal="dinner" data-tags="iron batch">
       <div class="recipe-head">
-        <span class="recipe-tag fish">B · Shrimp</span>
-        <div class="recipe-name">Ginger shrimp stir-fry with rice</div>
-        <div class="recipe-meal">19:30 · 20 min · serves 1</div>
+        <span class="recipe-tag meat">D1 · Sunday · MAKE TRIPLE</span>
+        <div class="recipe-name">Pan-seared sirloin, cooled-then-crisped potatoes, garlic broccoli</div>
+        <div class="recipe-meal">19:30 · 30 min · cook 1 lb steak, eat a third</div>
       </div>
-      <div class="recipe-why">stir-fry is one of the best vehicles for vegetables when you don't feel like eating salad. Ginger settles the stomach (helpful on tirzepatide days), coconut aminos brings the salty-sweet without any fermented soy, and the shrimp is one of the cleanest proteins on your panel.</div>
+      <div class="recipe-why">The anchor of the whole week. Sirloin is the single best food on the new panel — haem iron your gut absorbs without negotiation, and 43&nbsp;g of protein in a portion you can finish on a low-appetite day. Cook a full pound on Sunday and Monday's breakfast and lunch are already done.</div>
       <div class="recipe-macros">
-        <div class="recipe-macro protein"><div class="k">Protein</div><div class="v">38 g</div></div>
-        <div class="recipe-macro"><div class="k">Cal</div><div class="v">470</div></div>
-        <div class="recipe-macro"><div class="k">Carbs</div><div class="v">52 g</div></div>
-        <div class="recipe-macro"><div class="k">Fat</div><div class="v">12 g</div></div>
+        <div class="recipe-macro protein"><div class="k">Protein</div><div class="v">48 g</div></div>
+        <div class="recipe-macro"><div class="k">Cal</div><div class="v">620</div></div>
+        <div class="recipe-macro"><div class="k">Carbs</div><div class="v">36 g</div></div>
+        <div class="recipe-macro"><div class="k">Fat</div><div class="v">28 g</div></div>
       </div>
+      <div class="lg-rx-meta">
+        <div>Effort<b>High</b></div>
+        <div>Iron<b>4.2 mg</b></div>
+        <div>Vit C<b>105 mg</b></div>
+        <div>Fibre<b>8 g</b></div>
+      </div>
+      <div class="lg-rx-rule chain"><b>Batch chain · feeds</b>Cook 1&nbsp;lb sirloin. Eat 5&nbsp;oz tonight → <strong>4&nbsp;oz becomes Breakfast B1</strong> tomorrow → <strong>4&nbsp;oz becomes Lunch L1</strong> the day after. Slice it only as you use it; a whole piece keeps better than slices.</div>
+      <div class="lg-rx-rule order"><b>Eat in this order</b>Broccoli first, then steak, then potatoes. This is the card where the order matters most — the potatoes are the biggest single carbohydrate load of the day.</div>
       <div class="recipe-section">
         <div class="recipe-section-label">Ingredients</div>
         <ul class="recipe-ingredients">
-          <li>6 oz fresh shrimp, peeled</li>
-          <li>½ cup white rice, cooked</li>
-          <li>1 cup carrots, sliced thin on bias</li>
-          <li>1 cup bell peppers, sliced</li>
-          <li>1 cup zucchini, sliced</li>
-          <li>2 tbsp coconut aminos</li>
-          <li>1 tbsp grated fresh ginger</li>
-          <li>3 garlic cloves, minced</li>
-          <li>1 tbsp olive oil</li>
-          <li>1 tsp toasted sesame oil <em>finishing</em></li>
-          <li>Sliced scallions to serve</li>
+          <li>1 lb top sirloin, one thick piece, out of the fridge 30 min ahead</li>
+          <li>350 g baby potatoes, boiled the night before and refrigerated</li>
+          <li>1½ cups broccoli florets <em>~100 mg vit C</em></li>
+          <li>4 garlic cloves, smashed</li>
+          <li>2 tbsp extra-virgin olive oil</li>
+          <li>1 lemon, rosemary, flaky salt, coarse black pepper</li>
         </ul>
       </div>
       <div class="recipe-section">
         <div class="recipe-section-label">Method</div>
         <ol class="recipe-steps">
-          <li>Pat shrimp very dry. Heat olive oil in large nonstick over high heat until shimmering.</li>
-          <li>Add carrots first (hardest). Stir-fry 2 min. Add peppers + zucchini, 2 min more — keep moving.</li>
-          <li>Push veg to side. Add shrimp in single layer. 1 min, flip, 1 min more.</li>
-          <li>Add ginger + garlic, 30 sec. Pour in coconut aminos — it will steam and reduce. Toss everything 30 sec.</li>
-          <li>Off heat, drizzle sesame oil. Plate over rice. Top with scallions.</li>
+          <li>Oven 220°C. Toss the cold boiled potatoes with 1 tbsp oil and salt, smash each one flat, roast 25 min until the edges shatter.</li>
+          <li>Steak bone-dry with paper towel, salted heavily. Cast iron or heavy pan, screaming hot, 1 tsp oil.</li>
+          <li>Sear 3–4 min a side without touching it. Garlic and rosemary into the pan for the last minute, spoon the oil over.</li>
+          <li>Rest 8 minutes on a board. Non-negotiable — cut it early and the juice is on the board instead of in you.</li>
+          <li>Broccoli into the steak pan with a splash of water, lid on, 4 min. Lemon over it hard.</li>
+          <li>Carve 5 oz for tonight. The rest goes whole into a container, in the fridge, immediately.</li>
         </ol>
       </div>
-      <div class="recipe-note"><strong>Coconut aminos:</strong> sweeter and less salty than soy sauce, but works the same. Look for "coconut aminos" — not "coconut amino sauce" (different product).</div>
+      <div class="recipe-note"><strong>Cook the potatoes the night before — mostly for the crisp.</strong> Cold boiled potatoes smash and crisp far better than fresh ones, and they carry a little more resistant starch, which is a small real bonus (~18% lower glucose response in one small study) rather than a big one. Doing it the night before also means Monday's breakfast is already half-built.</div>
     </div>
 
-    <div class="recipe-card" data-meal="dinner">
+    <!-- D2 -->
+    <div class="recipe-card" data-meal="dinner" data-tags="omega3 batch">
       <div class="recipe-head">
-        <span class="recipe-tag meat">C · Turkey</span>
-        <div class="recipe-name">Turkey meatballs over rice with sautéed spinach</div>
-        <div class="recipe-meal">19:30 · 30 min · serves 2 <em>(1 portion + tomorrow's lunch — but eat within 24h)</em></div>
+        <span class="recipe-tag fish">D2 · MAKE DOUBLE</span>
+        <div class="recipe-name">Lemon-dill salmon tray with spinach, peppers &amp; quinoa</div>
+        <div class="recipe-meal">19:30 · 25 min · one tray · cook two fillets</div>
       </div>
-      <div class="recipe-why">meatballs are a Sunday-night meal that travels well into Monday lunch (just barely — eat within 24h). Lean turkey is panel-safe, the rice settles in nicely, the spinach brings iron without any of the tomato sauce that usually shows up with meatballs.</div>
+      <div class="recipe-why">One tray, one wash-up, 44&nbsp;g of protein and about 2.5&nbsp;g of long-chain omega-3. The second fillet goes in cold and becomes tomorrow's wrap. This is the anti-inflammatory card — the elimination work is holding, and oily fish twice a week is the part of it worth keeping forever.</div>
       <div class="recipe-macros">
-        <div class="recipe-macro protein"><div class="k">Protein</div><div class="v">40 g</div></div>
-        <div class="recipe-macro"><div class="k">Cal</div><div class="v">510</div></div>
-        <div class="recipe-macro"><div class="k">Carbs</div><div class="v">48 g</div></div>
+        <div class="recipe-macro protein"><div class="k">Protein</div><div class="v">44 g</div></div>
+        <div class="recipe-macro"><div class="k">Cal</div><div class="v">580</div></div>
+        <div class="recipe-macro"><div class="k">Carbs</div><div class="v">26 g</div></div>
+        <div class="recipe-macro"><div class="k">Fat</div><div class="v">30 g</div></div>
+      </div>
+      <div class="lg-rx-meta">
+        <div>Effort<b>Med</b></div>
+        <div>Iron<b>3.4 mg</b></div>
+        <div>Vit C<b>130 mg</b></div>
+        <div>Omega-3<b>2.5 g</b></div>
+      </div>
+      <div class="lg-rx-rule chain"><b>Batch chain · feeds</b>Cook two fillets. The second goes straight into the fridge whole and becomes <strong>Lunch L2</strong> tomorrow. Do not flake it tonight — it dries out.</div>
+      <div class="recipe-section">
+        <div class="recipe-section-label">Ingredients</div>
+        <ul class="recipe-ingredients">
+          <li>2 × 6 oz salmon fillets</li>
+          <li>2 red bell peppers, thick strips</li>
+          <li>4 cups baby spinach</li>
+          <li>½ cup quinoa, cooked <em>2 g protein and 1.4 mg iron more than rice, for the same carbs</em></li>
+          <li>1 red onion, wedges</li>
+          <li>2 tbsp extra-virgin olive oil</li>
+          <li>1 lemon, big bunch of dill, salt, black pepper</li>
+        </ul>
+      </div>
+      <div class="recipe-section">
+        <div class="recipe-section-label">Method</div>
+        <ol class="recipe-steps">
+          <li>Oven 200°C. Peppers and onion on the tray, 1 tbsp oil, salt. 12 min.</li>
+          <li>Quinoa on the hob meanwhile — 15 min, then lid off and fork it through.</li>
+          <li>Push the veg aside, salmon onto the tray, remaining oil, half the dill, lemon slices on top. 11–12 min.</li>
+          <li>Spinach onto the hot tray for the last 90 seconds — the residual heat wilts it.</li>
+          <li>Rest of the dill and the juice of half a lemon over everything at the table.</li>
+          <li>Second fillet into a container the moment it is cool enough to handle.</li>
+        </ol>
+      </div>
+      <div class="recipe-note"><strong>Quinoa instead of white rice.</strong> Same job on the plate, but it brings iron, complete protein and about four times the fibre. It is the single easiest substitution in this rebuild.</div>
+    </div>
+
+    <!-- D3 -->
+    <div class="recipe-card" data-meal="dinner" data-tags="iron batch">
+      <div class="recipe-head">
+        <span class="recipe-tag meat">D3 · MAKE TRIPLE · freezer</span>
+        <div class="recipe-name">Beef &amp; lentil ragù over zucchini ribbons and roast squash</div>
+        <div class="recipe-meal">19:30 · 35 min · cook 3 portions, freeze 2</div>
+      </div>
+      <div class="recipe-why">The highest-iron meal in the file — 8.5&nbsp;mg, roughly half of it haem beef pulling the lentil iron along with it. It also freezes perfectly, which makes it the answer to the 6&nbsp;pm bad day three weeks from now. Cook it once in a good mood and bank two future dinners where you would otherwise have ordered.</div>
+      <div class="recipe-macros">
+        <div class="recipe-macro protein"><div class="k">Protein</div><div class="v">50 g</div></div>
+        <div class="recipe-macro"><div class="k">Cal</div><div class="v">600</div></div>
+        <div class="recipe-macro"><div class="k">Carbs</div><div class="v">40 g</div></div>
+        <div class="recipe-macro"><div class="k">Fat</div><div class="v">24 g</div></div>
+      </div>
+      <div class="lg-rx-meta">
+        <div>Effort<b>High</b></div>
+        <div>Iron<b>8.5 mg</b></div>
+        <div>Vit C<b>95 mg</b></div>
+        <div>Fibre<b>14 g</b></div>
+      </div>
+      <div class="lg-rx-rule chain"><b>Batch chain · feeds</b>Triple the ragù only, not the vegetables. Two portions into flat freezer bags, labelled and dated. Reheat from frozen in a pan with a splash of water; make fresh ribbons in the 6 minutes it takes.</div>
+      <div class="lg-rx-rule iron"><b>Iron rule</b>Lentils carry more iron per serving than almost anything else you can buy, and phytate keeps most of it locked up. Three things in this pot work against that: the beef (+180% on non-haem absorption), the pepper's vitamin C, and the acid. Tea is the strongest blocker there is — −62% — so this is a water meal.</div>
+      <div class="recipe-section">
+        <div class="recipe-section-label">Ingredients <em>(per portion — triple the first six)</em></div>
+        <ul class="recipe-ingredients">
+          <li>5 oz 90% lean ground beef</li>
+          <li>¾ cup cooked green or brown lentils <em>tinned is fine, rinsed hard</em></li>
+          <li>1 red bell pepper, diced small</li>
+          <li>1 carrot + 1 celery stick, diced small</li>
+          <li>3 garlic cloves, 1 tbsp tomato purée <em>or 1 tbsp red pepper paste if you are still avoiding tomato</em></li>
+          <li>1 tbsp red wine vinegar, 1 tsp oregano, bay leaf</li>
+          <li>2 medium zucchini, ribboned with a peeler</li>
+          <li>200 g butternut squash, cubed and roasted</li>
+          <li>1 tbsp extra-virgin olive oil, parsley to finish</li>
+        </ul>
+      </div>
+      <div class="recipe-section">
+        <div class="recipe-section-label">Method</div>
+        <ol class="recipe-steps">
+          <li>Squash into a 200°C oven with a little oil and salt, 25 min. It cooks unattended while you do the rest.</li>
+          <li>Olive oil in a wide pan. Beef in, spread flat, left alone 4 min to get a real brown crust before you break it up.</li>
+          <li>Carrot, celery, pepper, garlic. 6 min until everything softens.</li>
+          <li>Purée, oregano, bay, vinegar. Stir 1 min — you want the purée to darken.</li>
+          <li>Lentils and a cup of water. Simmer 12 min, uncovered, until it thickens.</li>
+          <li>Zucchini ribbons raw into a warm bowl, hot ragù straight on top — the heat cooks them just enough. Roast squash alongside, parsley over.</li>
+          <li>Portion the two spares into flat bags before you sit down, not after. This is the step that gets skipped.</li>
+        </ol>
+      </div>
+      <div class="recipe-note"><strong>Ribbons, not pasta.</strong> Zucchini ribbons under a heavy ragù are one of the few vegetable-for-carb swaps that genuinely works, because the sauce does all the flavour. It takes 40&nbsp;g of carbohydrate off the plate without taking anything off the fork.</div>
+    </div>
+
+    <!-- D4 -->
+    <div class="recipe-card" data-meal="dinner" data-tags="10min">
+      <div class="recipe-head">
+        <span class="recipe-tag fish">D4 · Fast</span>
+        <div class="recipe-name">Ginger-garlic shrimp with greens and cooled jasmine rice</div>
+        <div class="recipe-meal">19:30 · 18 min · serves 1</div>
+      </div>
+      <div class="recipe-why">The old version of this card carried 52&nbsp;g of carbohydrate — the highest in the file, almost all of it hot white rice. Same dish, half the rice, cooled and refried, and twice the greens. It still tastes like takeaway and it no longer behaves like it.</div>
+      <div class="recipe-macros">
+        <div class="recipe-macro protein"><div class="k">Protein</div><div class="v">44 g</div></div>
+        <div class="recipe-macro"><div class="k">Cal</div><div class="v">480</div></div>
+        <div class="recipe-macro"><div class="k">Carbs</div><div class="v">32 g</div></div>
         <div class="recipe-macro"><div class="k">Fat</div><div class="v">16 g</div></div>
       </div>
+      <div class="lg-rx-meta">
+        <div>Effort<b>Low</b></div>
+        <div>Iron<b>2.1 mg</b></div>
+        <div>Vit C<b>110 mg</b></div>
+        <div>Fibre<b>7 g</b></div>
+      </div>
+      <div class="lg-rx-rule order"><b>Eat in this order</b>Greens first, then the shrimp, then the rice — or just push the rice to one side of the bowl and start on the other side. That is the entire technique.</div>
       <div class="recipe-section">
         <div class="recipe-section-label">Ingredients</div>
         <ul class="recipe-ingredients">
-          <li>1 lb ground turkey 93%</li>
-          <li>4 garlic cloves, minced</li>
-          <li>2 tbsp fresh parsley, chopped</li>
-          <li>1 tbsp fresh dill, chopped</li>
-          <li>1 tsp salt · ½ tsp black pepper</li>
-          <li>1 tsp lemon zest</li>
-          <li>2 tbsp olive oil, divided</li>
-          <li>1 cup cooked white rice (per serving)</li>
-          <li>4 cups baby spinach</li>
-          <li>1 lemon, halved</li>
+          <li>7 oz raw shrimp, peeled, patted very dry</li>
+          <li>½ cup cooked jasmine rice, cooked yesterday and chilled</li>
+          <li>2 cups bok choy or chard, chopped</li>
+          <li>1 cup green beans</li>
+          <li>1 red bell pepper, sliced</li>
+          <li>1 tbsp grated ginger, 3 garlic cloves</li>
+          <li>1 tbsp avocado oil <em>high smoke point — this is where olive oil is the wrong tool</em></li>
+          <li>1 tbsp coconut aminos, 1 tsp rice vinegar, lime</li>
         </ul>
       </div>
       <div class="recipe-section">
         <div class="recipe-section-label">Method</div>
         <ol class="recipe-steps">
-          <li>Mix turkey with half the garlic, half the herbs, salt, pepper, lemon zest. Form 8 meatballs (~2 oz each).</li>
-          <li>Heat 1 tbsp olive oil in large nonstick over medium. Add meatballs. Sear 2 min per side (4 sides total) — 8 min — until 165°F. Lower heat if browning too fast.</li>
-          <li>Remove meatballs. Same pan, remaining oil + remaining garlic. 30 sec. Add spinach in batches, tossing until wilted, ~2 min.</li>
-          <li>Plate rice, spinach, 4 meatballs. Squeeze lemon over the top. Remaining herbs.</li>
+          <li>Pan as hot as it goes. Half the oil, shrimp in a single layer, 90 seconds a side. Out onto a plate.</li>
+          <li>Remaining oil. Green beans and pepper, 3 min, hard char.</li>
+          <li>Ginger and garlic, 30 seconds — no longer or the garlic turns bitter.</li>
+          <li>Cold rice in, pressed flat, left 90 seconds to crisp on the bottom.</li>
+          <li>Greens, aminos, vinegar. Toss until wilted. Shrimp back in for 20 seconds.</li>
+          <li>Lime over the whole thing.</li>
         </ol>
       </div>
-      <div class="recipe-note"><strong>Histamine note on leftovers:</strong> meatballs reheat well but histamine builds in stored protein. Eat second portion within 24h, or freeze immediately (single portion in a bag). Reheat from frozen, not thawed.</div>
+      <div class="recipe-note"><strong>Cold rice fries better.</strong> Day-old refrigerated rice separates into grains instead of gluing together — that is the cooking reason, and it is the reliable one. It also carries slightly more resistant starch, worth a modest reduction in glucose response. The bigger lever on this card is that there is half as much rice as there used to be.</div>
+    </div>
+
+    <!-- ══ RESCUE ══ -->
+    <div class="recipe-group-label" data-group="rescue">Rescue · 6 pm, bad day, hand on the phone</div>
+
+    <!-- R1 -->
+    <div class="recipe-card" data-meal="rescue" data-tags="10min iron">
+      <div class="recipe-head">
+        <span class="recipe-tag meat">R1 · 10 minutes, one pan</span>
+        <div class="recipe-name">Beef &amp; egg fried rice with cauliflower</div>
+        <div class="recipe-meal">any time · 10 min · serves 1 · everything from the freezer</div>
+      </div>
+      <div class="recipe-why">This card exists for one specific moment: 6&nbsp;pm, nothing planned, phone already in your hand. Frozen riced cauliflower, a container of pre-browned beef, two eggs, ten minutes. 43&nbsp;g of protein and 4.6&nbsp;mg of iron for less effort than opening the app and waiting for a driver.</div>
+      <div class="recipe-macros">
+        <div class="recipe-macro protein"><div class="k">Protein</div><div class="v">43 g</div></div>
+        <div class="recipe-macro"><div class="k">Cal</div><div class="v">500</div></div>
+        <div class="recipe-macro"><div class="k">Carbs</div><div class="v">24 g</div></div>
+        <div class="recipe-macro"><div class="k">Fat</div><div class="v">24 g</div></div>
+      </div>
+      <div class="lg-rx-meta">
+        <div>Effort<b>Low</b></div>
+        <div>Iron<b>4.6 mg</b></div>
+        <div>Vit C<b>80 mg</b></div>
+        <div>Fibre<b>7 g</b></div>
+      </div>
+      <div class="lg-rx-rule chain"><b>Batch chain · consumes</b>The pound of ground beef you browned on Sunday for B3. Keep frozen riced cauliflower and frozen peas in permanently — this card only works if the ingredients are already there.</div>
+      <div class="recipe-section">
+        <div class="recipe-section-label">Ingredients</div>
+        <ul class="recipe-ingredients">
+          <li>4 oz pre-browned 90% ground beef, from the fridge or freezer</li>
+          <li>2 large eggs, beaten</li>
+          <li>1½ cups frozen riced cauliflower <em>~50 mg vit C</em></li>
+          <li>⅓ cup cooked cold rice</li>
+          <li>¼ cup frozen peas</li>
+          <li>½ red bell pepper if you have one</li>
+          <li>1 tbsp avocado oil, 1 tbsp coconut aminos, ginger, garlic, sriracha</li>
+        </ul>
+      </div>
+      <div class="recipe-section">
+        <div class="recipe-section-label">Method</div>
+        <ol class="recipe-steps">
+          <li>Hot pan, half the oil, eggs in, scramble hard for 40 seconds, out onto a plate.</li>
+          <li>Rest of the oil. Cauliflower straight from frozen and the rice, pressed flat, 3 min undisturbed so the water cooks off and it browns.</li>
+          <li>Beef, peas, pepper, ginger, garlic. 2 min.</li>
+          <li>Eggs back in, aminos, toss. Sriracha over the top.</li>
+        </ol>
+      </div>
+      <div class="recipe-note"><strong>This card is the mechanism, not the recipe.</strong> The reason takeaway wins at 6&nbsp;pm is that it has zero decisions in it. Pre-browned beef in the fridge removes the only real decision in this dish. Brown the beef on Sunday whether or not you plan to use it.</div>
+    </div>
+
+    <!-- R2 -->
+    <div class="recipe-card" data-meal="rescue" data-tags="10min iron omega3">
+      <div class="recipe-head">
+        <span class="recipe-tag fish">R2 · Zero cooking</span>
+        <div class="recipe-name">The tin plate — sardines, chickpeas, pepper, egg</div>
+        <div class="recipe-meal">any time · 4 min · serves 1 · nothing gets switched on</div>
+      </div>
+      <div class="recipe-why">Four minutes, no heat, no pan to wash, 48&nbsp;g of protein and 6.5&nbsp;mg of iron. Sardines are the most nutrient-dense tin in the shop and they are cheap. This is the card for the day when even the ten-minute one is too much.</div>
+      <div class="recipe-macros">
+        <div class="recipe-macro protein"><div class="k">Protein</div><div class="v">48 g</div></div>
+        <div class="recipe-macro"><div class="k">Cal</div><div class="v">620</div></div>
+        <div class="recipe-macro"><div class="k">Carbs</div><div class="v">34 g</div></div>
+        <div class="recipe-macro"><div class="k">Fat</div><div class="v">34 g</div></div>
+      </div>
+      <div class="lg-rx-meta">
+        <div>Effort<b>Low</b></div>
+        <div>Iron<b>6.5 mg</b></div>
+        <div>Vit C<b>155 mg</b></div>
+        <div>Omega-3<b>1.5 g</b></div>
+      </div>
+      <div class="lg-rx-rule iron"><b>Iron rule · the honest caveat</b>Sardine bones bring roughly 325&nbsp;mg of calcium, and calcium is the one inhibitor that blunts haem and non-haem iron alike — in single-meal studies by 50–60%. Whole-diet studies disagree about whether that survives over a day, but the finding that does hold is about <em>timing</em>: same daily calcium, moved away from the iron-rich meal, gave 30–50% better absorption. So the whole raw pepper is compulsory on this card. <em>Hallberg 1992 · Gleerup 1995, AJCN 61:97</em></div>
+      <div class="lg-rx-rule chain"><b>Batch chain · consumes</b>The six eggs you hard-boil every Sunday. Boil them at the same time as the potatoes for D1 — same pan, same twelve minutes.</div>
+      <div class="recipe-section">
+        <div class="recipe-section-label">Ingredients</div>
+        <ul class="recipe-ingredients">
+          <li>1 tin sardines in olive oil, drained</li>
+          <li>2 hard-boiled eggs, halved</li>
+          <li>¾ cup chickpeas, rinsed</li>
+          <li>1 whole red bell pepper, raw, cut into planks <em>compulsory here — see above</em></li>
+          <li>½ avocado</li>
+          <li>Big handful of parsley, ½ lemon, olive oil, chilli flakes, flaky salt</li>
+        </ul>
+      </div>
+      <div class="recipe-section">
+        <div class="recipe-section-label">Method</div>
+        <ol class="recipe-steps">
+          <li>Open the tin. Tip it onto a plate.</li>
+          <li>Everything else onto the same plate.</li>
+          <li>Lemon over all of it, olive oil, chilli, salt. Eat with your hands.</li>
+        </ol>
+      </div>
+      <div class="recipe-note"><strong>Standing order.</strong> Keep six tins of sardines, two tins of chickpeas and a bag of peppers in permanently. This card is only a rescue if the ingredients never run out — a rescue plan you have to shop for is not a rescue plan.</div>
+    </div>
+
+      <div class="recipe-group-label" data-group="evidence">Why the cards say what they say</div>
+
+    <div class="recipe-card" data-meal="evidence" data-tags="reference">
+      <div class="recipe-head">
+        <span class="recipe-tag plant">Reference · iron</span>
+        <div class="recipe-name">Getting the iron in is not the problem. Absorbing it is.</div>
+        <div class="recipe-meal">the pairing rules, and how much to trust them</div>
+      </div>
+      <div class="recipe-why">Beef, eggs, spinach, beans and chickpeas were all on the list your doctor gave you — but only the beef carries haem iron, the form your gut takes without argument. Everything else is non-haem, and how much of it you actually absorb swings by a factor of several depending on what is on the plate beside it. That swing is what the iron rules on each card are managing.</div>
+      <div class="recipe-section">
+        <div class="recipe-section-label">The four rules, and the number behind each</div>
+        <ul class="recipe-ingredients">
+          <li><strong>~50 mg vitamin C in every iron meal.</strong> Across 299 subjects, absorption rose in direct proportion to ascorbic acid; 50 mg per main meal was the stated point of practical optimum. Half a bell pepper, one orange, or 80 g of broccoli each clear it. <em>Hallberg, Brune &amp; Rossander 1986, Hum Nutr Appl Nutr 40:97</em></li>
+          <li><strong>A little meat or fish lifts the plants.</strong> Against an equal amount of egg protein, beef muscle raised non-haem absorption 180% and chicken 100%. This is why 2 oz of beef sits in a chickpea breakfast. <em>Hurrell, Reddy, Juillerat &amp; Cook 2006, J Nutr 136:2808</em></li>
+          <li><strong>Coffee and tea after, never with — and before is free.</strong> Coffee cut absorption 39% and tea 64% from the same meal. The timing finding is the useful one: coffee an hour <em>before</em> the meal did nothing at all, coffee an hour <em>after</em> inhibited as much as drinking it alongside. <em>Morck, Lynch &amp; Cook 1983, AJCN 37:416 · Hallberg &amp; Rossander 1982</em></li>
+          <li><strong>Phytate is the reason beans underdeliver.</strong> 25 mg of phytate-phosphorus cut absorption 64%; 250 mg cut it 82%. Rinsing tinned pulses, and soaking dried ones, both help — and vitamin C directly counteracts the inhibition rather than just adding to it. <em>Hallberg, Brune &amp; Rossander 1989, AJCN 49:140</em></li>
+        </ul>
+      </div>
+      <div class="recipe-section">
+        <div class="recipe-section-label">Two things you have probably read that are wrong</div>
+        <ul class="recipe-ingredients">
+          <li><strong>Oxalate is not what makes spinach a poor iron source.</strong> It was tested head-to-head: 16 women, spinach (1.27 g oxalic acid) against kale (0.01 g), then kale with oxalate added to match. Absorption 10.7% vs 11.5%, p=0.86 — no effect. Spinach is still a mediocre source, but because of its calcium and polyphenols, not its oxalate. <em>Bonsmann et al. 2008, Eur J Clin Nutr 62:336</em></li>
+          <li><strong>The "you only absorb 2% of spinach iron" figure has no traceable source.</strong> It is repeated everywhere and attributed to nothing. It is not printed on any card here.</li>
+        </ul>
+      </div>
+      <div class="recipe-note"><strong>How much to trust all of this.</strong> Every dramatic number above comes from a single labelled test meal in a fasting subject. When the same questions are asked over a whole diet, the effects shrink — one study spanning 51 to 247 mg of vitamin C a day found no significant difference in absorption at all (Cook &amp; Reddy 2001), and the 2010 reference-values review calls these effects "modest in varied, multimeal studies" (Hurrell &amp; Egli). The rules are directionally right and cost nothing to follow. They are not a 3× multiplier on your ferritin. The lifting, the red meat and the actual iron dose are doing the heavy work; the pairings are trimming the losses.</div>
+    </div>
+
+    <div class="recipe-card" data-meal="evidence" data-tags="reference">
+      <div class="recipe-head">
+        <span class="recipe-tag meat">Reference · insulin</span>
+        <div class="recipe-name">Insulin is the open problem. Here is what actually moves it.</div>
+        <div class="recipe-meal">ranked by how good the evidence is, not by how good it sounds</div>
+      </div>
+      <div class="recipe-why">Inflammation is improving and the elimination work is doing its job. Insulin resistance is the thing still standing. These cards are built around the interventions with the best evidence in PCOS specifically — which turns out not to be the ones the internet talks about most.</div>
+      <div class="recipe-section">
+        <div class="recipe-section-label">Strong · meta-analysed, hard endpoints, replicated</div>
+        <ul class="recipe-ingredients">
+          <li><strong>Beans, lentils and chickpeas as the carbohydrate.</strong> A cup of legumes a day for three months lowered HbA1c by 0.5% against a high-wheat-fibre control in 121 people, a between-group difference of 0.2% (p&lt;0.001). Backed by a 41-trial meta-analysis. This is the best-evidenced single change on the whole list — and it is the same change that raises your iron. <em>Jenkins 2012, Arch Intern Med 172:1653 · Sievenpiper 2009, Diabetologia 52:1479</em></li>
+          <li><strong>Viscous soluble fibre, around 13 g a day.</strong> Across 28 comparisons in 1,394 people: HbA1c −0.58%, HOMA-IR −1.89, moderate certainty. That HbA1c effect is roughly half a metformin dose-step, from food. <em>Jovanovski 2019, Diabetes Care 42:755</em></li>
+          <li><strong>Low glycaemic index carbohydrate, in PCOS specifically.</strong> Ten RCTs, 403 women: HOMA-IR −0.78, total testosterone −0.21 nmol/L, waist −2.81 cm. And the 12-month RCT behind it found menstrual cyclicity improved in 95% of the low-GI group versus 63% of controls. This is why quinoa replaced white rice and why zucchini ribbons replaced pasta. <em>Kazemi 2021, Adv Nutr 12:161 · Marsh 2010, AJCN 92:83</em></li>
+          <li><strong>Fewer, larger meals — your three-meals-no-snacking pattern is the right one.</strong> Two large meals beat six small ones at identical calories over 12 weeks: more weight lost, more liver fat lost, and greater improvement in insulin sensitivity (p=0.01). <em>Kahleova 2014, Diabetologia 57:1552</em></li>
+          <li><strong>Saturated fat is the thing to avoid; monounsaturated fat is the replacement, not a treatment.</strong> Over three months at matched calories, a saturated-fat diet impaired insulin sensitivity by 10% while a monounsaturated one held it flat. Read that carefully — olive oil and avocado did not improve anything, they avoided the damage. The benefit also disappeared entirely once total fat went above 37% of energy, which is why these cards are not drowning in oil. <em>Vessby 2001, KANWU, Diabetologia 44:312</em></li>
+        </ul>
+      </div>
+      <div class="recipe-section">
+        <div class="recipe-section-label">Directionally sound but thinner than it sounds</div>
+        <ul class="recipe-ingredients">
+          <li><strong>Eating order — vegetables and protein first, carbohydrate last.</strong> The acute effect is big and repeatedly replicated: glucose area-under-curve 38–73% lower, insulin AUC significantly lower, and it works in prediabetes as well as diabetes. But the total number of people across all those trials is under a hundred, <em>none of them had PCOS</em>, and the one meta-analysis of longer trials found no HbA1c benefit (−0.21%, confidence interval crossing zero, low certainty). It costs nothing, it survives a 16-week trial at 94% adherence, and it makes you eat the vegetables first — which may be most of the point. Treat it as a free habit, not a treatment. <em>Shukla 2015 &amp; 2017 · Okami 2022, BMJ Open Diab Res Care 10:e002534</em></li>
+          <li><strong>Front-loading calories into breakfast.</strong> The single most striking PCOS result found: 60 women, same 1,800 calories, moved from dinner to breakfast for 90 days — insulin AUC fell 54%, free testosterone fell 50%, SHBG doubled, ovulation increased. One trial, never replicated at that size, and done in <em>lean</em> PCOS. Big enough to be worth trying, thin enough that it should not be treated as settled. <em>Jakubowicz 2013, Clin Sci 125:423</em></li>
+          <li><strong>Omega-3.</strong> Three separate meta-analyses in PCOS put the HOMA-IR effect at −0.80, at −0.57, and at nothing at all. The anti-inflammatory and triglyceride effects are far more consistent than the insulin ones. Oily fish twice a week is still right — just not for the insulin.</li>
+        </ul>
+      </div>
+      <div class="recipe-note"><strong>On the 120 g protein target.</strong> Your doctor set it, and these cards deliver it — three meals of 40–48 g. Worth knowing what sits behind the number: PCOS trials that tested high protein used about 30% of energy, which lands near 120 g at your intake, and they disagree with each other about whether it improves HOMA-IR at all. What does hold up is body composition — a high-protein arm lost 1.5 kg of fat-free mass against 4.4 kg on standard protein. And the intervention with the strongest evidence for protecting muscle on tirzepatide is not protein at all, it is resistance training: lean mass was 17.5% of total weight lost with lifting versus 25.4% without. Which is the rest of this app. <em>Mehrabani 2012 · Wang 2025 · Eisa 2026, Diabetes Obes Metab</em></div>
     </div>
 
   </section>
-
-  <div class="quote">
-    <p>Fresh, simple, repeatable. Pick three. Cook them in a rotation. Let the rest wait.</p>
-  </div>
-</div>
 
 <!-- ============ LOG ============ -->
 <div class="phase-panel" data-phase="8" data-dest="log">
@@ -2735,8 +2895,12 @@ filterPills.forEach(pill => {
     filterPills.forEach(p => p.classList.remove('active'));
     pill.classList.add('active');
     recipeCards.forEach(card => {
-      const meal = card.dataset.meal;
-      card.classList.toggle('hidden', !(filter === 'all' || meal === filter));
+      const tag = filter.startsWith('tag:') ? filter.slice(4) : null;
+      // split().includes() not indexOf(), so 'iron' can't match a future 'ironclad'
+      const show = filter === 'all' ? true
+                 : tag ? (card.dataset.tags || '').split(' ').includes(tag)
+                       : card.dataset.meal === filter;
+      card.classList.toggle('hidden', !show);
     });
     groupLabels.forEach(label => {
       const group = label.dataset.group;
@@ -3351,7 +3515,7 @@ if ('serviceWorker' in navigator) {
         '</tr></thead><tbody>' + rows + '</tbody></table>' +
         '<div class="lg-why">' + esc(g.why) + '</div>' +
         '<button type="button" class="lg-log' + (complete ? ' done' : '') + '" id="nowLog">' +
-          (complete ? 'Record an extra set' : 'Record set') + '</button>' +
+          (complete ? 'Log an extra set' : 'Log set') + '</button>' +
         '<div class="lg-rest" id="nowRest"></div>' +
         '<div class="lg-nav">' +
           (exIdx > 0 ? '<button type="button" id="nowPrev">\u2190 prev</button>' : '') +
