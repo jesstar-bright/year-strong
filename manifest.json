@@ -6,9 +6,13 @@
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#FFFFFF",
-  "theme_color": "#FFFFFF",
-  "categories": ["health", "fitness", "lifestyle"],
+  "background_color": "#F7F5F0",
+  "theme_color": "#F7F5F0",
+  "categories": [
+    "health",
+    "fitness",
+    "lifestyle"
+  ],
   "icons": [
     {
       "src": "icon-192.png",
