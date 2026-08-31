@@ -6,5 +6,6 @@ design-system/uploads/
 # macOS
 .DS_Store
 
-# Pre-migration UI audit captures — regenerated, not source of truth
-docs/superpowers/plans/baseline/
+# Screenshot captures are regenerated; the written audit records are kept.
+docs/superpowers/plans/baseline/*.png
+docs/superpowers/plans/baseline/*.jpg
